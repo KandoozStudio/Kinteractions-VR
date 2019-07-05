@@ -15,7 +15,6 @@ namespace Kandooz.KVR
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
-
             serializedObject.ApplyModifiedProperties();
         }
     }

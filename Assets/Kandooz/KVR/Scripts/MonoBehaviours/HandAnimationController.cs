@@ -7,9 +7,9 @@ namespace Kandooz.KVR
 {
     public class HandAnimationController : MonoBehaviour
     {
-        public HandData handData;
+        [SerializeField]private HandData handData;
         [HideInInspector] public PlayableGraph graph;
-        public Finger[] fingers;
+        [HideInInspector] [SerializeField]private Finger[] fingers;
         #region private variables
         AnimationLayerMixerPlayable indexPlayable;
         #endregion
@@ -94,7 +94,7 @@ namespace Kandooz.KVR
             var handMixer = AnimationLayerMixerPlayable.Create(graph, fingers.Length);
             for (uint i = 0; i < fingers.Length; i++)
             {
-                fingers[i] = new Finger(graph, handData.closed, handData.opened, handData[i], 0);
+                fingers[i] = new Finger(graph, handData.closed, handData.opened);
                 handMixer.SetLayerAdditive(i, false);
                 handMixer.SetLayerMaskFromAvatarMask(i, handData[i]);
                 graph.Connect(fingers[i].Mixer, 0, handMixer, (int)i);
@@ -108,10 +108,10 @@ namespace Kandooz.KVR
 
         void Update()
         {
-            foreach (var finger in fingers)
-            {
-                finger.Weight = finger.Weight;
-            }
+            //foreach (var finger in fingers)
+            //{
+            //    finger.Weight = finger.Weight;
+            //}
         }
     }
 }

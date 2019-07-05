@@ -8,13 +8,12 @@ namespace Kandooz.KVR
     [System.Serializable]
     public class Finger
     {
-        AnimationLayerMixerPlayable mixer;
+        AnimationMixerPlayable mixer;
          [Range(0, 1)] [SerializeField] private float weight;
         public float Weight
         {
             set
             {
-                Debug.Log("hmmmm");
                 value = Mathf.Clamp01(value);
                 mixer.SetInputWeight(0, 1 - value);
                 mixer.SetInputWeight(1, value);
@@ -24,11 +23,9 @@ namespace Kandooz.KVR
                 return weight;
             }
         }
-        public Finger(PlayableGraph graph,AnimationClip closed, AnimationClip opened, AvatarMask mask,uint id=0)
+        public Finger(PlayableGraph graph,AnimationClip closed, AnimationClip opened)
         {
-            mixer = AnimationLayerMixerPlayable.Create(graph, 2);
-            mixer.SetLayerAdditive(id, false);
-            mixer.SetLayerMaskFromAvatarMask(id, mask);
+            mixer = AnimationMixerPlayable.Create(graph, 2);
             var statePlayable = AnimationClipPlayable.Create(graph, opened);
             graph.Connect(statePlayable, 0, Mixer, 0);
             statePlayable = AnimationClipPlayable.Create(graph, closed);
@@ -38,7 +35,7 @@ namespace Kandooz.KVR
             mixer.SetInputWeight(1, 0);
         }
 
-        public AnimationLayerMixerPlayable Mixer
+        public AnimationMixerPlayable Mixer
         {
             get
             {
