@@ -20,11 +20,11 @@ namespace Kandooz.KVR {
             if (EditorGUI.EndChangeCheck())
             {
                 HandAnimationController controller = (HandAnimationController)target;
-                controller.Index = controller.Index;
-                controller.Thumb = controller.Thumb;
-                controller.Ring = controller.Ring;
-                controller.Middle = controller.Middle;
-                controller.Pinky = controller.Pinky;
+                controller[FingerName.Thumb] = controller[FingerName.Thumb];
+                controller[FingerName.Index] = controller[FingerName.Index];
+                controller[FingerName.Middle] = controller[FingerName.Middle];
+                controller[FingerName.Ring] = controller[FingerName.Ring];
+                controller[FingerName.Pinky] = controller[FingerName.Pinky];
             }
         }
     }

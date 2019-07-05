@@ -5,6 +5,14 @@ using UnityEngine.Animations;
 using UnityEngine.Playables;
 namespace Kandooz.KVR
 {
+    public enum FingerName
+    {
+        Thumb=0,
+        Index=1,
+        Middle=2,
+        Ring=3,
+        Pinky=4
+    }
     public class HandAnimationController : MonoBehaviour
     {
         [SerializeField]private HandData handData;
@@ -13,84 +21,17 @@ namespace Kandooz.KVR
         #region private variables
         AnimationLayerMixerPlayable indexPlayable;
         #endregion
-
-        public float Thumb
+        public float this[FingerName index]
         {
-            get
-            {
-                return fingers[0].Weight;
-            }
-            set
-            {
-                fingers[0].Weight = value;
-            }
+            get { return fingers[(int)index].Weight;}
+            set { fingers[(int)index].Weight = value; }
         }
-
-        public float Index
-        {
-            get
-            {
-                return fingers[1].Weight;
-            }
-            set
-            {
-                fingers[1].Weight = value;
-            }
-        }
-
-        public float Middle
-        {
-            get
-            {
-                return fingers[2].Weight;
-            }
-            set
-            {
-                fingers[2].Weight = value;
-            }
-        }
-
-        public float Ring
-        {
-            get
-            {
-                return fingers[3].Weight;
-            }
-            set
-            {
-                fingers[3].Weight = value;
-            }
-        }
-
-        public float Pinky
-        {
-            get
-            {
-                return fingers[4].Weight;
-            }
-            set
-            {
-                fingers[4].Weight = value;
-            }
-        }
-
-        public float Grip
-        {
-            get
-            {
-                return fingers[2].Weight;
-            }
-            set
-            {
-                fingers[2].Weight = value;
-            }
-        }
+        
 
         void Start()
         {
             graph = PlayableGraph.Create();
             fingers = new Finger[5];
-
             var handMixer = AnimationLayerMixerPlayable.Create(graph, fingers.Length);
             for (uint i = 0; i < fingers.Length; i++)
             {
@@ -104,14 +45,6 @@ namespace Kandooz.KVR
             playableOutput.SetSourcePlayable(handMixer);
             graph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
             graph.Play();
-        }
-
-        void Update()
-        {
-            //foreach (var finger in fingers)
-            //{
-            //    finger.Weight = finger.Weight;
-            //}
         }
     }
 }
