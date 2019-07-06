@@ -16,8 +16,13 @@ namespace Kandooz.KVR {
             var fingers = serializedObject.FindProperty("fingers");
             Debug.Log(fingers);
             EditorGUI.BeginChangeCheck();
+            controller.StaticPose=EditorGUILayout.Toggle(new GUIContent("static Pose"), controller.StaticPose);
+            if (EditorGUI.EndChangeCheck()) {
+                Undo.RegisterFullObjectHierarchyUndo(controller,"Changed static pose");
+            }
+            EditorGUI.BeginChangeCheck();
             for (int i = 0; i < fingers.arraySize; i++)
-            { 
+            {
                 var fingerWeight=fingers.GetArrayElementAtIndex(i).FindPropertyRelative("weight");
                 EditorGUILayout.PropertyField(fingerWeight, new GUIContent(((FingerName)i).ToString()));
             }

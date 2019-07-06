@@ -35,15 +35,14 @@ namespace Kandooz.KVR
         {
             mixer = AnimationLayerMixerPlayable.Create(graph, 2);
             var openPlayable = AnimationClipPlayable.Create(graph, opened);
-            graph.Connect(openPlayable, 0, Mixer, 0);
+            graph.Connect(openPlayable, 0, mixer, 0);
             var closedPlayable = AnimationClipPlayable.Create(graph, closed);
-            graph.Connect(closedPlayable, 0, Mixer, 1);
+            graph.Connect(closedPlayable, 0, mixer, 1);
             mixer.SetLayerAdditive(0,false);
             mixer.SetLayerMaskFromAvatarMask(0, mask);
             mixer.SetInputWeight(0, 1);
             mixer.SetInputWeight(1, 0);
         }
-
         public AnimationLayerMixerPlayable Mixer
         {
             get

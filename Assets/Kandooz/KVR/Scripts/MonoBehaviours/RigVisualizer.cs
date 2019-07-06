@@ -6,6 +6,7 @@ public class RigVisualizer : MonoBehaviour {
 
     void OnDrawGizmos()
     {
+        Gizmos.color = Color.red;
         for (int i = 0; i < transform.childCount; i++)
         {
             var child = transform.GetChild(i);
