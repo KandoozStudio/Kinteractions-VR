@@ -6,11 +6,7 @@ using UnityEngine.Playables;
 
 namespace Kandooz.KVR
 {
-    public enum HandType
-    {
-        threeFinger = 3,
-        fiveFinger = 5
-    }
+
     [CreateAssetMenu(menuName = "Kandooz/KVR/Hand Data")]
     public class HandData : ScriptableObject
     {
