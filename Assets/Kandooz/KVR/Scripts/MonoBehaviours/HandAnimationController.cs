@@ -11,8 +11,7 @@ namespace Kandooz.KVR
         #region private variables
         [SerializeField] private HandData handData;
         [HideInInspector] [SerializeField] private Finger[] fingers;
-        private PlayableGraph graph;
-
+        [HideInInspector] [SerializeField] private PlayableGraph graph;
         #endregion
         public float this[FingerName index]
         {
@@ -33,9 +32,9 @@ namespace Kandooz.KVR
             var fingerMixer = AnimationLayerMixerPlayable.Create(graph, fingers.Length);
             for (uint i = 0; i < fingers.Length; i++)
             {
-                fingers[i] = new Finger(graph, handData.closed, handData.opened);
+                fingers[i] = new Finger(graph, handData.closed, handData.opened,handData[(int)i]);
                 fingerMixer.SetLayerAdditive(i, false);
-                fingerMixer.SetLayerMaskFromAvatarMask(i, handData[i]);
+                fingerMixer.SetLayerMaskFromAvatarMask(i, handData[(int)i]);
                 graph.Connect(fingers[i].Mixer, 0, fingerMixer, (int)i);
                 fingerMixer.SetInputWeight((int)i, 1);
             }
@@ -49,7 +48,8 @@ namespace Kandooz.KVR
                 {
                     var pose = AnimationClipPlayable.Create(graph, handData.poses[i]);
                     graph.Connect(pose, 0, posesMixer, i);
-                    posesMixer.SetInputWeight(i, 0);
+                    posesMixer.SetInputWeight(i, 1 );
+                    
                 }
                 graph.Connect(posesMixer, 0, handMixer, 1);
                 handMixer.SetInputWeight(1, 0);

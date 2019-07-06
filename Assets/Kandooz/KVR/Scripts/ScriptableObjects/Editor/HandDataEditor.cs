@@ -24,9 +24,6 @@ namespace Kandooz.KVR
                 rect.height -= 2;
                 rect.x += 2;
                 var element = serializedObject.FindProperty("poses").GetArrayElementAtIndex(index);
-                var poseName = (element.objectReferenceValue==null)
-                    ?"Pose " + index
-                    : element.objectReferenceValue.name;
                 EditorGUI.PropertyField(rect, element, new GUIContent(""));
                 
             };
