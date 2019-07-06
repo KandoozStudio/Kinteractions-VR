@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Kandooz.Common;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -10,6 +11,30 @@ namespace Kandooz.KVR
     {
         public AnimationClipPlayable playable;
         public AnimationClip clip;
+        private float weight;
+        private CrossFadingFloat fader;
+
+        public float Weight
+        {
+            get
+            {
+                return weight;
+            }
+        }
+
+        public void SetWeight(float value)
+        {
+            if (fader == null)
+            {
+                var that = this;
+                fader = new CrossFadingFloat();
+                fader.onChange += (v) =>
+                {
+                    that.weight = v;
+                };
+            }
+            fader.Value = value;
+        }
     }
     public class HandAnimationController : MonoBehaviour
     {
@@ -18,11 +43,11 @@ namespace Kandooz.KVR
         [HideInInspector] [SerializeField] private Finger[] fingers;
         [HideInInspector] [SerializeField] private PlayableGraph graph;
         [HideInInspector] [SerializeField] private bool staticPose;
-        private List<Pose> poses;
-        private float fingerPoseRatio=0;
-        private float fingerPoseTimer=1;
-        private readonly float crossFadeSpeed=0.2f;
+        [HideInInspector] [SerializeField] private List<Pose> poses;
+        private CrossFadingFloat staticPoseCrossFader;
         private AnimationMixerPlayable handMixer;
+        AnimationMixerPlayable poseMixer;
+        [HideInInspector] [SerializeField] private int pose;
         #endregion
 
         public bool StaticPose
@@ -35,11 +60,40 @@ namespace Kandooz.KVR
             {
                 if (value != staticPose)
                 {
-                    fingerPoseTimer = 0;
+                    if (staticPoseCrossFader == null)
+                    {
+                        staticPoseCrossFader = new CrossFadingFloat();
+                        staticPoseCrossFader.onChange += (v) => {
+                            handMixer.SetInputWeight(0, 1-v);
+                            handMixer.SetInputWeight(1, v);
+                        };
+                    }
+                    staticPoseCrossFader.Value = (value) ? 1 : 0;
+                    
                 }
                 staticPose = value;
             }
         }
+
+        public int Pose
+        {
+            get
+            {
+                return pose;
+            }
+            set
+            {
+                if (pose != value)
+                {
+                    int last=pose;
+                    int current = value;
+                    poses[pose].SetWeight(0);
+                    poses[value].SetWeight(1);
+                }
+                pose = value;
+            }
+        }
+
         public float this[FingerName index]
         {
             get { return fingers[(int)index].Weight;}
@@ -68,7 +122,7 @@ namespace Kandooz.KVR
             handMixer.SetInputWeight(0, 1);
             if (handData.poses.Count>0)
             {
-                var posesMixer = AnimationMixerPlayable.Create(graph, handData.poses.Count);
+                poseMixer = AnimationMixerPlayable.Create(graph, handData.poses.Count);
                 poses = new List<Pose>();
                 for (int i = 0; i < handData.poses.Count; i++)
                 {
@@ -79,13 +133,14 @@ namespace Kandooz.KVR
                         pose.playable=AnimationClipPlayable.Create(graph, handData.poses[i]);
                         pose.clip = handData.poses[i];
                         poses.Add(pose);
-                        graph.Connect(pose.playable, 0, posesMixer, i);
-                        posesMixer.SetInputWeight(i, 1);
+                        graph.Connect(pose.playable, 0, poseMixer, i);
+                        poseMixer.SetInputWeight(i, 0);
                     }
+                    poseMixer.SetInputWeight(pose, 1);
                 }
                 if (poses.Count > 0)
                 {
-                    graph.Connect(posesMixer, 0, handMixer, 1);
+                    graph.Connect(poseMixer, 0, handMixer, 1);
                     handMixer.SetInputWeight(1, 0);
                 }
             }
@@ -101,10 +156,11 @@ namespace Kandooz.KVR
         }
         void Update()
         {
-            fingerPoseTimer += crossFadeSpeed;
-            fingerPoseRatio = (staticPose) ? Mathf.Lerp(0, 1, fingerPoseTimer) : Mathf.Lerp(1, 0, fingerPoseTimer);
-            handMixer.SetInputWeight(0, 1-fingerPoseRatio);
-            handMixer.SetInputWeight(1, fingerPoseRatio);
+            for (int i = 0; i < poses.Count; i++)
+            {
+
+                poseMixer.SetInputWeight(i, poses[i].Weight);
+            }
         }
     }
 }

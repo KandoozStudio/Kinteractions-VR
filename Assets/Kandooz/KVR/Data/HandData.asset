@@ -21,5 +21,5 @@ MonoBehaviour:
   poses:
   - {fileID: 7400000, guid: ce4800d0c0a17284381481fbfc731b44, type: 3}
   - {fileID: 7400000, guid: 74f3b95c081a9e146ac0abb1f69e8b33, type: 2}
-  - {fileID: 0}
+  - {fileID: 7400000, guid: a160b0a96b0202d4e98fedeab24be5ff, type: 2}
   - {fileID: 0}

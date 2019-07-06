@@ -19,15 +19,19 @@ namespace Kandooz.KVR
     {
         AnimationLayerMixerPlayable mixer;
          [Range(0, 1)] [SerializeField] private float weight;
+        private float lastweight = 0;
         private CrossFadingFloat crossFadingWeight;
         public float Weight
         {
             set
             {
-                if(Mathf.Abs(value-weight)>.001f)
-                value = Mathf.Clamp01(value);
-                weight = value;
-                crossFadingWeight.Value = value;
+                if (Mathf.Abs(value - lastweight) > .001f)
+                {
+                    value = Mathf.Clamp01(value);
+                    weight = value;
+                    lastweight = value;
+                    crossFadingWeight.Value = value;
+                }
             }
             get
             {

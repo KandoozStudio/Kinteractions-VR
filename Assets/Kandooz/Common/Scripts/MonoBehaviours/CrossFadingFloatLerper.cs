@@ -25,7 +25,7 @@ namespace Kandooz.Common {
                 if (UnityEditor.EditorApplication.isPlaying)
 #endif
                 {
-                    Debug.Log(t);
+                    Debug.Log("something");
                     t = 0;
                     start = this.value;
                     target = value;
@@ -34,6 +34,7 @@ namespace Kandooz.Common {
 #if UNITY_EDITOR
                 else
                 {
+                    Debug.Log("something");
                     this.value = value;
                 }
 #endif
@@ -50,7 +51,6 @@ namespace Kandooz.Common {
         public bool Step()
         {
             t +=  rate*Time.deltaTime;
-            Debug.Log(t);
 
             this.value = Mathf.Lerp(start, target, t);
             onChange(value);
@@ -67,6 +67,8 @@ namespace Kandooz.Common {
         {
             get
             {
+                Debug.Log("create");
+
                 if (!instance)
                 {
                     instance = new GameObject("CrossFadingFloatLerper").AddComponent<CrossFadingFloatLerper>();
