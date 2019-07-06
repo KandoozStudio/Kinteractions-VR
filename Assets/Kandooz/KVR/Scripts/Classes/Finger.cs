@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Kandooz.Common;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -18,13 +19,15 @@ namespace Kandooz.KVR
     {
         AnimationLayerMixerPlayable mixer;
          [Range(0, 1)] [SerializeField] private float weight;
+        private CrossFadingFloat crossFadingWeight;
         public float Weight
         {
             set
             {
+                if(Mathf.Abs(value-weight)>.001f)
                 value = Mathf.Clamp01(value);
-                mixer.SetInputWeight(0, 1 - value);
-                mixer.SetInputWeight(1, value);
+                weight = value;
+                crossFadingWeight.Value = value;
             }
             get
             {
@@ -42,6 +45,13 @@ namespace Kandooz.KVR
             mixer.SetLayerMaskFromAvatarMask(0, mask);
             mixer.SetInputWeight(0, 1);
             mixer.SetInputWeight(1, 0);
+            crossFadingWeight = new CrossFadingFloat();
+            crossFadingWeight.onChange += (value) =>
+            {
+                mixer.SetInputWeight(0, 1 - value);
+                mixer.SetInputWeight(1, value);
+
+            };
         }
         public AnimationLayerMixerPlayable Mixer
         {
