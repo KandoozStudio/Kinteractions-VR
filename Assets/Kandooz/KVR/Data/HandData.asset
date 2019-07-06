@@ -18,4 +18,8 @@ MonoBehaviour:
   pinkyAvatarMask: {fileID: 31900000, guid: 4527e08c1d9c1484d82eb39ec19657c2, type: 2}
   opened: {fileID: 7400000, guid: 74f3b95c081a9e146ac0abb1f69e8b33, type: 2}
   closed: {fileID: 7400000, guid: a160b0a96b0202d4e98fedeab24be5ff, type: 2}
-  poses: []
+  poses:
+  - {fileID: 7400000, guid: ce4800d0c0a17284381481fbfc731b44, type: 3}
+  - {fileID: 7400000, guid: 74f3b95c081a9e146ac0abb1f69e8b33, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}

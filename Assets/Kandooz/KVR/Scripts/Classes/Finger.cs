@@ -5,7 +5,14 @@ using UnityEngine.Animations;
 using UnityEngine.Playables;
 namespace Kandooz.KVR
 {
-    [System.Serializable]
+    public enum FingerName
+    {
+        Thumb = 0,
+        Index = 1,
+        Middle = 2,
+        Ring = 3,
+        Pinky = 4
+    }
     public class Finger
     {
         AnimationMixerPlayable mixer;

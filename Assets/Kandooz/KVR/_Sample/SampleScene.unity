@@ -384,6 +384,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69092d8435a0ab245910600a412bcd13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &760626970 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: ce4800d0c0a17284381481fbfc731b44,
+    type: 3}
+  m_PrefabInternal: {fileID: 1218034193}
+--- !u!114 &760626971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 760626970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf036f16975e9b84caaee2f70c3cf28f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handData: {fileID: 11400000, guid: 2d360471f3ebee044a8beec1b7d9a8ef, type: 2}
+  fingers: []
 --- !u!1 &780510269 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100010, guid: ce4800d0c0a17284381481fbfc731b44,

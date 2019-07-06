@@ -21,12 +21,12 @@ namespace Kandooz.KVR
         public AnimationClip opened;
         public AnimationClip closed;
         [HideInInspector] public List<AnimationClip> poses;
-        public AvatarMask this[uint i]
+        public AvatarMask this[FingerName i]
         {
             get
             {
                 AvatarMask mask = thumbAvatarMask;
-                switch (i)
+                switch ((int)i)
                 {
                     case 0:
                         mask = thumbAvatarMask;
@@ -47,5 +47,32 @@ namespace Kandooz.KVR
                 return mask;
             }
         }
+        public AvatarMask this[int i]
+        {
+            get
+            {
+                AvatarMask mask = thumbAvatarMask;
+                switch ((int)i)
+                {
+                    case 0:
+                        mask = thumbAvatarMask;
+                        break;
+                    case 1:
+                        mask = indexAvatarMask;
+                        break;
+                    case 2:
+                        mask = middleAvatarMask;
+                        break;
+                    case 3:
+                        mask = ringAvatarMask;
+                        break;
+                    case 4:
+                        mask = pinkyAvatarMask;
+                        break;
+                }
+                return mask;
+            }
+        }
+
     }
 }
