@@ -25,7 +25,7 @@ namespace Kandooz.Common {
                 if (UnityEditor.EditorApplication.isPlaying)
 #endif
                 {
-                    Debug.Log("something");
+
                     t = 0;
                     start = this.value;
                     target = value;
@@ -34,11 +34,10 @@ namespace Kandooz.Common {
 #if UNITY_EDITOR
                 else
                 {
-                    Debug.Log("something");
                     this.value = value;
+                    onChange(value);
                 }
 #endif
-
             }
         }
         public CrossFadingFloat(float rate = 5f, float value = 0)
@@ -67,8 +66,6 @@ namespace Kandooz.Common {
         {
             get
             {
-                Debug.Log("create");
-
                 if (!instance)
                 {
                     instance = new GameObject("CrossFadingFloatLerper").AddComponent<CrossFadingFloatLerper>();

@@ -11,12 +11,44 @@ namespace Kandooz.KVR
         void OnEnable()
         {
             controller = (HandAnimationController)target;
+            if (controller.HandData&&!controller.Initialized)
+            {
+                controller.Init();
+            }
+            EditorApplication.update += Update;
+        }
+        void OnDisable()
+        {
+            EditorApplication.update -= Update;
+        }
+
+        void Update()
+        {
+            if (!EditorApplication.isPlaying)
+            {
+                if (controller.graph.IsValid())
+                {
+
+                    controller.Update();
+                }
+                else
+                {
+                    controller.Init();
+                }
+
+            }
         }
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
             var fingers = serializedObject.FindProperty("fingers");
-
+            EditorGUI.BeginChangeCheck();
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("handData"));
+            serializedObject.ApplyModifiedProperties();
+            if (EditorGUI.EndChangeCheck())
+            {
+                controller.Init();
+            }
             EditorGUI.BeginChangeCheck();
             controller.StaticPose = EditorGUILayout.Toggle(new GUIContent("static Pose"), controller.StaticPose);
             if (EditorGUI.EndChangeCheck())
