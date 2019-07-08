@@ -10,6 +10,8 @@ namespace Kandooz.KVR
     [CreateAssetMenu(menuName = "Kandooz/KVR/Hand Data")]
     public class HandData : ScriptableObject
     {
+        [Tooltip("The Hand must have HandAnimationController Script")]
+        public HandAnimationController HandPrefab;
         [Header("Avatar Masks")]
         [SerializeField] public AvatarMask thumbAvatarMask;
         [SerializeField] public AvatarMask indexAvatarMask;
