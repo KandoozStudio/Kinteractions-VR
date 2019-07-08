@@ -1,6 +1,7 @@
 ﻿using Kandooz.Common;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
@@ -39,13 +40,14 @@ namespace Kandooz.KVR
     public class HandAnimationController : MonoBehaviour
     {
         #region private variables
-        [SerializeField] private HandData handData;
+        [HideInInspector] [SerializeField] private HandData handData;
         [HideInInspector] [SerializeField] private Finger[] fingers;
-        [HideInInspector] [SerializeField] private PlayableGraph graph;
+        [HideInInspector] [SerializeField] public PlayableGraph graph;
         [HideInInspector] [SerializeField] private bool staticPose;
         [HideInInspector] [SerializeField] private List<Pose> poses;
         private CrossFadingFloat staticPoseCrossFader;
         private AnimationMixerPlayable handMixer;
+        private bool initialized;
         AnimationMixerPlayable poseMixer;
         [HideInInspector] [SerializeField] private int pose;
         #endregion
@@ -85,14 +87,24 @@ namespace Kandooz.KVR
             {
                 if (pose != value)
                 {
-                    int last=pose;
-                    int current = value;
                     poses[pose].SetWeight(0);
                     poses[value].SetWeight(1);
                 }
                 pose = value;
             }
         }
+
+        public HandData HandData
+        {
+            get { return handData; }
+        }
+
+        public bool Initialized
+        {
+            get { return initialized; }
+        }
+
+        
 
         public float this[FingerName index]
         {
@@ -104,61 +116,85 @@ namespace Kandooz.KVR
             get { return fingers[index].Weight; }
             set { fingers[index].Weight = value; }
         }
+        public void Init()
+        {
+            if (handData) {
+                graph = PlayableGraph.Create("Hand Animation Controller graph");
+                fingers = new Finger[5];
+                var fingerMixer = AnimationLayerMixerPlayable.Create(graph, fingers.Length);
+                for (uint i = 0; i < fingers.Length; i++)
+                {
+                    fingers[i] = new Finger(graph, handData.closed, handData.opened, handData[(int)i]);
+                    fingerMixer.SetLayerAdditive(i, false);
+                    fingerMixer.SetLayerMaskFromAvatarMask(i, handData[(int)i]);
+                    graph.Connect(fingers[i].Mixer, 0, fingerMixer, (int)i);
+                    fingerMixer.SetInputWeight((int)i, 1);
+                }
+                handMixer = AnimationMixerPlayable.Create(graph, 2);
+                graph.Connect(fingerMixer, 0, handMixer, 0);
+                handMixer.SetInputWeight(0, 1);
+                if (handData.poses.Count > 0)
+                {
+                    poseMixer = AnimationMixerPlayable.Create(graph, handData.poses.Count);
+                    poses = new List<Pose>();
+                    for (int i = 0; i < handData.poses.Count; i++)
+                    {
+                        var poseClip = handData.poses[i];
+                        if (poseClip)
+                        {
+                            var pose = new Pose();
+                            pose.playable = AnimationClipPlayable.Create(graph, handData.poses[i]);
+                            pose.clip = handData.poses[i];
+                            poses.Add(pose);
+                            graph.Connect(pose.playable, 0, poseMixer, i);
+                            poseMixer.SetInputWeight(i, 0);
+                        }
+                        poseMixer.SetInputWeight(pose, 1);
+                    }
+                    if (poses.Count > 0)
+                    {
+                        graph.Connect(poseMixer, 0, handMixer, 1);
+                        handMixer.SetInputWeight(1, 0);
+                    }
+                }
+                var playableOutput = AnimationPlayableOutput.Create(graph, "Hand Controller", GetComponent<Animator>());
+                playableOutput.SetSourcePlayable(handMixer);
+                GraphVisualizerClient.Show(graph);
+                initialized = true;
+                graph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
+                graph.Play();
+
+            }
+            else
+            {
+                initialized = false;
+            }
+        }
         void Start()
         {
-            graph = PlayableGraph.Create("Hand Animation Controller graph");
-            fingers = new Finger[5];
-            var fingerMixer = AnimationLayerMixerPlayable.Create(graph, fingers.Length);
-            for (uint i = 0; i < fingers.Length; i++)
+            if (!initialized)
             {
-                fingers[i] = new Finger(graph, handData.closed, handData.opened,handData[(int)i]);
-                fingerMixer.SetLayerAdditive(i, false);
-                fingerMixer.SetLayerMaskFromAvatarMask(i, handData[(int)i]);
-                graph.Connect(fingers[i].Mixer, 0, fingerMixer, (int)i);
-                fingerMixer.SetInputWeight((int)i, 1);
+                Init();
             }
-            handMixer = AnimationMixerPlayable.Create(graph, 2);
-            graph.Connect(fingerMixer, 0, handMixer, 0);
-            handMixer.SetInputWeight(0, 1);
-            if (handData.poses.Count>0)
-            {
-                poseMixer = AnimationMixerPlayable.Create(graph, handData.poses.Count);
-                poses = new List<Pose>();
-                for (int i = 0; i < handData.poses.Count; i++)
-                {
-                    var poseClip = handData.poses[i];
-                    if (poseClip)
-                    {
-                        var pose = new Pose();
-                        pose.playable=AnimationClipPlayable.Create(graph, handData.poses[i]);
-                        pose.clip = handData.poses[i];
-                        poses.Add(pose);
-                        graph.Connect(pose.playable, 0, poseMixer, i);
-                        poseMixer.SetInputWeight(i, 0);
-                    }
-                    poseMixer.SetInputWeight(pose, 1);
-                }
-                if (poses.Count > 0)
-                {
-                    graph.Connect(poseMixer, 0, handMixer, 1);
-                    handMixer.SetInputWeight(1, 0);
-                }
-            }
-            var playableOutput = AnimationPlayableOutput.Create(graph, "Hand Controller", GetComponent<Animator>());
-            playableOutput.SetSourcePlayable(handMixer);
-            GraphVisualizerClient.Show(graph);
             graph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
-            graph.Play();
+            //graph.Play();
         }
         void OnDisable()
         {
             graph.Destroy();
         }
-        void Update()
+        public void Update()
         {
+            if (!EditorApplication.isPlaying)
+            {
+                //graph.SetTimeUpdateMode(UnityEngine.Playables.DirectorUpdateMode.Manual);
+                graph.Evaluate();
+                GraphVisualizerClient.Show(graph);
+            }
+            graph.Evaluate();
+
             for (int i = 0; i < poses.Count; i++)
             {
-
                 poseMixer.SetInputWeight(i, poses[i].Weight);
             }
         }
