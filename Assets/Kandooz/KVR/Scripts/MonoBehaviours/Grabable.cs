@@ -16,15 +16,11 @@ namespace Kandooz.KVR
             this.fingers = fingers;
         }
     }
-    public enum Hand
-    {
-        right,left
-    }
     public class Grabable : MonoBehaviour
     {
         public HandData data;
         [SerializeField] private bool editMode;
-        [SerializeField] [HideInInspector] private Hand handToEdit;
+        [SerializeField] [HideInInspector] private HandType handToEdit;
 
         [SerializeField] [HideInInspector] private Transform leftPivot;
         [SerializeField] [HideInInspector] private Transform rightPivot;

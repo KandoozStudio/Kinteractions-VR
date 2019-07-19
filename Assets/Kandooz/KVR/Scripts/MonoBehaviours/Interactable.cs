@@ -17,15 +17,15 @@ namespace Kandooz.KVR
                 originalMaterial = renderer.material;
             }
         }
-        public void OnHandHover()
+        public void OnHandHover(HandController hand)
         {
         }
 
-        public void OnGrabStart()
+        public void OnGrabStart(HandController hand)
         {
 
         }
-        public void OnGrabEnd()
+        public void OnGrabEnd(HandController hand)
         {
             
         }

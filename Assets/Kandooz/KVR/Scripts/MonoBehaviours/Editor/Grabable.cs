@@ -10,7 +10,7 @@ namespace Kandooz.KVR
         Grabable grabable;
         Transform leftPivot, rightPivot;
         HandAnimationController currentlyControlledHand;
-        Hand hand;
+        HandType hand;
         bool editmode;
         void OnEnable()
         {
@@ -34,17 +34,17 @@ namespace Kandooz.KVR
                 if (hand.enumValueIndex != (int)this.hand || !currentlyControlledHand)
                 {
                     End();
-                    this.hand = (Hand)hand.enumValueIndex;
+                    this.hand = (HandType)hand.enumValueIndex;
                     HandState handState = grabable.RightHand;
                     switch (this.hand)
                     {
-                        case Hand.right:
+                        case HandType.right:
                             handState = grabable.RightHand;
                             currentlyControlledHand = GameObject.Instantiate(grabable.data.rightHandPrefab, Vector3.zero, Quaternion.identity, rightPivot);
                             currentlyControlledHand.transform.localPosition = Vector3.zero;
                             currentlyControlledHand.transform.localRotation = Quaternion.identity;
                             break;
-                        case Hand.left:
+                        case HandType.left:
                             handState = grabable.LeftHand;
                             currentlyControlledHand = GameObject.Instantiate(grabable.data.leftHandPrefab, Vector3.zero, Quaternion.identity, leftPivot);
                             currentlyControlledHand.transform.localPosition = Vector3.zero;
@@ -90,10 +90,10 @@ namespace Kandooz.KVR
                 HandState state = new HandState(currentlyControlledHand.Pose, currentlyControlledHand.StaticPose, fingers);
                 switch (hand)
                 {
-                    case Hand.right:
+                    case HandType.right:
                         grabable.RightHand = state;
                         break;
-                    case Hand.left:
+                    case HandType.left:
                         grabable.LeftHand = state;
                         break;
                 }
