@@ -4,19 +4,57 @@ using UnityEngine;
 
 namespace Kandooz.KVR
 {
+    public struct HandState
+    {
+        public int pose;
+        public bool staticPose;
+        public float[] fingers;
+        public HandState(int pose,bool staticPose,float[]fingers)
+        {
+            this.pose = pose;
+            this.staticPose = staticPose;
+            this.fingers = fingers;
+        }
+    }
     public enum Hand
     {
         right,left
     }
     public class Grabable : MonoBehaviour
     {
-        
         public HandData data;
         [SerializeField] private bool editMode;
         [SerializeField] [HideInInspector] private Hand handToEdit;
 
         [SerializeField] [HideInInspector] private Transform leftPivot;
         [SerializeField] [HideInInspector] private Transform rightPivot;
+        private HandState leftHand, rightHand;
+
+        public HandState LeftHand
+        {
+            get
+            {
+                return leftHand;
+            }
+
+            set
+            {
+                leftHand = value;
+            }
+        }
+
+        public HandState RightHand
+        {
+            get
+            {
+                return rightHand;
+            }
+
+            set
+            {
+                rightHand = value;
+            }
+        }
 
         public void Initialize()
         {

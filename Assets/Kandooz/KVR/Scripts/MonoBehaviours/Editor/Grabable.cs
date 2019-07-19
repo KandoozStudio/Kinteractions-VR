@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-namespace Kandooz.KVR {
+namespace Kandooz.KVR
+{
     [CustomEditor(typeof(Grabable))]
     public class GrabableEditor : Editor
     {
@@ -14,13 +15,12 @@ namespace Kandooz.KVR {
         void OnEnable()
         {
             grabable = (Grabable)target;
-            grabable. Initialize();
+            grabable.Initialize();
             editmode = false;
-            serializedObject.FindProperty("editMode").boolValue = false; ;
-
+            serializedObject.FindProperty("editMode").boolValue = false;
             leftPivot = (Transform)serializedObject.FindProperty("leftPivot").objectReferenceValue;
-            rightPivot= (Transform)serializedObject.FindProperty("rightPivot").objectReferenceValue;
-            
+            rightPivot = (Transform)serializedObject.FindProperty("rightPivot").objectReferenceValue;
+
         }
         public override void OnInspectorGUI()
         {
@@ -29,22 +29,23 @@ namespace Kandooz.KVR {
             {
                 var hand = serializedObject.FindProperty("handToEdit");
                 EditorGUILayout.PropertyField(hand);
-                Debug.Log(hand.enumValueIndex );
+                Debug.Log(hand.enumValueIndex);
                 serializedObject.ApplyModifiedProperties();
-                if (hand.enumValueIndex != (int)this.hand ||!currentlyControlledHand)
+                if (hand.enumValueIndex != (int)this.hand || !currentlyControlledHand)
                 {
+                    End();
                     this.hand = (Hand)hand.enumValueIndex;
-                    if (currentlyControlledHand) 
-                        GameObject.DestroyImmediate(currentlyControlledHand.gameObject);
-                    Debug.Log(this.hand.ToString());
+                    HandState handState = grabable.RightHand;
                     switch (this.hand)
                     {
                         case Hand.right:
-                            currentlyControlledHand = GameObject.Instantiate(grabable.data.rightHandPrefab,Vector3.zero,Quaternion.identity,rightPivot);
+                            handState = grabable.RightHand;
+                            currentlyControlledHand = GameObject.Instantiate(grabable.data.rightHandPrefab, Vector3.zero, Quaternion.identity, rightPivot);
                             currentlyControlledHand.transform.localPosition = Vector3.zero;
-                            currentlyControlledHand.transform.localRotation= Quaternion.identity;
+                            currentlyControlledHand.transform.localRotation = Quaternion.identity;
                             break;
                         case Hand.left:
+                            handState = grabable.LeftHand;
                             currentlyControlledHand = GameObject.Instantiate(grabable.data.leftHandPrefab, Vector3.zero, Quaternion.identity, leftPivot);
                             currentlyControlledHand.transform.localPosition = Vector3.zero;
                             currentlyControlledHand.transform.localRotation = Quaternion.identity;
@@ -52,25 +53,53 @@ namespace Kandooz.KVR {
                             break;
                     }
                     currentlyControlledHand.name = "hand";
+                    currentlyControlledHand.Init();
+
+
+                    currentlyControlledHand.StaticPose = handState.staticPose;
+                    currentlyControlledHand.Pose = handState.pose;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        currentlyControlledHand[i] = handState.fingers[i];
+                    }
                 }
                 SerializedObject so = new SerializedObject(currentlyControlledHand);
-                HandAnimationControllerEditor.DisplayHandEditor(currentlyControlledHand,so);
+                HandAnimationControllerEditor.DisplayHandEditor(currentlyControlledHand, so);
 
             }
             else
             {
-                if (currentlyControlledHand)
-                    GameObject.DestroyImmediate(currentlyControlledHand.gameObject);
-                currentlyControlledHand = null;
+                End();
             }
         }
         void OnDisable()
         {
-            if (currentlyControlledHand)
-                GameObject.DestroyImmediate(currentlyControlledHand.gameObject);
-            currentlyControlledHand = null;
+            End();
             Tools.hidden = false;
+        }
 
+        void End()
+        {
+            if (currentlyControlledHand)
+            {
+                var fingers = new float[5];
+                for (int i = 0; i < fingers.Length; i++)
+                {
+                    fingers[i] = currentlyControlledHand[i];
+                }
+                HandState state = new HandState(currentlyControlledHand.Pose, currentlyControlledHand.StaticPose, fingers);
+                switch (hand)
+                {
+                    case Hand.right:
+                        grabable.RightHand = state;
+                        break;
+                    case Hand.left:
+                        grabable.LeftHand = state;
+                        break;
+                }
+                GameObject.DestroyImmediate(currentlyControlledHand.gameObject);
+            }
+            currentlyControlledHand = null;
         }
         void OnSceneGUI()
         {
@@ -86,16 +115,13 @@ namespace Kandooz.KVR {
                 {
                     Undo.RegisterFullObjectHierarchyUndo(parent, "Rotated " + parent.name);
                 }
-
                 EditorGUI.BeginChangeCheck();
-                var deltaPosition = Handles.DoPositionHandle(parent.position,parent.rotation);
-                
-                parent.position= deltaPosition;
+                var deltaPosition = Handles.DoPositionHandle(parent.position, parent.rotation);
+                parent.position = deltaPosition;
                 if (EditorGUI.EndChangeCheck())
                 {
                     Undo.RegisterFullObjectHierarchyUndo(parent, "moved" + parent.name);
                 }
-                
             }
             else
             {
