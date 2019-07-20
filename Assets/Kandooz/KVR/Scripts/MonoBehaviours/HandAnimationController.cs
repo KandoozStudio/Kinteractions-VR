@@ -37,6 +37,7 @@ namespace Kandooz.KVR
             fader.Value = value;
         }
     }
+    
     public class HandAnimationController : MonoBehaviour
     {
         #region private variables

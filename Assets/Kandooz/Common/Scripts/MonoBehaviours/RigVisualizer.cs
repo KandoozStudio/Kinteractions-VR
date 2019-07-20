@@ -5,11 +5,15 @@ namespace Kandooz.Common
 {
     public class RigVisualizer : MonoBehaviour
     {
-        public Color color = Color.red;
+        [HideInInspector] public RigVisualizer[] children;
+        [HideInInspector] public Color color = Color.red;
+        [HideInInspector] public GameObject bone;
+        [HideInInspector] public RigVisualizer root ;
+        [HideInInspector] public static RigVisualizer selected;
         void OnDrawGizmos()
         {
-            Gizmos.color =color;
-            
+            Gizmos.color = color;
+
             Color childColor = color;
             childColor.r = color.b;
             childColor.g = color.r;
@@ -17,12 +21,12 @@ namespace Kandooz.Common
             for (int i = 0; i < transform.childCount; i++)
             {
                 var child = transform.GetChild(i);
-
+                if (child.GetComponent<MeshRenderer>()) continue;
                 Gizmos.DrawLine(this.transform.position, child.position);
                 var visualizer = child.GetComponent<RigVisualizer>();
                 if (!visualizer)
                 {
-                    child.gameObject.AddComponent<RigVisualizer>().color=childColor;
+                    child.gameObject.AddComponent<RigVisualizer>().color = childColor;
                 }
                 else
                 {
@@ -31,6 +35,28 @@ namespace Kandooz.Common
 
             }
         }
-    }
 
+        public void Init()
+        {
+            if (!transform.parent||!(transform.parent.GetComponent < RigVisualizer>()) )
+            {
+                root = this;
+            }
+            children = new RigVisualizer[transform.childCount];
+            Debug.Log(children.Length);
+            for (int i = 0; i < children.Length; i++)
+            {
+                var child = transform.GetChild(i);
+                children[i] = child.GetComponent< RigVisualizer>();
+                if (!children[i])
+                {
+                    children[i]=child.gameObject.AddComponent<RigVisualizer>();
+                }
+                children[i].Init();
+
+            }
+
+        }
+
+    }
 }

@@ -12,7 +12,8 @@ namespace Kandooz.KVR
         Index = 1,
         Middle = 2,
         Ring = 3,
-        Pinky = 4
+        Pinky = 4,
+        
     }
     [System.Serializable]
     public class Finger

@@ -41,6 +41,15 @@ namespace Kandooz.KVR
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
+            DisplayHandEditor(controller, serializedObject);
+        }
+
+        public static void DisplayHandEditor(HandAnimationController controller,SerializedObject serializedObject)
+        {
+            if (controller.HandData && !controller.Initialized)
+            {
+                controller.Init();
+            }
             var fingers = serializedObject.FindProperty("fingers");
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(serializedObject.FindProperty("handData"));
@@ -75,14 +84,12 @@ namespace Kandooz.KVR
                     EditorGUILayout.PropertyField(fingerWeight, new GUIContent(((FingerName)i).ToString()));
                 }
                 serializedObject.ApplyModifiedProperties();
-
                 for (int i = 0; i < 5; i++)
                 {
                     controller[i] = controller[i];
-
                 }
-
             }
+
         }
     }
 }

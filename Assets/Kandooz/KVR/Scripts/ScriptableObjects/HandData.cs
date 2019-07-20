@@ -11,7 +11,8 @@ namespace Kandooz.KVR
     public class HandData : ScriptableObject
     {
         [Tooltip("The Hand must have HandAnimationController Script")]
-        public HandAnimationController HandPrefab;
+        public HandAnimationController leftHandPrefab;
+        public HandAnimationController rightHandPrefab;
         [Header("Avatar Masks")]
         [SerializeField] public AvatarMask thumbAvatarMask;
         [SerializeField] public AvatarMask indexAvatarMask;
