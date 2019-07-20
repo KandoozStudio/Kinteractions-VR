@@ -11,15 +11,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f2489db449460543b6d0d4f8e8d4715, type: 3}
   m_Name: HandData
   m_EditorClassIdentifier: 
+  HandPrefab: {fileID: 0}
   thumbAvatarMask: {fileID: 31900000, guid: 71a29947e2facdd46bca8b7fe0a94680, type: 2}
   indexAvatarMask: {fileID: 31900000, guid: 8f9626a8820e4464196ec427d11cf27f, type: 2}
   middleAvatarMask: {fileID: 31900000, guid: eec80a08e08ec9647bb2cf5a54f009d2, type: 2}
   ringAvatarMask: {fileID: 31900000, guid: 5a07a421e3192e04aa6fe0ad429e62ee, type: 2}
   pinkyAvatarMask: {fileID: 31900000, guid: 4527e08c1d9c1484d82eb39ec19657c2, type: 2}
   opened: {fileID: 7400000, guid: 74f3b95c081a9e146ac0abb1f69e8b33, type: 2}
-  closed: {fileID: 7400000, guid: a160b0a96b0202d4e98fedeab24be5ff, type: 2}
+  closed: {fileID: 7400000, guid: 2d0d3c5ab9ed9bb45a411df8945d387d, type: 2}
   poses:
   - {fileID: 7400000, guid: ce4800d0c0a17284381481fbfc731b44, type: 3}
   - {fileID: 7400000, guid: 74f3b95c081a9e146ac0abb1f69e8b33, type: 2}
   - {fileID: 7400000, guid: a160b0a96b0202d4e98fedeab24be5ff, type: 2}
-  - {fileID: 0}
+  - {fileID: 7400000, guid: d0b5e24d420d40c44908575be64e4ebd, type: 2}
+  - {fileID: 7400000, guid: 3bcd2a33eb6790d4184270075655d8ef, type: 2}
+  - {fileID: 7400000, guid: 2d0d3c5ab9ed9bb45a411df8945d387d, type: 2}
+  - {fileID: 7400000, guid: 2e21ab9b7c55b6842bef361d466005bd, type: 2}
+  - {fileID: 7400000, guid: 8abb2adb86f001544aa503f78138fee1, type: 2}
+  - {fileID: 7400000, guid: f1f69292e5547cd489187b7223ded172, type: 2}
