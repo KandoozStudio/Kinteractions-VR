@@ -682,7 +682,7 @@ Transform:
   m_GameObject: {fileID: 1562257409174322}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4037398399847538}
   m_Father: {fileID: 4468298605748658}
@@ -751,7 +751,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1029426420316590}
   m_LocalRotation: {x: -0.066107415, y: -0, z: -0, w: 0.9978125}
-  m_LocalPosition: {x: 0, y: -2.7023034, z: 0.5666471}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4291337270518400}
@@ -1033,7 +1033,7 @@ MonoBehaviour:
   - clip: {fileID: 7400000, guid: ce4800d0c0a17284381481fbfc731b44, type: 3}
   - clip: {fileID: 7400000, guid: 74f3b95c081a9e146ac0abb1f69e8b33, type: 2}
   - clip: {fileID: 7400000, guid: a160b0a96b0202d4e98fedeab24be5ff, type: 2}
-  pose: 0
+  pose: 2
 --- !u!114 &114094401671149410
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Kandooz.KVR
 {
     [CreateAssetMenu(menuName = "Kandooz/KVR/InputManager")]
-    public class InputManager : ScriptableObject
+    public class VRInputManager : ScriptableObject
     {
 
 #if UNITY_2018

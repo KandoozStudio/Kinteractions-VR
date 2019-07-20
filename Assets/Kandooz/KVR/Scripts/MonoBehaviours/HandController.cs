@@ -6,7 +6,7 @@ namespace Kandooz.KVR
     [RequireComponent(typeof(HandTracker))]
     public class HandController : MonoBehaviour
     {
-        public InputManager inputManager;
+        public VRInputManager inputManager;
         private HandType type;
         private HandAnimationController animationController;
         private Vector3 shift;
