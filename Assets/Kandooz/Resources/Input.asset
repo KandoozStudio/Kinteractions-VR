@@ -11,15 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9436547a95fffa546b2315812cf97ee2, type: 3}
   m_Name: Input
   m_EditorClassIdentifier: Assembly-CSharp:Kandooz.KVR:InputManager
-  leftIndex: 
-  leftMiddle: 
-  leftRing: 
-  leftPinky: 
+  leftIndex: indexLeft
+  leftMiddle: gripLeft
+  leftRing: gripLeft
+  leftPinky: gripLeft
   leftThumb: 
-  leftGrip: 
-  rightIndex: 
-  rightMiddle: 
-  rightRing: 
-  rightPinky: 
+  leftGrip: gripLeft
+  rightIndex: indexRight
+  rightMiddle: gripRight
+  rightRing: gripRight
+  rightPinky: gripRight
   rightThumb: 
-  rightGrip: 
+  rightGrip: gripRight
