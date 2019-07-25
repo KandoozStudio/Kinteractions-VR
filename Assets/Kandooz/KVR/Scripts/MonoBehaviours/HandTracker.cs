@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 #if UNITY_2018 || UNITY_2017
 using UnityEngine.XR;
 using UnityEngine.SpatialTracking;
 #endif
-
 public enum HandType
 {
     right, left
@@ -20,8 +20,8 @@ namespace Kandooz.KVR
 #endif
     public class HandTracker : MonoBehaviour
     {
-#if UNITY_2018 || UNITY_2017
         public HandType type;
+#if UNITY_2018 || UNITY_2017
         private TrackedPoseDriver pose;
         void Start()
         {
@@ -42,7 +42,30 @@ namespace Kandooz.KVR
             
         }
 #else
+        void Update()
+        {
+            List<InputDevice> devices= new List<InputDevice>();;
+            var device=InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+            List<InputFeatureUsage> usages= new List<InputFeatureUsage>();
+            device.TryGetFeatureUsages(usages);
+            foreach (var usage in usages)
+            {
+                Debug.Log(usage.type+":"+usage.name);
+            }
+            switch (type)
+            {
+                case HandType.left:
+                this.transform.localPosition=(InputTracking.GetLocalPosition(XRNode.LeftHand));
+                this.transform.localRotation=(InputTracking.GetLocalRotation(XRNode.LeftHand));
 
+                break;
+                case HandType.right:
+                this.transform.localPosition=(InputTracking.GetLocalPosition(XRNode.RightHand));
+                this.transform.localRotation=(InputTracking.GetLocalRotation(XRNode.RightHand));
+
+                break;
+            } 
+        }
 #endif
     }
 }

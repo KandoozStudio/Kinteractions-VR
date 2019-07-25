@@ -103,7 +103,9 @@ namespace Kandooz.KVR
         }
 #endregion
 #else
-
+       public float GetFingerValue(HandType hand, FingerName finger){
+           return 0;
+       }
 #endif
     }
 }

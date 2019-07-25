@@ -160,7 +160,6 @@ namespace Kandooz.KVR
                 }
                 var playableOutput = AnimationPlayableOutput.Create(graph, "Hand Controller", GetComponent<Animator>());
                 playableOutput.SetSourcePlayable(handMixer);
-                GraphVisualizerClient.Show(graph);
                 initialized = true;
                 graph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
                 graph.Play();
@@ -190,7 +189,6 @@ namespace Kandooz.KVR
             {
                 //graph.SetTimeUpdateMode(UnityEngine.Playables.DirectorUpdateMode.Manual);
                 graph.Evaluate();
-                GraphVisualizerClient.Show(graph);
             }
             graph.Evaluate();
 

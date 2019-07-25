@@ -29,7 +29,6 @@ namespace Kandooz.KVR
             {
                 var hand = serializedObject.FindProperty("handToEdit");
                 EditorGUILayout.PropertyField(hand);
-                Debug.Log(hand.enumValueIndex);
                 serializedObject.ApplyModifiedProperties();
                 if (hand.enumValueIndex != (int)this.hand || !currentlyControlledHand)
                 {
@@ -109,7 +108,6 @@ namespace Kandooz.KVR
                 var parent = currentlyControlledHand.transform.parent;
                 EditorGUI.BeginChangeCheck();
                 var deltaRotation = Handles.DoRotationHandle(parent.localRotation, parent.position);
-                Debug.Log(deltaRotation.eulerAngles);
                 parent.localRotation = deltaRotation;
                 if (EditorGUI.EndChangeCheck())
                 {
