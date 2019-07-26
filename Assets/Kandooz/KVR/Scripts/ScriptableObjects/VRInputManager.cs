@@ -7,7 +7,6 @@ namespace Kandooz.KVR
     public class VRInputManager : ScriptableObject
     {
 
-#if UNITY_2018
         #region 2018
         [Header("right hand axis")]
         public string leftIndex;
@@ -16,6 +15,7 @@ namespace Kandooz.KVR
         public string leftPinky;
         public string leftThumb;
         public string leftGrip;
+        public string leftTrigger;
 
         [Header("left hand axis")]
         public string rightIndex ;
@@ -24,6 +24,7 @@ namespace Kandooz.KVR
         public string rightPinky ;
         public string rightThumb;
         public string rightGrip;
+        public string rightTrigger;
 
         public float GetFingerValue(HandType hand, FingerName finger)
         {
@@ -33,11 +34,15 @@ namespace Kandooz.KVR
                 case FingerName.Thumb:
                     if (hand == HandType.left)
                     {
-                        value = (Input.GetKey(KeyCode.JoystickButton8)|| Input.GetKey(KeyCode.JoystickButton16)) ? 1 : 0;
+                        value = Input.GetAxis(leftThumb);
+
+                        //value = (Input.GetKey(KeyCode.JoystickButton8)|| Input.GetKey(KeyCode.JoystickButton16)) ? 1 : 0;
                     }
                     else
                     {
-                        value = (Input.GetKey(KeyCode.JoystickButton9)|| Input.GetKey(KeyCode.JoystickButton17)) ? 1 : 0;
+                        value = Input.GetAxis(rightThumb);
+
+                        //value = (Input.GetKey(KeyCode.JoystickButton9)|| Input.GetKey(KeyCode.JoystickButton17)) ? 1 : 0;
                     }
                     break;
                 case FingerName.Index:
@@ -102,10 +107,5 @@ namespace Kandooz.KVR
 
         }
 #endregion
-#else
-       public float GetFingerValue(HandType hand, FingerName finger){
-           return 0;
-       }
-#endif
     }
 }
