@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9436547a95fffa546b2315812cf97ee2, type: 3}
   m_Name: Input
   m_EditorClassIdentifier: Assembly-CSharp:Kandooz.KVR:InputManager
-  leftIndex: XRI_Left_IndexFinger
-  leftMiddle: XRI_Left_MiddleFinger
-  leftRing: XRI_Left_RingFinger
-  leftPinky: XRI_Left_PinkyFinger
+  leftIndex: XRI_Left_Trigger
+  leftMiddle: XRI_Left_Grip
+  leftRing: XRI_Left_Grip
+  leftPinky: XRI_Left_Grip
   leftThumb: XRI_Left_Thumbrest
   leftGrip: XRI_Left_Grip
   leftTrigger: 
-  rightIndex: XRI_Right_IndexFinger
-  rightMiddle: XRI_Right_MiddleFinger
-  rightRing: XRI_Right_RingFinger
-  rightPinky: XRI_Right_PinkyFinger
+  rightIndex: XRI_Right_Trigger
+  rightMiddle: XRI_Right_Grip
+  rightRing: XRI_Right_Grip
+  rightPinky: XRI_Right_Grip
   rightThumb: XRI_Right_Thumbrest
   rightGrip: XRI_Right_Grip
   rightTrigger: 
