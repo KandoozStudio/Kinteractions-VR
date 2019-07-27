@@ -36,13 +36,13 @@ namespace Kandooz.KVR
                     {
                         value = Input.GetAxis(leftThumb);
 
-                        //value = (Input.GetKey(KeyCode.JoystickButton8)|| Input.GetKey(KeyCode.JoystickButton16)) ? 1 : 0;
+                        value = (Input.GetKey(KeyCode.JoystickButton8) || Input.GetKey(KeyCode.JoystickButton16)) ? 1 : 0;
                     }
                     else
                     {
                         value = Input.GetAxis(rightThumb);
 
-                        //value = (Input.GetKey(KeyCode.JoystickButton9)|| Input.GetKey(KeyCode.JoystickButton17)) ? 1 : 0;
+                        value = (Input.GetKey(KeyCode.JoystickButton9) || Input.GetKey(KeyCode.JoystickButton17)) ? 1 : 0;
                     }
                     break;
                 case FingerName.Index:
@@ -79,11 +79,11 @@ namespace Kandooz.KVR
                 case FingerName.Pinky:
                     if (hand == HandType.left)
                     {
-                        value = Input.GetAxis(leftIndex);
+                        value = Input.GetAxis(leftPinky);
                     }
                     else
                     {
-                        value = Input.GetAxis(rightIndex);
+                        value = Input.GetAxis(rightPinky);
                     }
                     break;
                 default:
