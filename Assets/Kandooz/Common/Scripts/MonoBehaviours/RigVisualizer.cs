@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Kandooz.Common
 {
+    
     public class RigVisualizer : MonoBehaviour
     {
         [HideInInspector] public RigVisualizer[] children;
@@ -35,7 +36,6 @@ namespace Kandooz.Common
 
             }
         }
-
         public void Init()
         {
             if (!transform.parent||!(transform.parent.GetComponent < RigVisualizer>()) )
@@ -57,6 +57,7 @@ namespace Kandooz.Common
             }
 
         }
+
 
     }
 }
