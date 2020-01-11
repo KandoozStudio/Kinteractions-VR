@@ -4,53 +4,19 @@ using UnityEngine;
 
 namespace Kandooz.KVR
 {
+    [System.Serializable]
     public struct HandState
     {
         public int pose;
         public bool staticPose;
-        public float[] fingers;
-        public HandState(int pose,bool staticPose,float[]fingers)
-        {
-            this.pose = pose;
-            this.staticPose = staticPose;
-            this.fingers = fingers;
-        }
+        public Vector2[] fingersMinMax;
     }
     public class Grabable : MonoBehaviour
     {
         public HandData data;
-        [SerializeField] private bool editMode;
-        [SerializeField] [HideInInspector] private HandType handToEdit;
-
         [SerializeField] [HideInInspector] private Transform leftPivot;
         [SerializeField] [HideInInspector] private Transform rightPivot;
-        private HandState leftHand, rightHand;
-
-        public HandState LeftHand
-        {
-            get
-            {
-                return leftHand;
-            }
-
-            set
-            {
-                leftHand = value;
-            }
-        }
-
-        public HandState RightHand
-        {
-            get
-            {
-                return rightHand;
-            }
-
-            set
-            {
-                rightHand = value;
-            }
-        }
+        [SerializeField] public HandState leftHand, rightHand;
 
         public void Initialize()
         {

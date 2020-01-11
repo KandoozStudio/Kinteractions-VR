@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f2489db449460543b6d0d4f8e8d4715, type: 3}
-  m_Name: HandData
+  m_Name: DefaultHand
   m_EditorClassIdentifier: 
   leftHandPrefab: {fileID: 114133679705227914, guid: e96493474c99d3544adb145d79ddfbbd,
     type: 3}
