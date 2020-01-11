@@ -20,52 +20,31 @@ namespace Kandooz.KVR
 #endif
     public class HandTracker : MonoBehaviour
     {
-        public HandType type;
-#if UNITY_2018 || UNITY_2017
-        private TrackedPoseDriver pose;
-        void Start()
+        public HandType hand;
+        InputDevice device;
+        private void Start()
         {
-            pose = GetComponent<TrackedPoseDriver>();
-            if (!pose)
-            {
-                pose = gameObject.AddComponent<TrackedPoseDriver>();
-            }
-            switch (type)
+            switch (hand)
             {
                 case HandType.right:
-                    pose.SetPoseSource(TrackedPoseDriver.DeviceType.GenericXRController, TrackedPoseDriver.TrackedPose.RightPose);
+                    device = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
                     break;
                 case HandType.left:
-                    pose.SetPoseSource(TrackedPoseDriver.DeviceType.GenericXRController, TrackedPoseDriver.TrackedPose.LeftPose);
+                    device = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+                    break;
+                default:
                     break;
             }
-            
         }
-#else
         void Update()
         {
-            List<InputDevice> devices= new List<InputDevice>();;
-            var device=InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-            List<InputFeatureUsage> usages= new List<InputFeatureUsage>();
-            device.TryGetFeatureUsages(usages);
-            foreach (var usage in usages)
-            {
-                Debug.Log(usage.type+":"+usage.name);
-            }
-            switch (type)
-            {
-                case HandType.left:
-                this.transform.localPosition=(InputTracking.GetLocalPosition(XRNode.LeftHand));
-                this.transform.localRotation=(InputTracking.GetLocalRotation(XRNode.LeftHand));
-
-                break;
-                case HandType.right:
-                this.transform.localPosition=(InputTracking.GetLocalPosition(XRNode.RightHand));
-                this.transform.localRotation=(InputTracking.GetLocalRotation(XRNode.RightHand));
-
-                break;
-            } 
+            Vector3 position;
+            Quaternion rotation;
+            device.TryGetFeatureValue(CommonUsages.devicePosition, out position);
+            device.TryGetFeatureValue(CommonUsages.deviceRotation, out rotation);
+            
+            this.transform.localPosition = position;
+            this.transform.localRotation= rotation;
         }
-#endif
     }
 }

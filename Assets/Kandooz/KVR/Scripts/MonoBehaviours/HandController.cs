@@ -15,7 +15,7 @@ namespace Kandooz.KVR
         private Collider []collider;
         private void Start()
         {
-            type = GetComponent<HandTracker>().type;
+            type = GetComponent<HandTracker>().hand;
             collider = new Collider[1];
             animationController=GetComponentInChildren<HandAnimationController>();
         }
@@ -25,12 +25,7 @@ namespace Kandooz.KVR
             {
                 animationController[i]=inputManager.GetFingerValue(type, (FingerName)i);
             }
-            // Physics.OverlapSphereNonAlloc(this.transform.position + shift, radius, collider);
-            // if (collider[0])
-            // {
-            //     var interactable = collider[0].GetComponentInParent<Interactable>();
-            //     interactable.OnHandHover(this);
-            // }
+            
         }
         void OnDrawGizmosSelected()
         {

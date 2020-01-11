@@ -28,6 +28,7 @@ namespace Kandooz.KVR
 
         public float GetFingerValue(HandType hand, FingerName finger)
         {
+            //Debug.Log(hand + ":" + finger);
             var value = 0f;
             switch (finger)
             {
@@ -54,6 +55,7 @@ namespace Kandooz.KVR
                     {
                         value = Input.GetAxis(rightIndex);
                     }
+                    Debug.Log(value);
                     break;
 
                 case FingerName.Middle:
