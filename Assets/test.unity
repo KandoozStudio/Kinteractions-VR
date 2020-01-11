@@ -303,6 +303,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8395337346331802178, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395337346331802178, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395337346331802178, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395337346822188197, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
+        type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395337346949798768, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395337346949798768, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395337346949798768, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8395337347516322500, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -362,6 +397,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: KVRig
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395337347890876949, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
+        type: 3}
+      propertyPath: poses.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395337347890876949, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
+        type: 3}
+      propertyPath: staticPose
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395337347890876949, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
+        type: 3}
+      propertyPath: poses.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 7400000, guid: f1f69292e5547cd489187b7223ded172, type: 2}
+    - target: {fileID: 8395337347890876949, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
+        type: 3}
+      propertyPath: poses.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 7400000, guid: 8abb2adb86f001544aa503f78138fee1, type: 2}
+    - target: {fileID: 8395337347890876950, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
+        type: 3}
+      propertyPath: m_CullingMode
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d, type: 3}
