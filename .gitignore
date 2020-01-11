@@ -36,3 +36,6 @@ sysinfo.txt
 *.unitypackage
 */_Private
 */_Private.meta
+
+Assets/Kandooz/Hands.meta
+Assets/Kandooz/Hands
