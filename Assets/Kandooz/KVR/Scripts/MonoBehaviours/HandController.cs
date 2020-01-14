@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 namespace Kandooz.KVR
 {
     [RequireComponent(typeof(HandTracker))]
@@ -12,8 +10,6 @@ namespace Kandooz.KVR
         public VRInputManager inputManager;
         private HandType type;
         private HandAnimationController animationController;
-        private Vector3 shift;
-        private float radius=1;
         private IHandControlerStrategy handControllerStrategy;
         /// <summary>
         /// Mainly for reducing garbage allocation
@@ -26,21 +22,22 @@ namespace Kandooz.KVR
             type = GetComponent<HandTracker>().hand;
             collider = new Collider[1];
             animationController=GetComponentInChildren<HandAnimationController>();
-            defaultControlStrategy=handControllerStrategy = new InputDeviceHandController(animationController, inputManager, type);
+            defaultControlStrategy=handControllerStrategy = new NormalHandControllerStrategy();
+        }
+        public void ResetHandControllerStrategy()
+        {
+            handControllerStrategy = defaultControlStrategy;
+        }
+        public void SetHandControllerStrategy(IHandControlerStrategy strategy)
+        {
+            if (strategy != null)
+            {
+                handControllerStrategy = strategy;
+            }
         }
         private void Update()
         {
-            handControllerStrategy.UpdateHand();
-        }
-
-        private void OnObjectGrabbed(Interactable interactable)
-        {
-
-        }
-        void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(this.transform.position + shift, radius);
+            handControllerStrategy.UpdateHand(animationController,inputManager,type);
         }
     }
 }

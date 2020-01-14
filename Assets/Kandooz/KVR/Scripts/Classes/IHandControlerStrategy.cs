@@ -6,7 +6,7 @@ namespace Kandooz.KVR
 {
     public interface IHandControlerStrategy
     {
-          void UpdateHand();
+          void UpdateHand(HandAnimationController controller, VRInputManager inputManager, HandType hand);
     }
 
 }

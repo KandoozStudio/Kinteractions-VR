@@ -8,6 +8,7 @@ namespace Kandooz.KVR
         public HandData hand;
         public Material HoverMaterial;
         public new Renderer renderer;
+        public ConstrainedHandControllerStrategy handLimits;
         private Material originalMaterial;
         void OnEnable()
         {
