@@ -6,29 +6,38 @@ namespace Kandooz.KVR
     public class Interactable : MonoBehaviour
     {
         public HandData hand;
-        public Material HoverMaterial;
-        public new Renderer renderer;
-        public ConstrainedHandControllerStrategy handLimits;
-        private Material originalMaterial;
-        void OnEnable()
+        public HandConstrains rightHandLimits;
+        public HandConstrains leftHandLimits;
+        public HandEvent onHandHoverStart;
+        public HandEvent onHandHoverEnd;
+        public HandEvent onHandGrab;
+        public HandEvent onHandRelease;
+
+        private ConstrainedHandControllerStrategy left, right;
+        private void OnEnable()
         {
-            if (!renderer )
-            {
-                renderer=this.GetComponentInChildren<Renderer>();
-                originalMaterial = renderer.material;
-            }
+            left = new ConstrainedHandControllerStrategy();
+            left.constraints = leftHandLimits;
+            right = new ConstrainedHandControllerStrategy();
+            right.constraints = rightHandLimits;
+            
         }
-        public void OnHandHover(HandController hand)
+        public void OnHandHoverStart(HandController hand)
         {
+            onHandHoverStart.Invoke(hand);
+        }
+        public void OnHandHoverEnd(HandController hand)
+        {
+            onHandHoverEnd.Invoke(hand);
         }
 
         public void OnGrabStart(HandController hand)
         {
-
+            onHandGrab.Invoke(hand);
         }
-        public void OnGrabEnd(HandController hand)
+        public void OnRelease(HandController hand)
         {
-            
+            onHandRelease.Invoke(hand);
         }
     }
 }

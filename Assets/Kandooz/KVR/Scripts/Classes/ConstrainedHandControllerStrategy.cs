@@ -8,22 +8,22 @@ namespace Kandooz.KVR
     
     public struct MinMaxFloat
     {
-        /// <summary>
-        /// MinMaxFloat helps you convert a value that is normaly between 0 and 1 be between min and max
-        /// </summary>
         [MinMax(0, 1, MaxLimit = 1, MinLimit = 0)]
         public Vector2 limits;
-
-
     }
     [System.Serializable]
-    public class ConstrainedHandControllerStrategy : IHandControlerStrategy
+    public struct HandConstrains
     {
         public MinMaxFloat indexFingerLimits;
         public MinMaxFloat MiddleFingerLimits;
         public MinMaxFloat RingFingerLimits;
         public MinMaxFloat PinkyFingerLimits;
         public MinMaxFloat thumbFingerLimits;
+
+    }
+    public class ConstrainedHandControllerStrategy : IHandControlerStrategy
+    {
+        public HandConstrains constraints;
 
         public void UpdateHand(HandAnimationController controller, VRInputManager inputManager, HandType hand)
         {
@@ -34,19 +34,19 @@ namespace Kandooz.KVR
                 switch (finger)
                 {
                     case FingerName.Thumb:
-                        value = Mathf.Clamp(thumbFingerLimits.limits.x, thumbFingerLimits.limits.y, value);
+                        value = Mathf.Clamp(constraints.thumbFingerLimits.limits.x, constraints.thumbFingerLimits.limits.y, value);
                         break;
                     case FingerName.Index:
-                        value = Mathf.Clamp(indexFingerLimits.limits.x, indexFingerLimits.limits.y, value);
+                        value = Mathf.Clamp(constraints.indexFingerLimits.limits.x, constraints.indexFingerLimits.limits.y, value);
                         break;
                     case FingerName.Middle:
-                        value = Mathf.Clamp(MiddleFingerLimits.limits.x, MiddleFingerLimits.limits.y, value);
+                        value = Mathf.Clamp(constraints.MiddleFingerLimits.limits.x, constraints.MiddleFingerLimits.limits.y, value);
                         break;
                     case FingerName.Ring:
-                        value = Mathf.Clamp(RingFingerLimits.limits.x, RingFingerLimits.limits.y, value);
+                        value = Mathf.Clamp(constraints.RingFingerLimits.limits.x, constraints.RingFingerLimits.limits.y, value);
                         break;
                     case FingerName.Pinky:
-                        value = Mathf.Clamp(PinkyFingerLimits.limits.x, PinkyFingerLimits.limits.y, value);
+                        value = Mathf.Clamp(constraints.PinkyFingerLimits.limits.x, constraints.PinkyFingerLimits.limits.y, value);
                         break;
                 }
                 controller[i] = value;
