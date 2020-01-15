@@ -3,18 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Kandooz.KVR
 {
+    [System.Serializable]
+    public struct SerializedTransform
+    {
+        public Vector3 position;
+        public Vector3 rotation;
+    }
     public class Interactable : MonoBehaviour
     {
-
         public HandData hand;
-        [HideInInspector] public HandConstrains rightHandLimits;
-        [HideInInspector] public HandConstrains leftHandLimits;
 
         [Header("Events")]
         public HandEvent onHandHoverStart;
         public HandEvent onHandHoverEnd;
         public HandEvent onHandGrab;
         public HandEvent onHandRelease;
+
+        [HideInInspector] public HandConstrains rightHandLimits;
+        [HideInInspector] public HandConstrains leftHandLimits;
+        [HideInInspector] public SerializedTransform leftHandPivot;
+        [HideInInspector] public SerializedTransform rightHandPivot;
 
         private ConstrainedHandControllerStrategy left, right;
         private void OnEnable()
