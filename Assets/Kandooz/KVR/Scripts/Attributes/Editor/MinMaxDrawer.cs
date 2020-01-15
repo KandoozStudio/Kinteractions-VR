@@ -5,7 +5,7 @@ using UnityEditor;
 
 namespace Kandooz.KVR
 {
-    [CustomPropertyDrawer(typeof(FingerConstraiint))]
+    [CustomPropertyDrawer(typeof(FingerConstraints))]
     public class MinMaxDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

@@ -10,34 +10,48 @@ namespace Kandooz.KVR
         public VRInputManager inputManager;
         private HandType type;
         private HandAnimationController animationController;
-        private IHandControlerStrategy handControllerStrategy;
-        /// <summary>
-        /// Mainly for reducing garbage allocation
-        /// </summary>
-        private IHandControlerStrategy defaultControlStrategy;
-
+        private HandConstrains constraints;
         private new Collider []collider;
         private void Start()
         {
             type = GetComponent<HandTracker>().hand;
             collider = new Collider[1];
-            animationController=GetComponentInChildren<HandAnimationController>();
-            defaultControlStrategy=handControllerStrategy = new NormalHandControllerStrategy();
         }
         public void ResetHandControllerStrategy()
         {
-            handControllerStrategy = defaultControlStrategy;
+            constraints = HandConstrains.Free;
         }
-        public void SetHandControllerStrategy(IHandControlerStrategy strategy)
+        public void SetHandConstraints(HandConstrains constraints)
         {
-            if (strategy != null)
-            {
-                handControllerStrategy = strategy;
-            }
+            this.constraints = constraints;
         }
         private void Update()
         {
-            handControllerStrategy.UpdateHand(animationController,inputManager,type);
+            for (int i = 0; i < 5; i++)
+            {
+                var finger = (FingerName)i;
+                var value = inputManager.GetFingerValue(type, finger);
+                switch (finger)
+                {
+                    case FingerName.Thumb:
+                        value = Mathf.Clamp(constraints.thumbFingerLimits.x, constraints.thumbFingerLimits.y, value);
+                        break;
+                    case FingerName.Index:
+                        value = Mathf.Clamp(constraints.indexFingerLimits.x, constraints.indexFingerLimits.y, value);
+                        break;
+                    case FingerName.Middle:
+                        value = Mathf.Clamp(constraints.middleFingerLimits.x, constraints.middleFingerLimits.y, value);
+                        break;
+                    case FingerName.Ring:
+                        value = Mathf.Clamp(constraints.ringFingerLimits.x, constraints.ringFingerLimits.y, value);
+                        break;
+                    case FingerName.Pinky:
+                        value = Mathf.Clamp(constraints.pinkyFingerLimits.x, constraints.pinkyFingerLimits.y, value);
+                        break;
+                }
+                animationController[i] = value;
+            }
+
         }
     }
 }

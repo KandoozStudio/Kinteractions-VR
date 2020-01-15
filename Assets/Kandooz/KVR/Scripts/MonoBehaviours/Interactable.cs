@@ -24,14 +24,6 @@ namespace Kandooz.KVR
         [HideInInspector] public SerializedTransform leftHandPivot;
         [HideInInspector] public SerializedTransform rightHandPivot;
 
-        private ConstrainedHandControllerStrategy left, right;
-        private void OnEnable()
-        {
-            left = new ConstrainedHandControllerStrategy();
-            left.constraints = leftHandLimits;
-            right = new ConstrainedHandControllerStrategy();
-            right.constraints = rightHandLimits;
-        }
         public void OnHandHoverStart(HandController hand)
         {
             onHandHoverStart.Invoke(hand);
