@@ -157,7 +157,7 @@ namespace Kandooz.KVR
                         handMixer.SetInputWeight(1, 0);
                     }
                 }
-                var playableOutput = AnimationPlayableOutput.Create(graph, "Hand Controller", GetComponent<Animator>());
+                var playableOutput = AnimationPlayableOutput.Create(graph, "Hand Controller", GetComponentInChildren<Animator>());
                 playableOutput.SetSourcePlayable(handMixer);
                 initialized = true;
                 graph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
