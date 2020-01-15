@@ -5,9 +5,12 @@ namespace Kandooz.KVR
 {
     public class Interactable : MonoBehaviour
     {
+
         public HandData hand;
-        public HandConstrains rightHandLimits;
-        public HandConstrains leftHandLimits;
+        [HideInInspector] public HandConstrains rightHandLimits;
+        [HideInInspector] public HandConstrains leftHandLimits;
+
+        [Header("Events")]
         public HandEvent onHandHoverStart;
         public HandEvent onHandHoverEnd;
         public HandEvent onHandGrab;
@@ -20,7 +23,6 @@ namespace Kandooz.KVR
             left.constraints = leftHandLimits;
             right = new ConstrainedHandControllerStrategy();
             right.constraints = rightHandLimits;
-            
         }
         public void OnHandHoverStart(HandController hand)
         {

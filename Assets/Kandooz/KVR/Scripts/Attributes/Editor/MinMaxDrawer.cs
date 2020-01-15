@@ -3,83 +3,64 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomPropertyDrawer(typeof(MinMaxAttribute))]
-public class MinMaxDrawer : PropertyDrawer
+namespace Kandooz.KVR
 {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    [CustomPropertyDrawer(typeof(FingerConstraiint))]
+    public class MinMaxDrawer : PropertyDrawer
     {
-        // cast the attribute to make life easier
-        MinMaxAttribute minMax = attribute as MinMaxAttribute;
-
-        // This only works on a vector2! ignore on any other property type (we should probably draw an error message instead!)
-        if (property.propertyType == SerializedPropertyType.Vector2)
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            // if we are flagged to draw in a special mode, lets modify the drawing rectangle to draw only one line at a time
-            if (minMax.ShowDebugValues || minMax.ShowEditRange)
+            var pos = position;
+            pos.height = EditorGUIUtility.singleLineHeight;
+            EditorGUI.LabelField(pos, label);
+            EditorGUI.indentLevel++;
+            pos.y += EditorGUIUtility.singleLineHeight;
+            EditorGUI.PropertyField(pos, property.FindPropertyRelative("locked"));
+            pos.y += EditorGUIUtility.singleLineHeight;
+            pos.x = position.x;
+            pos.width = position.width;
+            if (property.FindPropertyRelative("locked").boolValue)
             {
-                position = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
+                DrawNormalSlider(pos, property);
             }
-
-            // pull out a bunch of helpful min/max values....
-            float minValue = property.vector2Value.x; // the currently set minimum and maximum value
-            float maxValue = property.vector2Value.y;
-            float minLimit = minMax.MinLimit; // the limit for both min and max, min cant go lower than minLimit and maax cant top maxLimit
-            float maxLimit = minMax.MaxLimit;
-
-            // and ask unity to draw them all nice for us!
-            EditorGUI.MinMaxSlider(position, label, ref minValue, ref maxValue, minLimit, maxLimit);
-
-            var vec = Vector2.zero; // save the results into the property!
-            vec.x = minValue;
-            vec.y = maxValue;
-
-            property.vector2Value = vec;
-
-            // Do we have a special mode flagged? time to draw lines!
-            if (minMax.ShowDebugValues || minMax.ShowEditRange)
+            else
             {
-                bool isEditable = false;
-                if (minMax.ShowEditRange)
-                {
-                    isEditable = true;
-                }
-
-                if (!isEditable)
-                    GUI.enabled = false; // if were just in debug mode and not edit mode, make sure all the UI is read only!
-
-                // move the draw rect on by one line
-                position.y += EditorGUIUtility.singleLineHeight;
-
-                Vector4 val = new Vector4(minLimit, minValue, maxValue, maxLimit); // shove the values and limits into a vector4 and draw them all at once
-                val = EditorGUI.Vector4Field(position, "MinLimit/MinVal/MaxVal/MaxLimit", val);
-
-                GUI.enabled = false; // the range part is always read only
-                position.y += EditorGUIUtility.singleLineHeight;
-                EditorGUI.FloatField(position, "Selected Range", maxValue - minValue);
-                GUI.enabled = true; // remember to make the UI editable again!
-
-                if (isEditable)
-                {
-                    property.vector2Value = new Vector2(val.y, val.z); // save off any change to the value~
-                }
+                DrawMinMaxSlider(pos, property);
             }
-        }
-    }
+            EditorGUI.indentLevel--;
 
-    // this method lets unity know how big to draw the property. We need to override this because it could end up meing more than one line big
-    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
-    {
-        MinMaxAttribute minMax = attribute as MinMaxAttribute;
-
-        // by default just return the standard line height
-        float size = EditorGUIUtility.singleLineHeight;
-
-        // if we have a special mode, add two extra lines!
-        if (minMax.ShowEditRange || minMax.ShowDebugValues)
-        {
-            size += EditorGUIUtility.singleLineHeight * 2;
         }
 
-        return size;
+        private void DrawMinMaxSlider(Rect position, SerializedProperty property)
+        {
+            var labelPosition = position;
+            labelPosition.x += position.width / 4 * 3 + 10;
+            labelPosition.width /= 4;
+            labelPosition.width -= 5;
+
+            var sliderPosition = position;
+            sliderPosition.width *= 3f / 4;
+            sliderPosition.width -= 5;
+            float minValue = property.FindPropertyRelative("x").floatValue;
+            float maxValue = property.FindPropertyRelative("y").floatValue;
+            float minLimit = 0;
+            float maxLimit = 1;
+            EditorGUI.MinMaxSlider(sliderPosition, "limits", ref minValue, ref maxValue, minLimit, maxLimit);
+            EditorGUI.LabelField(labelPosition, minValue.ToString("0.0") + " : " + maxValue.ToString("0.0")); ;
+
+            property.FindPropertyRelative("x").floatValue = minValue;
+            property.FindPropertyRelative("y").floatValue = maxValue;
+        }
+        private void DrawNormalSlider(Rect position, SerializedProperty property)
+        {
+            EditorGUI.PropertyField(position, property.FindPropertyRelative("x"),new GUIContent("value"));
+            property.FindPropertyRelative("y").floatValue = property.FindPropertyRelative("x").floatValue;
+        }
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            float size = EditorGUIUtility.singleLineHeight*3;
+            return size;
+        }
     }
 }
