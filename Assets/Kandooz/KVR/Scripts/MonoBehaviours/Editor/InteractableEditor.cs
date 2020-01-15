@@ -166,8 +166,5 @@ namespace Kandooz.KVR
                 }
             }
         }
-
-
-        
     }
 }
