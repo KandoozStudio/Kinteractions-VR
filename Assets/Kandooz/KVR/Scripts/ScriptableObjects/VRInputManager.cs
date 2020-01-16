@@ -58,7 +58,6 @@ namespace Kandooz.KVR
 
         public float GetFingerValue(HandType hand, FingerName finger)
         {
-            UpdateInput();// TODO : move this to a manager later
             var value = 0f;
             switch (type)
             {
