@@ -5,7 +5,8 @@ using UnityEngine.Events;
 
 namespace Kandooz.KVR
 {
-    public class HandEvent : UnityEvent<HandController>
+    [System.Serializable]
+    public class HandEvent : UnityEvent<HandInputManager>
     {
     }
 
