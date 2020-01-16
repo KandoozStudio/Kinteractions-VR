@@ -12,7 +12,7 @@ namespace Kandooz.KVR
     [System.Flags]
     public enum GrabbingButton
     {
-        Index =1,
+        Trigger =1,
         Grip=2
     }
     public class Interactable : MonoBehaviour
@@ -34,20 +34,19 @@ namespace Kandooz.KVR
 
         
 
-        public void OnHandHoverStart(HandInputManager hand)
+        public void OnHandHoverStart(Hand hand)
         {
             onHandHoverStart.Invoke(hand);
         }
-        public void OnHandHoverEnd(HandInputManager hand)
+        public void OnHandHoverEnd(Hand hand)
         {
             onHandHoverEnd.Invoke(hand);
         }
-
-        public void OnGrabStart(HandInputManager hand)
+        public void OnInteractionStart(Hand hand)
         {
             onHandGrab.Invoke(hand);
         }
-        public void OnRelease(HandInputManager hand)
+        public void OnInterActionEnd(Hand hand)
         {
             onHandRelease.Invoke(hand);
         }

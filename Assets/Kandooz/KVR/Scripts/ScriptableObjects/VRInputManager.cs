@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace Kandooz.KVR
@@ -33,6 +34,8 @@ namespace Kandooz.KVR
         [HideInInspector] [SerializeField] private string rightPinky = "KVR_right_pinky";
         [HideInInspector] [SerializeField] private string rightThumb = "KVR_right_thumb";
 
+
+
         public string LeftTrigger { get => leftTrigger; }
         public string LeftGrip { get => leftGrip; }
         public string LeftThumb { get => leftThumb; }
@@ -48,8 +51,14 @@ namespace Kandooz.KVR
         public string RightPinky { get => rightPinky;  }
         public string RightThumb { get => rightThumb; }
 
+        public bool RightGripDown { get => Input.GetButton(RightGrip); }
+        public bool RightTriggerDown { get => Input.GetButton(rightTrigger); }
+        public bool LeftGripDown { get => Input.GetButton(leftGrip); }
+        public bool LeftTriggerDown { get => Input.GetButton(LeftTrigger); }
+
         public float GetFingerValue(HandType hand, FingerName finger)
         {
+            UpdateInput();// TODO : move this to a manager later
             var value = 0f;
             switch (type)
             {
@@ -65,8 +74,6 @@ namespace Kandooz.KVR
             }
             return value;
         }
-
-
         private float GetNormalInput ( FingerName finger, HandType hand)
         {
             float value=0;
@@ -247,5 +254,7 @@ namespace Kandooz.KVR
             }
             return value;
         }
+
+
     }
 }
