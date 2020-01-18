@@ -17,7 +17,7 @@ namespace Kandooz.KVR
         public VRInputManager inputManager;
         public Vector3 colliderPosition=Vector3.zero;
         public float collisionRadius=.02f;
-        [HideInInspector]public HandConstrains defaultHandConstraints= HandConstrains.Free;
+        public HandConstrains defaultHandConstraints= HandConstrains.Free;
         
         [ReadOnly] [SerializeField] private bool interacting;
 
@@ -125,6 +125,7 @@ namespace Kandooz.KVR
 
         public void StartInteracting()
         {
+            Debug.Log("interaction started");
             interacting = true;
             interactable.OnInteractionStart(this);
             switch (hand)

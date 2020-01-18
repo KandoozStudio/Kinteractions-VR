@@ -42,7 +42,6 @@ namespace Kandooz.KVR
             Quaternion rotation;
             device.TryGetFeatureValue(CommonUsages.devicePosition, out position);
             device.TryGetFeatureValue(CommonUsages.deviceRotation, out rotation);
-
             this.transform.localPosition = position;
             this.transform.localRotation = rotation;
         }
@@ -55,19 +54,19 @@ namespace Kandooz.KVR
                 switch (finger)
                 {
                     case FingerName.Thumb:
-                        value = Mathf.Clamp(hand.Constraints.thumbFingerLimits.x, hand.Constraints.thumbFingerLimits.y, value);
+                        value = Mathf.Lerp(hand.Constraints.thumbFingerLimits.x, hand.Constraints.thumbFingerLimits.y, value);
                         break;
                     case FingerName.Index:
-                        value = Mathf.Clamp(hand.Constraints.indexFingerLimits.x, hand.Constraints.indexFingerLimits.y, value);
+                        value = Mathf.Lerp(hand.Constraints.indexFingerLimits.x, hand.Constraints.indexFingerLimits.y, value);
                         break;
                     case FingerName.Middle:
-                        value = Mathf.Clamp(hand.Constraints.middleFingerLimits.x, hand.Constraints.middleFingerLimits.y, value);
+                        value = Mathf.Lerp(hand.Constraints.middleFingerLimits.x, hand.Constraints.middleFingerLimits.y, value);
                         break;
                     case FingerName.Ring:
-                        value = Mathf.Clamp(hand.Constraints.ringFingerLimits.x, hand.Constraints.ringFingerLimits.y, value);
+                        value = Mathf.Lerp(hand.Constraints.ringFingerLimits.x, hand.Constraints.ringFingerLimits.y, value);
                         break;
                     case FingerName.Pinky:
-                        value = Mathf.Clamp(hand.Constraints.pinkyFingerLimits.x, hand.Constraints.pinkyFingerLimits.y, value);
+                        value = Mathf.Lerp(hand.Constraints.pinkyFingerLimits.x, hand.Constraints.pinkyFingerLimits.y, value);
                         break;
                 }
                 animationController[i] = value;
