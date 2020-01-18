@@ -15,10 +15,10 @@ namespace Kandooz.KVR
     {
         public HandType hand;
         public VRInputManager inputManager;
-        public Vector3 colliderPosition=Vector3.zero;
-        public float collisionRadius=.02f;
-        public HandConstrains defaultHandConstraints= HandConstrains.Free;
-        
+        public Vector3 colliderPosition = Vector3.zero;
+        public float collisionRadius = .02f;
+        public HandConstrains defaultHandConstraints = HandConstrains.Free;
+
         [ReadOnly] [SerializeField] private bool interacting;
 
         private HandConstrains constraints = HandConstrains.Free;
@@ -27,7 +27,7 @@ namespace Kandooz.KVR
         private Collider[] hoveredObject;
 
         #region properties
-        public HandConstrains Constraints { get => constraints;  }
+        public HandConstrains Constraints { get => constraints; }
         #endregion
 
         #region MonoBehaviour messages
@@ -93,34 +93,36 @@ namespace Kandooz.KVR
         }
         private void FixedUpdate()
         {
-            if (!interacting)
+            hoveredObject[0] = null;
+            Physics.OverlapSphereNonAlloc(this.transform.position + colliderPosition, collisionRadius * this.transform.lossyScale.magnitude, hoveredObject);
+            if (hoveredObject[0])
             {
-                Physics.OverlapSphereNonAlloc(this.transform.position + colliderPosition, collisionRadius * this.transform.lossyScale.magnitude, hoveredObject);
-                if (hoveredObject[0])
+                if (currentCollider != hoveredObject[0])
                 {
-                    if (currentCollider != hoveredObject[0])
+                    if (interactable)
                     {
-                        if (interactable)
-                        {
-                            interactable.OnHandHoverEnd(this);
-                        }
-                        interactable = hoveredObject[0].GetComponent<Interactable>();
-                        if (interactable)
-                        {
-                            interactable.OnHandHoverStart(this);
-                        }
-                        currentCollider = hoveredObject[0];
-                    }
-                }
-                else
-                {
-                    if(interactable)
                         interactable.OnHandHoverEnd(this);
-                    interactable = null;
-                    currentCollider = null;
+                    }
+                    interactable = hoveredObject[0].GetComponent<Interactable>();
+                    if (interactable)
+                    {
+                        interactable.OnHandHoverStart(this);
+                    }
+                    currentCollider = hoveredObject[0];
                 }
-
             }
+            else
+            {
+                
+                if (interactable)
+                {
+                    interactable.OnHandHoverEnd(this);
+                }
+                interactable = null;
+                currentCollider = null;
+            }
+            Debug.Log(hoveredObject[0]);
+
         }
         #endregion
 
