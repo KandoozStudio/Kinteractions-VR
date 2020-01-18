@@ -51,10 +51,10 @@ namespace Kandooz.KVR
         public string RightPinky { get => rightPinky;  }
         public string RightThumb { get => rightThumb; }
 
-        public bool RightGripDown { get => Input.GetButton(RightGrip); }
-        public bool RightTriggerDown { get => Input.GetButton(rightTrigger); }
-        public bool LeftGripDown { get => Input.GetButton(leftGrip); }
-        public bool LeftTriggerDown { get => Input.GetButton(LeftTrigger); }
+        public bool RightGripDown { get => Input.GetAxis(rightGrip)>0; }
+        public bool RightTriggerDown { get => Input.GetAxis(rightTrigger)>0; }
+        public bool LeftGripDown { get => Input.GetAxis(leftGrip)>0; }
+        public bool LeftTriggerDown { get => Input.GetAxis(LeftTrigger)>0; }
 
         public float GetFingerValue(HandType hand, FingerName finger)
         {

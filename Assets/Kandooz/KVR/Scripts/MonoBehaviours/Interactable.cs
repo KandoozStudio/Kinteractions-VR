@@ -9,11 +9,10 @@ namespace Kandooz.KVR
         public Vector3 position;
         public Vector3 rotation;
     }
-    [System.Flags]
     public enum GrabbingButton
     {
-        Trigger =1,
-        Grip=2
+        Trigger ,
+        Grip
     }
     public class Interactable : MonoBehaviour
     {

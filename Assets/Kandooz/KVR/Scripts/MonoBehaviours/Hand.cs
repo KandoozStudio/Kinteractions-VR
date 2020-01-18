@@ -49,6 +49,7 @@ namespace Kandooz.KVR
             {
                 if (interactable)
                 {
+
                     switch (hand)
                     {
                         case HandType.right:
@@ -125,7 +126,6 @@ namespace Kandooz.KVR
 
         public void StartInteracting()
         {
-            Debug.Log("interaction started");
             interacting = true;
             interactable.OnInteractionStart(this);
             switch (hand)
