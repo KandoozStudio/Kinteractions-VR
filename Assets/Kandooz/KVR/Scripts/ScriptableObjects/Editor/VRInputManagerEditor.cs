@@ -79,7 +79,6 @@ namespace Kandooz.KVR.Editors
             var serializedObject = new UnityEditor.SerializedObject(inputManagerAsset);
             var inputManagerCurrentData = serializedObject.FindProperty("m_Axes");
 
-
             /// this part is done in the most stuoid way possible but I couldn;t figure another way of doing it
             #region populating input 
             List<InputAxis> inputAxes = new List<InputAxis>();

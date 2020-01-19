@@ -22,8 +22,8 @@ namespace Kandooz.KVR
         [Header("Events")]
         public HandEvent onHandHoverStart;
         public HandEvent onHandHoverEnd;
-        public HandEvent onHandGrab;
-        public HandEvent onHandRelease;
+        public HandEvent onInteractionStart;
+        public HandEvent onInteractionEnd;
 
         [Header("Right Hand properties")]
         [HideInInspector] public HandConstrains rightHandLimits;
@@ -43,11 +43,11 @@ namespace Kandooz.KVR
         }
         public void OnInteractionStart(Hand hand)
         {
-            onHandGrab.Invoke(hand);
+            onInteractionStart.Invoke(hand);
         }
         public void OnInterActionEnd(Hand hand)
         {
-            onHandRelease.Invoke(hand);
+            onInteractionEnd.Invoke(hand);
         }
     }
 }

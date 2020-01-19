@@ -199,6 +199,8 @@ namespace Kandooz.KVR
         public void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
+            center = this.transform.TransformPoint(colliderPosition);
+
             Gizmos.DrawWireSphere(center, collisionRadius * transform.lossyScale.magnitude);
         }
     }

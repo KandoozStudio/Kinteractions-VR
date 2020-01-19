@@ -18,8 +18,8 @@ namespace Kandooz.KVR
             interactable = GetComponent<Interactable>();
             rigidBody = GetComponent<Rigidbody>();
             
-            interactable.onHandGrab .AddListener( OnInteractionStart);
-            interactable.onHandRelease .AddListener( OnInterActionEnd);
+            interactable.onInteractionStart .AddListener( OnInteractionStart);
+            interactable.onInteractionEnd .AddListener( OnInterActionEnd);
             
         }
         private void Update()

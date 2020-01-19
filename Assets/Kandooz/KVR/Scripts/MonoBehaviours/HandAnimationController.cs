@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
+
 namespace Kandooz.KVR
 {
     [System.Serializable]
@@ -36,7 +37,6 @@ namespace Kandooz.KVR
             fader.Value = value;
         }
     }
-    
     public class HandAnimationController : MonoBehaviour
     {
         #region private variables
@@ -103,8 +103,6 @@ namespace Kandooz.KVR
         {
             get { return initialized; }
         }
-
-        
 
         public float this[FingerName index]
         {
