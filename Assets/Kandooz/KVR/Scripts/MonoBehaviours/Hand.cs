@@ -25,7 +25,7 @@ namespace Kandooz.KVR
         private Interactable interactable;
         private Collider currentCollider;
         private Collider[] hoveredObject;
-
+        private Vector3 center;
         #region properties
         public HandConstrains Constraints { get => constraints; }
         #endregion
@@ -38,11 +38,49 @@ namespace Kandooz.KVR
         }
         private void Update()
         {
+            center = this.transform.TransformPoint(colliderPosition);
             if (interacting)
             {
                 if (interactable)
                 {
+                    switch (hand)
+                    {
+                        case HandType.right:
+                            if (interactable.interactionButton == GrabbingButton.Grip)
+                            {
+                                if (!inputManager.RightGripDown)
+                                {
+                                    StopInteracting();
+                                }
+                            }
+                            if (interactable.interactionButton == GrabbingButton.Trigger)
+                            {
+                                if (!inputManager.RightTriggerDown)
+                                {
+                                    StopInteracting();
+                                }
+                            }
+                            break;
+                        case HandType.left:
+                            if (interactable.interactionButton == GrabbingButton.Grip)
+                            {
+                                if (!inputManager.LeftGripDown)
+                                {
+                                    StopInteracting();
 
+                                }
+                            }
+                            if (interactable.interactionButton == GrabbingButton.Trigger)
+                            {
+                                if (!inputManager.LeftTriggerDown)
+                                {
+                                    StopInteracting();
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
             else
@@ -94,7 +132,7 @@ namespace Kandooz.KVR
         private void FixedUpdate()
         {
             hoveredObject[0] = null;
-            Physics.OverlapSphereNonAlloc(this.transform.position + colliderPosition, collisionRadius * this.transform.lossyScale.magnitude, hoveredObject);
+            Physics.OverlapSphereNonAlloc(center, collisionRadius * this.transform.lossyScale.magnitude, hoveredObject);
             if (hoveredObject[0])
             {
                 if (currentCollider != hoveredObject[0])
@@ -113,10 +151,10 @@ namespace Kandooz.KVR
             }
             else
             {
-                
                 if (interactable)
                 {
                     interactable.OnHandHoverEnd(this);
+                    SetDefaultConstraints();
                 }
                 interactable = null;
                 currentCollider = null;
@@ -146,6 +184,9 @@ namespace Kandooz.KVR
         {
             interactable.OnInterActionEnd(this);
             SetDefaultConstraints();
+            interacting = false;
+            interactable = null;
+            currentCollider = null;
         }
         public void SetHandConstraints(HandConstrains constraints)
         {
@@ -158,9 +199,7 @@ namespace Kandooz.KVR
         public void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(this.transform.position + colliderPosition, collisionRadius * transform.lossyScale.magnitude);
+            Gizmos.DrawWireSphere(center, collisionRadius * transform.lossyScale.magnitude);
         }
-
-
     }
 }

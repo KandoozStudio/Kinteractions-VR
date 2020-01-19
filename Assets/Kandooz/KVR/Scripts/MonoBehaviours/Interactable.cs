@@ -24,14 +24,14 @@ namespace Kandooz.KVR
         public HandEvent onHandHoverEnd;
         public HandEvent onHandGrab;
         public HandEvent onHandRelease;
+
         [Header("Right Hand properties")]
         [HideInInspector] public HandConstrains rightHandLimits;
+        [HideInInspector] public SerializedTransform rightHandPivot;
+
         [Header("Left Hand properties")]
         [HideInInspector] public HandConstrains leftHandLimits;
         [HideInInspector] public SerializedTransform leftHandPivot;
-        [HideInInspector] public SerializedTransform rightHandPivot;
-
-        
 
         public void OnHandHoverStart(Hand hand)
         {
