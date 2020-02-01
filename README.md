@@ -1,8 +1,9 @@
 # What is KVR?
 
-KVR is a VR interaction system that is made to accompany Kandooz Vr hand assets
-it consists mainly of two parts
-
+KVR is a VR interaction system/ Hand controller we use at kandooz studio, the philosiphy behind KVR is 
+ - Keep it simple ( should only drag monobehaviours to make things work)
+ - everything should be unity based ( should use only unity APIs)
+ - Cross platform ( it shoud work no matter the platform)
 Animation controller
 ---
 the animation controller is the core part of KVR assets it's designed from the ground up using the playable API, to support independent finger movement and custom poses.

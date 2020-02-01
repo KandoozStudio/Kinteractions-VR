@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.XR;
+using UnityEngine.Animations;
 
 namespace Kandooz.KVR
 {
@@ -9,18 +10,19 @@ namespace Kandooz.KVR
     public class Throwable : MonoBehaviour
     {
         private Interactable interactable;
-        private  Rigidbody rigidBody;
-        private bool grabbed=false;
+        private Rigidbody rigidBody;
+        private bool grabbed = false;
         InputDevice device;
-
+        Vector3 targetPosition;
+        Vector3 targetROtation;
         void Start()
         {
             interactable = GetComponent<Interactable>();
             rigidBody = GetComponent<Rigidbody>();
-            
-            interactable.onInteractionStart .AddListener( OnInteractionStart);
-            interactable.onInteractionEnd .AddListener( OnInterActionEnd);
-            
+
+            interactable.onInteractionStart.AddListener(OnInteractionStart);
+            interactable.onInteractionEnd.AddListener(OnInterActionEnd);
+            rigidBody = GetComponent<Rigidbody>();
         }
         private void Update()
         {
@@ -29,13 +31,18 @@ namespace Kandooz.KVR
             device.TryGetFeatureValue(CommonUsages.deviceVelocity, out velocity);
             device.TryGetFeatureValue(CommonUsages.deviceAngularVelocity, out angularVelocity);
             Debug.Log(velocity);
-        }
 
+        }
+        private void FixedUpdate()
+        {
+            if (grabbed)
+                this.rigidBody.position = this.transform.parent.TransformPoint(targetPosition);
+        }
         public void OnInteractionStart(Hand hand)
         {
-            grabbed = true;
-            rigidBody.isKinematic = true;
-            StartCoroutine(LerpToHand(hand.transform,.2f));
+            rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+
+            StartCoroutine(LerpToHand(hand, .05f));
             switch (hand.hand)
             {
                 case HandType.right:
@@ -52,20 +59,34 @@ namespace Kandooz.KVR
         {
             this.transform.parent = null;
             rigidBody.isKinematic = false;
+            rigidBody.constraints = RigidbodyConstraints.None;
             grabbed = false;
-            Vector3 velocity;
-            Vector3 angularVelocity;
-            device.TryGetFeatureValue(CommonUsages.deviceVelocity, out velocity);
-            device.TryGetFeatureValue(CommonUsages.deviceAngularVelocity, out angularVelocity);
-            this.rigidBody.velocity = velocity;
-            this.rigidBody.angularVelocity = angularVelocity;
+
         }
 
-        IEnumerator LerpToHand(Transform hand,float time)
+        IEnumerator LerpToHand(Hand hand, float time)
         {
-            var targetPosition =-interactable.rightHandPivot.position;
-            var targetRotation = Quaternion.Euler(interactable.rightHandPivot.rotation);
-            this.transform.parent = hand;
+            var obj = new GameObject().transform;
+            obj.parent = this.transform;
+            switch (hand.hand)
+            {
+                case HandType.right:
+                    obj.transform.localPosition = interactable.rightHandPivot.position;
+                    obj.transform.localRotation = Quaternion.Euler(interactable.rightHandPivot.rotation);
+                    break;
+                case HandType.left:
+                    obj.transform.localPosition = interactable.leftHandPivot.position;
+                    obj.transform.localRotation = Quaternion.Euler(interactable.leftHandPivot.rotation);
+                    break;
+                default:
+                    break;
+            }
+            obj.parent = null;
+            this.transform.parent = obj;
+            targetPosition = this.transform.localPosition;
+            var targetRotation = this.transform.localRotation;
+            Destroy(obj.gameObject);
+            this.transform.parent = hand.transform;
 
             float t = 0;
             time = 1 / time;
@@ -73,10 +94,14 @@ namespace Kandooz.KVR
             {
                 t += time * Time.deltaTime;
                 this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, targetPosition, t);
-                this.transform.localRotation = Quaternion.Lerp(this.transform.localRotation, Quaternion.Euler(interactable.rightHandPivot.rotation), t);
+                this.transform.localRotation = Quaternion.Lerp(this.transform.localRotation, targetRotation, t);
                 yield return null;
             }
+            this.transform.localPosition = targetPosition;
+            this.transform.localRotation = targetRotation;
             Debug.Log("done");
+            Debug.Log(targetPosition);
+            grabbed = true;
         }
     }
 }

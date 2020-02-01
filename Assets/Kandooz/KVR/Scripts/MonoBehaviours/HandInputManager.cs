@@ -16,6 +16,7 @@ namespace Kandooz.KVR
         InputDevice device;
         private void Start()
         {
+            
             animationController = GetComponent<HandAnimationController>();
             hand = GetComponent<Hand>();
             switch (hand.hand)

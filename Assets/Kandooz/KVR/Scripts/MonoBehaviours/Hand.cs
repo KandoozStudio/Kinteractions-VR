@@ -17,7 +17,7 @@ namespace Kandooz.KVR
         public VRInputManager inputManager;
         public Vector3 colliderPosition = Vector3.zero;
         public float collisionRadius = .02f;
-        public HandConstrains defaultHandConstraints = HandConstrains.Free;
+        [HideInInspector]public HandConstrains defaultHandConstraints = HandConstrains.Free;
 
         [ReadOnly] [SerializeField] private bool interacting;
 

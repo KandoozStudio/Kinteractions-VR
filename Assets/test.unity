@@ -333,10 +333,10 @@ MonoBehaviour:
   onHandHoverEnd:
     m_PersistentCalls:
       m_Calls: []
-  onHandGrab:
+  onInteractionStart:
     m_PersistentCalls:
       m_Calls: []
-  onHandRelease:
+  onInteractionEnd:
     m_PersistentCalls:
       m_Calls: []
   rightHandLimits:
@@ -607,7 +607,7 @@ PrefabInstance:
     - target: {fileID: 3148661018026931809, guid: 456ae4d471095b9489aa3479f9ae7034,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.1118
       objectReference: {fileID: 0}
     - target: {fileID: 3657695881682892775, guid: 456ae4d471095b9489aa3479f9ae7034,
         type: 3}
