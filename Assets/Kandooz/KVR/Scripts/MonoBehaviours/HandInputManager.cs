@@ -36,7 +36,6 @@ namespace Kandooz.KVR
             UpdateFingers();
             UpdateHandTransform();
         }
-        
         private void UpdateHandTransform()
         {
             Vector3 position;
