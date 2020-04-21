@@ -68,10 +68,10 @@ namespace Kandooz.KVR.Editors
 
             if(GUILayout.Button("Seed Axis"))
             {
-                SeedInputs();
+                SeedInputs(manager);
             }
         }
-        public void SeedInputs()
+        public static void SeedInputs(VRInputManager manager)
         {
 
             var axisList = new List<InputAxis>();
@@ -231,7 +231,7 @@ namespace Kandooz.KVR.Editors
             serializedObject.ApplyModifiedProperties();
 
         }
-        private void AddAxe(InputAxis axe, ref UnityEditor.SerializedProperty currentList)
+        private static void AddAxe(InputAxis axe, ref UnityEditor.SerializedProperty currentList)
         {
             var index = currentList.arraySize++;
             var newItem = currentList.GetArrayElementAtIndex(index);
@@ -291,7 +291,7 @@ namespace Kandooz.KVR.Editors
             } while (iteratorProperty.Next(false));
 
         }
-        private bool ElementExsists(string name, UnityEditor.SerializedProperty currentList)
+        private static  bool ElementExsists(string name, UnityEditor.SerializedProperty currentList)
         {
             bool elementExsist = false;
 
