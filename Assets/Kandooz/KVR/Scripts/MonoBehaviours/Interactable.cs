@@ -16,7 +16,7 @@ namespace Kandooz.KVR
     }
     public class Interactable : MonoBehaviour
     {
-        public HandData hand;
+        public HandData handData;
         public GrabbingButton interactionButton;
 
         [Header("Events")]

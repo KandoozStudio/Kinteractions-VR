@@ -294,7 +294,7 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: XRI_Left_Trigger
+    m_Name: KVR_left_trigger
     descriptiveName: Device trigger axis
     descriptiveNegativeName: 
     negativeButton: 
@@ -310,7 +310,7 @@ InputManager:
     axis: 8
     joyNum: 0
   - serializedVersion: 3
-    m_Name: XRI_Left_Grip
+    m_Name: KVR_left_grip
     descriptiveName: Device grip axis
     descriptiveNegativeName: 
     negativeButton: 
@@ -326,7 +326,7 @@ InputManager:
     axis: 10
     joyNum: 0
   - serializedVersion: 3
-    m_Name: XRI_Left_Thumbrest
+    m_Name: KVR_left_thumb
     descriptiveName: Device thumb proximity touch axis
     descriptiveNegativeName: 
     negativeButton: 
@@ -342,7 +342,7 @@ InputManager:
     axis: 14
     joyNum: 0
   - serializedVersion: 3
-    m_Name: XRI_Right_Trigger
+    m_Name: KVR_right_trigger
     descriptiveName: Device trigger axis
     descriptiveNegativeName: 
     negativeButton: 
@@ -358,7 +358,7 @@ InputManager:
     axis: 9
     joyNum: 0
   - serializedVersion: 3
-    m_Name: XRI_Right_Grip
+    m_Name: KVR_right_grip
     descriptiveName: Device grip axis
     descriptiveNegativeName: 
     negativeButton: 
@@ -374,7 +374,7 @@ InputManager:
     axis: 11
     joyNum: 0
   - serializedVersion: 3
-    m_Name: XRI_Right_Thumbrest
+    m_Name: KVR_right_thumb
     descriptiveName: Device thumb proximity touch axis
     descriptiveNegativeName: 
     negativeButton: 
