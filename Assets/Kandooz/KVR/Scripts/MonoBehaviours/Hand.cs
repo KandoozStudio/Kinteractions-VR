@@ -53,7 +53,7 @@ namespace Kandooz.KVR
                                     StopInteracting();
                                 }
                             }
-                            if (interactable.interactionButton == GrabbingButton.Trigger)
+                            else if (interactable.interactionButton == GrabbingButton.Trigger)
                             {
                                 if (!inputManager.RightTriggerDown)
                                 {

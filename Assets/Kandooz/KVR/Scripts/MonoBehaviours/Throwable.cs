@@ -14,7 +14,25 @@ namespace Kandooz.KVR
         private bool grabbed = false;
         InputDevice device;
         Vector3 targetPosition;
-        Vector3 targetROtation;
+        Vector3 targetRotation;
+        Vector3 Velocity { get {
+                var mag = 0f;
+                int maxi = 0;
+                for (int i = 0; i < velocites.Length; i++)
+                {
+                    if (velocites[i].sqrMagnitude > mag)
+                    {
+                        mag = velocites[i].sqrMagnitude;
+                        maxi = i;
+                    }
+                }
+                return velocites[maxi] ; 
+            
+            } }
+        Vector3 AngularVelocity{get{ return Vector3.zero; } }
+        Vector3 []velocites ;
+        Vector3[] aVelocites;
+        Coroutine updateVelocitiesCorutine;
         void Start()
         {
             interactable = GetComponent<Interactable>();
@@ -23,21 +41,26 @@ namespace Kandooz.KVR
             interactable.onInteractionStart.AddListener(OnInteractionStart);
             interactable.onInteractionEnd.AddListener(OnInterActionEnd);
             rigidBody = GetComponent<Rigidbody>();
+            velocites = new Vector3[10];
+            aVelocites = new Vector3[10];
         }
-        private void Update()
+        private IEnumerator UpdateVelocity()
         {
             Vector3 velocity;
             Vector3 angularVelocity;
-            device.TryGetFeatureValue(CommonUsages.deviceVelocity, out velocity);
-            device.TryGetFeatureValue(CommonUsages.deviceAngularVelocity, out angularVelocity);
-            Debug.Log(velocity);
+            int i = 0;
+            while (true)
+            {
+                device.TryGetFeatureValue(CommonUsages.deviceVelocity, out velocity);
+                device.TryGetFeatureValue(CommonUsages.deviceAngularVelocity, out angularVelocity);
+                velocites[i] = velocity;
+                aVelocites[i] = angularVelocity;
+                i++;
+                i = i % velocites.Length;
+                yield return null;
+            }
+        }
 
-        }
-        private void FixedUpdate()
-        {
-            if (grabbed)
-                this.rigidBody.position = this.transform.parent.TransformPoint(targetPosition);
-        }
         public void OnInteractionStart(Hand hand)
         {
             rigidBody.constraints = RigidbodyConstraints.FreezeAll;
@@ -54,14 +77,19 @@ namespace Kandooz.KVR
                 default:
                     break;
             }
+            updateVelocitiesCorutine=StartCoroutine(UpdateVelocity());
         }
         public void OnInterActionEnd(Hand hand)
         {
-            this.transform.parent = null;
+            rigidBody.transform.parent = null;
             rigidBody.isKinematic = false;
             rigidBody.constraints = RigidbodyConstraints.None;
             grabbed = false;
-
+            rigidBody.velocity = Velocity;
+            rigidBody.position += rigidBody.velocity * Time.deltaTime;
+            rigidBody.angularVelocity = AngularVelocity;
+            StopCoroutine(updateVelocitiesCorutine);
+            this.enabled = true;
         }
 
         IEnumerator LerpToHand(Hand hand, float time)
@@ -99,8 +127,6 @@ namespace Kandooz.KVR
             }
             this.transform.localPosition = targetPosition;
             this.transform.localRotation = targetRotation;
-            Debug.Log("done");
-            Debug.Log(targetPosition);
             grabbed = true;
         }
     }
