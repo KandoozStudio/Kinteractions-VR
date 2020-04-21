@@ -126,11 +126,11 @@ namespace Kandooz.KVR
                 case FingerName.Index:
                     if (hand == HandType.left)
                     {
-                        value = Input.GetAxis(LeftIndex);
+                        value = Input.GetAxis(leftTrigger);
                     }
                     else
                     {
-                        value = Input.GetAxis(RightIndex);
+                        value = Input.GetAxis(RightTrigger);
                     }
                     break;
 
