@@ -1,0 +1,3 @@
+[submodule "Assets/Staging"]
+	path = Assets/Staging
+	url = git@github.com:KandoozStudio/Hands.git
