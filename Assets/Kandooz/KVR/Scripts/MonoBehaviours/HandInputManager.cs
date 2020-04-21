@@ -14,6 +14,9 @@ namespace Kandooz.KVR
         private HandAnimationController animationController;
         private Hand hand;
         InputDevice device;
+        private void Awake()
+        {
+        }
         private void Start()
         {
             

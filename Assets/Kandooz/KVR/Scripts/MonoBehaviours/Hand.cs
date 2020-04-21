@@ -159,7 +159,7 @@ namespace Kandooz.KVR
                 interactable = null;
                 currentCollider = null;
             }
-            Debug.Log(hoveredObject[0]);
+
 
         }
         #endregion

@@ -6,10 +6,6 @@ using UnityEngine.XR;
 using UnityEngine.XR;
 using UnityEngine.SpatialTracking;
 #endif
-public enum HandType
-{
-    right, left
-}
 
 namespace Kandooz.KVR
 {

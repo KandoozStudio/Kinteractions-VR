@@ -7,23 +7,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9436547a95fffa546b2315812cf97ee2, type: 3}
   m_Name: Input
-  m_EditorClassIdentifier: Assembly-CSharp:Kandooz.KVR:InputManager
+  m_EditorClassIdentifier: 
   type: 0
-  leftTrigger: XRI_Left_Trigger
-  leftGrip: XRI_Left_Grip
-  leftThumb: XRI_Left_Thumbrest
-  leftIndex: XRI_Left_Trigger
-  leftMiddle: XRI_Left_Grip
-  leftRing: XRI_Left_Grip
-  leftPinky: XRI_Left_Grip
-  rightTrigger: XRI_Right_Trigger
-  rightGrip: XRI_Right_Grip
-  rightIndex: XRI_Right_Trigger
-  rightMiddle: XRI_Right_Grip
-  rightRing: XRI_Right_Grip
-  rightPinky: XRI_Right_Grip
-  rightThumb: XRI_Right_Thumbrest
+  leftTrigger: KVR_left_trigger
+  leftGrip: KVR_left_grip
+  leftThumb: KVR_left_thumb
+  leftIndex: KVR_left_index
+  leftMiddle: KVR_left_middle
+  leftRing: KVR_left_ring
+  leftPinky: KVR_left_pinky
+  rightTrigger: KVR_right_trigger
+  rightGrip: KVR_right_grip
+  rightIndex: KVR_right_index
+  rightMiddle: KVR_right_middle
+  rightRing: KVR_right_ring
+  rightPinky: KVR_right_pinky
+  rightThumb: KVR_right_thumb
