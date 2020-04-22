@@ -191,7 +191,14 @@ namespace Kandooz.KVR
 
             for (int i = 0; i < poses.Count; i++)
             {
-                poseMixer.SetInputWeight(i, poses[i].Weight);
+                try
+                {
+                    poseMixer.SetInputWeight(i, poses[i].Weight);
+                }
+                catch
+                {
+                    poses.RemoveAt(i);
+                }
             }
         }
     }

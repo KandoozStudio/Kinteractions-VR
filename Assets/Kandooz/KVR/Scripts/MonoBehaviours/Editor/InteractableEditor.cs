@@ -53,7 +53,7 @@ namespace Kandooz.KVR
             currentHand = HandtoEdit.none;
         }
 
-        
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -68,6 +68,10 @@ namespace Kandooz.KVR
                     }
                     else
                     {
+                        if (visibleHand)
+                        {
+                            DestroyImmediate(visibleHand.gameObject);
+                        }
                         currentHand = HandtoEdit.right;
                     }
                 }
@@ -79,6 +83,11 @@ namespace Kandooz.KVR
                     }
                     else
                     {
+                        if (visibleHand)
+                        {
+                            DestroyImmediate(visibleHand.gameObject);
+                        }
+
                         currentHand = HandtoEdit.left;
                     }
                 }
