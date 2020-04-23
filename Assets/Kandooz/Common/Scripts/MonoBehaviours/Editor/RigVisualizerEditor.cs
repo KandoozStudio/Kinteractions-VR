@@ -34,7 +34,6 @@ namespace Kandooz.Common
                 EditorGUI.BeginChangeCheck();
                 var deltaRotation = Handles.DoRotationHandle(visualizer.transform.rotation, RigVisualizer.selected.transform.position);
                 deltaRotation *= Quaternion.Inverse(visualizer.transform.rotation);
-                Debug.Log(deltaRotation.eulerAngles);
                 RigVisualizer.selected.transform.localRotation *= deltaRotation;
                 if (EditorGUI.EndChangeCheck())
                 {

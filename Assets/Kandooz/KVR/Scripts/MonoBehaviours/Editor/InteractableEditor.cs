@@ -18,6 +18,8 @@ namespace Kandooz.KVR
 
         private void OnEnable()
         {
+            Tools.hidden = false;
+
             interactable = (Interactable)target;
             EditorApplication.update += Update;
             if (visibleHand)
@@ -45,19 +47,62 @@ namespace Kandooz.KVR
             if (visibleHand)
                 GameObject.DestroyImmediate(visibleHand.gameObject);
             currentHand = HandtoEdit.none;
+            Tools.hidden = false;
+
         }
         private void OnDestroy()
         {
             if (visibleHand)
                 GameObject.DestroyImmediate(visibleHand.gameObject);
             currentHand = HandtoEdit.none;
+            Tools.hidden = false;
+
         }
 
+        private void OnSceneGUI()
+        {
+            if (visibleHand)
+            {
+                Tools.hidden = true;
+                EditorGUI.BeginChangeCheck();
+
+                var deltaRotation = Handles.DoRotationHandle(visibleHand.transform.localRotation, visibleHand.transform.position);
+                var deltaPosition = Handles.PositionHandle(visibleHand.transform.position, visibleHand.transform.localRotation);
+                Debug.Log(deltaRotation.eulerAngles);
+                visibleHand.transform.position= deltaPosition;
+                visibleHand.transform.localRotation = deltaRotation;
+                switch (currentHand)
+                {
+                    case HandtoEdit.none:
+                        break;
+                    case HandtoEdit.right:
+                        interactable.rightHandPivot.position = visibleHand.transform.localPosition;
+                        interactable.rightHandPivot.rotation = visibleHand.transform.localEulerAngles;
+                        break;
+                    case HandtoEdit.left:
+                        interactable.leftHandPivot.position = visibleHand.transform.localPosition;
+                        interactable.leftHandPivot.rotation = visibleHand.transform.localEulerAngles;
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                Tools.hidden = false;
+            }
+        }
 
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            if (interactable.handData)
+            if (Application.isPlaying)
+            {
+                if(visibleHand)
+                    DestroyImmediate(visibleHand);
+            }
+            else if (interactable.handData)
             {
                 EditorGUILayout.BeginHorizontal();
                 if (GUILayout.Button("Edit Right hand"))
