@@ -48,6 +48,7 @@ namespace Kandooz.KVR
         }
         public void OnInterActionEnd(Hand hand)
         {
+            InterActedWith = false;
             onInteractionEnd.Invoke(hand);
         }
     }
