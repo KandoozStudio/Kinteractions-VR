@@ -70,7 +70,7 @@ namespace Kandooz.KVR
 
                                 }
                             }
-                            if (interactable.interactionButton == GrabbingButton.Trigger)
+                            else if (interactable.interactionButton == GrabbingButton.Trigger)
                             {
                                 if (!inputManager.LeftTriggerDown)
                                 {
@@ -98,7 +98,7 @@ namespace Kandooz.KVR
                                     StartInteracting();
                                 }
                             }
-                            if (interactable.interactionButton == GrabbingButton.Trigger)
+                            else if (interactable.interactionButton == GrabbingButton.Trigger)
                             {
                                 if (inputManager.RightTriggerDown)
                                 {
@@ -115,7 +115,7 @@ namespace Kandooz.KVR
 
                                 }
                             }
-                            if (interactable.interactionButton == GrabbingButton.Trigger)
+                            else if (interactable.interactionButton == GrabbingButton.Trigger)
                             {
                                 if (inputManager.LeftTriggerDown)
                                 {
@@ -163,21 +163,24 @@ namespace Kandooz.KVR
 
         }
         #endregion
-
         public void StartInteracting()
         {
-            interacting = true;
-            interactable.OnInteractionStart(this);
-            switch (hand)
+            if (!interactable.InterActedWith)
             {
-                case HandType.right:
-                    SetHandConstraints(interactable.rightHandLimits);
-                    break;
-                case HandType.left:
-                    SetHandConstraints(interactable.leftHandLimits);
-                    break;
-                default:
-                    break;
+                interacting = true;
+                interactable.OnInteractionStart(this);
+                interactable.InterActedWith = true;
+                switch (hand)
+                {
+                    case HandType.right:
+                        SetHandConstraints(interactable.rightHandLimits);
+                        break;
+                    case HandType.left:
+                        SetHandConstraints(interactable.leftHandLimits);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         public void StopInteracting()
@@ -187,6 +190,7 @@ namespace Kandooz.KVR
             interacting = false;
             interactable = null;
             currentCollider = null;
+            interactable.InterActedWith = false;
         }
         public void SetHandConstraints(HandConstrains constraints)
         {

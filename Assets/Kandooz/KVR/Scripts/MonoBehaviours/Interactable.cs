@@ -24,7 +24,6 @@ namespace Kandooz.KVR
         public HandEvent onHandHoverEnd;
         public HandEvent onInteractionStart;
         public HandEvent onInteractionEnd;
-
         [Header("Right Hand properties")]
         [HideInInspector] public HandConstrains rightHandLimits;
         [HideInInspector] public SerializedTransform rightHandPivot;
@@ -32,6 +31,8 @@ namespace Kandooz.KVR
         [Header("Left Hand properties")]
         [HideInInspector] public HandConstrains leftHandLimits;
         [HideInInspector] public SerializedTransform leftHandPivot;
+
+        public bool InterActedWith { get; set; }
 
         public void OnHandHoverStart(Hand hand)
         {
