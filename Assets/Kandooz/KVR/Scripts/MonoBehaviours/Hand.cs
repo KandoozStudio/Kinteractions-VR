@@ -134,24 +134,28 @@ namespace Kandooz.KVR
         }
         private void FixedUpdate()
         {
-            hoveredObject[0] = null;
-            Physics.OverlapSphereNonAlloc(center, collisionRadius * this.transform.lossyScale.magnitude, hoveredObject, interactingLayers);
-            if (hoveredObject[0])
-            {
-                if (currentCollider != hoveredObject[0])
+            //if (!interacting) 
+            //{
+                hoveredObject[0] = null;
+                Physics.OverlapSphereNonAlloc(center, collisionRadius * this.transform.lossyScale.magnitude, hoveredObject, interactingLayers);
+                if (hoveredObject[0])
                 {
-                    if (interactable)
+                    if (currentCollider != hoveredObject[0])
                     {
-                        interactable.OnHandHoverEnd(this);
+                        if (interactable)
+                        {
+                            interactable.OnHandHoverEnd(this);
+                        }
+                        interactable = hoveredObject[0].GetComponent<Interactable>();
+                        if (interactable)
+                        {
+                            interactable.OnHandHoverStart(this);
+                        }
+                        currentCollider = hoveredObject[0];
                     }
-                    interactable = hoveredObject[0].GetComponent<Interactable>();
-                    if (interactable)
-                    {
-                        interactable.OnHandHoverStart(this);
-                    }
-                    currentCollider = hoveredObject[0];
                 }
-            }
+            //}
+            
             else
             {
                 if (interactable)
