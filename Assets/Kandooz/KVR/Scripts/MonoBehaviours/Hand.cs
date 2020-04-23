@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using Kandooz.Common;
+using UnityEngine.Assertions;
+
 public enum HandType
 {
     right, left
@@ -16,7 +18,8 @@ namespace Kandooz.KVR
         public HandType hand;
         public VRInputManager inputManager;
         public Vector3 colliderPosition = Vector3.zero;
-        public float collisionRadius = .02f;
+        public float collisionRadius = .1f;
+        public LayerMask interactingLayers=255;
         [HideInInspector]public HandConstrains defaultHandConstraints = HandConstrains.Free;
 
         [ReadOnly] [SerializeField] private bool interacting;
@@ -132,7 +135,7 @@ namespace Kandooz.KVR
         private void FixedUpdate()
         {
             hoveredObject[0] = null;
-            Physics.OverlapSphereNonAlloc(center, collisionRadius * this.transform.lossyScale.magnitude, hoveredObject);
+            Physics.OverlapSphereNonAlloc(center, collisionRadius * this.transform.lossyScale.magnitude, hoveredObject, interactingLayers);
             if (hoveredObject[0])
             {
                 if (currentCollider != hoveredObject[0])
@@ -165,11 +168,9 @@ namespace Kandooz.KVR
         #endregion
         public void StartInteracting()
         {
-            if (!interactable.InterActedWith)
+            if (interactable.OnInteractionStart(this))
             {
                 interacting = true;
-                interactable.OnInteractionStart(this);
-                interactable.InterActedWith = true;
                 switch (hand)
                 {
                     case HandType.right:
@@ -185,12 +186,12 @@ namespace Kandooz.KVR
         }
         public void StopInteracting()
         {
-            interactable.OnInterActionEnd(this);
+            Assert.IsNotNull(interactable, "function called with null interactable");
             SetDefaultConstraints();
             interacting = false;
-            interactable = null;
             currentCollider = null;
-            interactable.InterActedWith = false;
+            interactable.OnInterActionEnd(this);
+            interactable = null;
         }
         public void SetHandConstraints(HandConstrains constraints)
         {

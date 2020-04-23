@@ -32,7 +32,7 @@ namespace Kandooz.KVR
         [HideInInspector] public HandConstrains leftHandLimits;
         [HideInInspector] public SerializedTransform leftHandPivot;
 
-        public bool InterActedWith { get; set; }
+        public bool InteractedWith { get; set; }
 
         public void OnHandHoverStart(Hand hand)
         {
@@ -42,13 +42,24 @@ namespace Kandooz.KVR
         {
             onHandHoverEnd.Invoke(hand);
         }
-        public void OnInteractionStart(Hand hand)
+        public bool OnInteractionStart(Hand hand)
         {
-            onInteractionStart.Invoke(hand);
+            if (!InteractedWith)
+            {
+                onInteractionStart.Invoke(hand);
+                InteractedWith = true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        public void OnInterActionEnd(Hand hand)
+        public bool OnInterActionEnd(Hand hand)
         {
+            InteractedWith = false;
             onInteractionEnd.Invoke(hand);
+            return true;
         }
     }
 }
