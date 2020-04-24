@@ -68,7 +68,6 @@ namespace Kandooz.KVR
 
                 var deltaRotation = Handles.DoRotationHandle(visibleHand.transform.localRotation, visibleHand.transform.position);
                 var deltaPosition = Handles.PositionHandle(visibleHand.transform.position, visibleHand.transform.localRotation);
-                Debug.Log(deltaRotation.eulerAngles);
                 visibleHand.transform.position= deltaPosition;
                 visibleHand.transform.localRotation = deltaRotation;
                 switch (currentHand)
@@ -164,6 +163,7 @@ namespace Kandooz.KVR
                     }
                     EditorGUILayout.EndVertical();
                     EditorGUI.indentLevel--;
+                    serializedObject.ApplyModifiedProperties();
                     HandPositionSceneEditor(currentHand);
                 }
                 else
