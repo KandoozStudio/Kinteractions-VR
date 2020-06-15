@@ -182,11 +182,6 @@ namespace Kandooz.KVR
         }
         public void Update()
         {
-            if (!EditorApplication.isPlaying)
-            {
-                //graph.SetTimeUpdateMode(UnityEngine.Playables.DirectorUpdateMode.Manual);
-                graph.Evaluate();
-            }
             graph.Evaluate();
 
             for (int i = 0; i < poses.Count; i++)
