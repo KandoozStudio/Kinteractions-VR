@@ -1,3 +1,4 @@
-[submodule "Assets/Staging"]
-	path = Assets/Staging
+
+[submodule "Assets/Kandooz/Hands"]
+	path = Assets/Kandooz/Hands
 	url = git@github.com:KandoozStudio/Hands.git
