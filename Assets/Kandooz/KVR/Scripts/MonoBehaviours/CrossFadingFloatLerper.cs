@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Kandooz.Common {
+namespace Kandooz.KVR {
     public class CrossFadingFloat
     {
         public event Action<float> onChange;
         private float start;
         private float target;
         private float value;
-        private float rate;
+        private readonly float rate;
         private float t;
         public float Value
         {

@@ -7,36 +7,7 @@ using UnityEngine.Playables;
 
 namespace Kandooz.KVR
 {
-    [System.Serializable]
-    public class Pose
-    {
-        public AnimationClipPlayable playable;
-        public AnimationClip clip;
-        private float weight;
-        private CrossFadingFloat fader;
 
-        public float Weight
-        {
-            get
-            {
-                return weight;
-            }
-        }
-
-        public void SetWeight(float value)
-        {
-            if (fader == null)
-            {
-                var that = this;
-                fader = new CrossFadingFloat();
-                fader.onChange += (v) =>
-                {
-                    that.weight = v;
-                };
-            }
-            fader.Value = value;
-        }
-    }
     public class HandAnimationController : MonoBehaviour
     {
         #region private variables

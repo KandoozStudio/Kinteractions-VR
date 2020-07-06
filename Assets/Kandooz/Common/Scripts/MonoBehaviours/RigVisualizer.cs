@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace Kandooz.Common
+namespace Kandooz
 {
     
     public class RigVisualizer : MonoBehaviour
