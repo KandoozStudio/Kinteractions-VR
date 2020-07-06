@@ -12,6 +12,7 @@ namespace Kandooz.KVR {
         private float value;
         private readonly float rate;
         private float t;
+        private CrossFadingFloatLerper lerper;
         public float Value
         {
             get
@@ -29,7 +30,7 @@ namespace Kandooz.KVR {
                     t = 0;
                     start = this.value;
                     target = value;
-                    CrossFadingFloatLerper.Instance.AddCrossFadingFloat( this);
+                    lerper.AddCrossFadingFloat( this);
                 }
 #if UNITY_EDITOR
                 else
@@ -40,12 +41,13 @@ namespace Kandooz.KVR {
 #endif
             }
         }
-        public CrossFadingFloat(float rate = 5f, float value = 0)
+        public CrossFadingFloat(CrossFadingFloatLerper lerper,float rate = 5f, float value = 0)
         {
             start = target = this.value = value;
             this.rate = rate;
             t = 1;
             onChange = null;
+            this.lerper = lerper;
         }
         public bool Step()
         {
@@ -60,22 +62,11 @@ namespace Kandooz.KVR {
     public class CrossFadingFloatLerper : MonoBehaviour
     {
         private static List<CrossFadingFloat> values;
-        private static CrossFadingFloatLerper instance;
 
-        public static CrossFadingFloatLerper Instance
+        private void OnEnable()
         {
-            get
-            {
-                if (!instance)
-                {
-                    instance = new GameObject("CrossFadingFloatLerper").AddComponent<CrossFadingFloatLerper>();
-                    values = new List<CrossFadingFloat>();
-                    DontDestroyOnLoad(instance);
-                }
-                return instance;
-            }
+            values = new List<CrossFadingFloat>();
         }
-        
         public void AddCrossFadingFloat( CrossFadingFloat value)
         {
             values.Add(value);

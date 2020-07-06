@@ -21,6 +21,7 @@ namespace Kandooz.KVR
         private bool initialized;
         AnimationMixerPlayable poseMixer;
         [HideInInspector] [SerializeField] private int pose;
+        private CrossFadingFloatLerper lerper;
         #endregion
 
         public bool StaticPose
@@ -35,7 +36,7 @@ namespace Kandooz.KVR
                 {
                     if (staticPoseCrossFader == null)
                     {
-                        staticPoseCrossFader = new CrossFadingFloat();
+                        staticPoseCrossFader = new CrossFadingFloat(lerper);
                         staticPoseCrossFader.onChange += (v) => {
                             handMixer.SetInputWeight(0, 1-v);
                             handMixer.SetInputWeight(1, v);
@@ -87,13 +88,21 @@ namespace Kandooz.KVR
         }
         public void Init()
         {
+            if (!lerper)
+            {
+                lerper = GetComponent<CrossFadingFloatLerper>();
+                if (!lerper)
+                {
+                    lerper = gameObject.AddComponent<CrossFadingFloatLerper>();
+                }
+            }
             if (handData) {
                 graph = PlayableGraph.Create("Hand Animation Controller graph");
                 fingers = new Finger[5];
                 var fingerMixer = AnimationLayerMixerPlayable.Create(graph, fingers.Length);
                 for (uint i = 0; i < fingers.Length; i++)
                 {
-                    fingers[i] = new Finger(graph, handData.closed, handData.opened, handData[(int)i]);
+                    fingers[i] = new Finger(graph, handData.closed, handData.opened, handData[(int)i],lerper);
                     fingerMixer.SetLayerAdditive(i, false);
                     fingerMixer.SetLayerMaskFromAvatarMask(i, handData[(int)i]);
                     graph.Connect(fingers[i].Mixer, 0, fingerMixer, (int)i);
@@ -111,7 +120,7 @@ namespace Kandooz.KVR
                         var poseClip = handData.poses[i];
                         if (poseClip)
                         {
-                            var pose = new Pose();
+                            var pose = new Pose(lerper);
                             pose.playable = AnimationClipPlayable.Create(graph, handData.poses[i]);
                             pose.clip = handData.poses[i];
                             poses.Add(pose);
