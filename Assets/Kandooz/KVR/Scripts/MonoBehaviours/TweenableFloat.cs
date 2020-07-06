@@ -40,7 +40,7 @@ namespace Kandooz.KVR
 #endif
             }
         }
-        public TweenableFloat(VariableTweener lerper,float rate = 5f, float value = 0)
+        public TweenableFloat(VariableTweener lerper,float rate = 2f, float value = 0)
         {
             start = target = this.value = value;
             this.rate = rate;
