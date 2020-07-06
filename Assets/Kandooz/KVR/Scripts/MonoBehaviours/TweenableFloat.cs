@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Kandooz.KVR {
-    public class CrossFadingFloat
+namespace Kandooz.KVR
+{
+    public class TweenableFloat:ITweenable
     {
         public event Action<float> onChange;
         private float start;
@@ -12,7 +11,7 @@ namespace Kandooz.KVR {
         private float value;
         private readonly float rate;
         private float t;
-        private CrossFadingFloatLerper lerper;
+        private VariableTweener lerper;
         public float Value
         {
             get
@@ -41,7 +40,7 @@ namespace Kandooz.KVR {
 #endif
             }
         }
-        public CrossFadingFloat(CrossFadingFloatLerper lerper,float rate = 5f, float value = 0)
+        public TweenableFloat(VariableTweener lerper,float rate = 5f, float value = 0)
         {
             start = target = this.value = value;
             this.rate = rate;
@@ -49,38 +48,15 @@ namespace Kandooz.KVR {
             onChange = null;
             this.lerper = lerper;
         }
-        public bool Step()
+        public bool Tween(float elapsedTime)
         {
-            t +=  rate*Time.deltaTime;
+            t +=  rate* elapsedTime;
 
             this.value = Mathf.Lerp(start, target, t);
             onChange(value);
             return t >= 1;
         }
 
-    }
-    public class CrossFadingFloatLerper : MonoBehaviour
-    {
-        private static List<CrossFadingFloat> values;
-
-        private void OnEnable()
-        {
-            values = new List<CrossFadingFloat>();
-        }
-        public void AddCrossFadingFloat( CrossFadingFloat value)
-        {
-            values.Add(value);
-        }
-        void Update()
-        {
-            for (int i = values.Count-1; i >=0 ; i--)
-            {
-                if (values[i].Step())
-                {
-                    values.RemoveAt(i);
-                }
-            }
-        }
     }
 
 }

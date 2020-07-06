@@ -21,7 +21,7 @@ namespace Kandooz.KVR
         AnimationLayerMixerPlayable mixer;
          [Range(0, 1)] [SerializeField] private float weight;
         private float lastweight = 0;
-        private CrossFadingFloat crossFadingWeight;
+        private TweenableFloat crossFadingWeight;
 
         public float Weight
         {
@@ -40,7 +40,7 @@ namespace Kandooz.KVR
                 return weight;
             }
         }
-        public Finger(PlayableGraph graph,AnimationClip closed, AnimationClip opened, AvatarMask mask,CrossFadingFloatLerper lerper)
+        public Finger(PlayableGraph graph,AnimationClip closed, AnimationClip opened, AvatarMask mask,VariableTweener lerper)
         {
             mixer = AnimationLayerMixerPlayable.Create(graph, 2);
             var openPlayable = AnimationClipPlayable.Create(graph, opened);
@@ -51,7 +51,7 @@ namespace Kandooz.KVR
             mixer.SetLayerMaskFromAvatarMask(0, mask);
             mixer.SetInputWeight(0, 1);
             mixer.SetInputWeight(1, 0);
-            crossFadingWeight = new CrossFadingFloat(lerper);
+            crossFadingWeight = new TweenableFloat(lerper);
             crossFadingWeight.onChange += (value) =>
             {
                 mixer.SetInputWeight(0, 1 - value);

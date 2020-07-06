@@ -11,11 +11,11 @@ namespace Kandooz.KVR
         public AnimationClipPlayable playable;
         public AnimationClip clip;
         private float weight;
-        private CrossFadingFloat fader;
-        private CrossFadingFloatLerper lerper;
+        private TweenableFloat fader;
+        private VariableTweener lerper;
 
         public float Weight => weight;
-        public Pose(CrossFadingFloatLerper lerper)
+        public Pose(VariableTweener lerper)
         {
             this.lerper = lerper;
         }
@@ -23,7 +23,7 @@ namespace Kandooz.KVR
         {
             if (fader == null)
             {
-                fader = new CrossFadingFloat(lerper);
+                fader = new TweenableFloat(lerper);
                 fader.onChange += (v) => { this.weight = v; };
             }
 

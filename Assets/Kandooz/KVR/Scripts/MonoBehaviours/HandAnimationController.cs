@@ -16,12 +16,12 @@ namespace Kandooz.KVR
         [HideInInspector] [SerializeField] public PlayableGraph graph;
         [HideInInspector] [SerializeField] private bool staticPose;
         [HideInInspector] [SerializeField] private List<Pose> poses;
-        private CrossFadingFloat staticPoseCrossFader;
+        private TweenableFloat staticPoseCrossFader;
         private AnimationMixerPlayable handMixer;
         private bool initialized;
         AnimationMixerPlayable poseMixer;
         [HideInInspector] [SerializeField] private int pose;
-        private CrossFadingFloatLerper lerper;
+        private VariableTweener lerper;
         #endregion
 
         public bool StaticPose
@@ -36,7 +36,7 @@ namespace Kandooz.KVR
                 {
                     if (staticPoseCrossFader == null)
                     {
-                        staticPoseCrossFader = new CrossFadingFloat(lerper);
+                        staticPoseCrossFader = new TweenableFloat(lerper);
                         staticPoseCrossFader.onChange += (v) => {
                             handMixer.SetInputWeight(0, 1-v);
                             handMixer.SetInputWeight(1, v);
@@ -88,21 +88,16 @@ namespace Kandooz.KVR
         }
         public void Init()
         {
-            if (!lerper)
+            InitializeTweener();
+            if (handData)
             {
-                lerper = GetComponent<CrossFadingFloatLerper>();
-                if (!lerper)
-                {
-                    lerper = gameObject.AddComponent<CrossFadingFloatLerper>();
-                }
-            }
-            if (handData) {
                 graph = PlayableGraph.Create("Hand Animation Controller graph");
+
                 fingers = new Finger[5];
                 var fingerMixer = AnimationLayerMixerPlayable.Create(graph, fingers.Length);
                 for (uint i = 0; i < fingers.Length; i++)
                 {
-                    fingers[i] = new Finger(graph, handData.closed, handData.opened, handData[(int)i],lerper);
+                    fingers[i] = new Finger(graph, handData.closed, handData.opened, handData[(int)i], lerper);
                     fingerMixer.SetLayerAdditive(i, false);
                     fingerMixer.SetLayerMaskFromAvatarMask(i, handData[(int)i]);
                     graph.Connect(fingers[i].Mixer, 0, fingerMixer, (int)i);
@@ -147,6 +142,19 @@ namespace Kandooz.KVR
                 initialized = false;
             }
         }
+
+        private void InitializeTweener()
+        {
+            if (!lerper)
+            {
+                lerper = GetComponent<VariableTweener>();
+                if (!lerper)
+                {
+                    lerper = gameObject.AddComponent<VariableTweener>();
+                }
+            }
+        }
+
         void Start()
         {
             if (!initialized)
@@ -158,7 +166,12 @@ namespace Kandooz.KVR
         }
         void OnDisable()
         {
+            initialized = false;
             graph.Destroy();
+        }
+        private void OnEnable()
+        {
+            Init();
         }
         public void Update()
         {
