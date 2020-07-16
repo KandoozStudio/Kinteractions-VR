@@ -16,7 +16,7 @@ public class InputManagerImporter : ScriptedImporter
         for (int i = 0; i < managerIDs.Length; i++)
         {
             var path = AssetDatabase.GUIDToAssetPath(managerIDs[i]);
-            var manager=AssetDatabase.LoadAssetAtPath<VRInputManager>(path);
+            var manager=AssetDatabase.LoadAssetAtPath<UnityAxisBasedVRInputManager>(path);
             VRInputManagerEditor.SeedInputs(manager);
         }
     }

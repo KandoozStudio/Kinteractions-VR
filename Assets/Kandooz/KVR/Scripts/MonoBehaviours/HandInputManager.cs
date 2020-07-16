@@ -10,7 +10,7 @@ namespace Kandooz.KVR
         /// <summary>
         /// the input manager is to get input from the diffrent buttons on the controllers
         /// </summary>
-        public VRInputManager inputManager;
+        public AbstractVRInputManager inputManager;
         private HandAnimationController animationController;
         private Hand hand;
         InputDevice device;

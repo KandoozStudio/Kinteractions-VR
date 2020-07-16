@@ -16,11 +16,11 @@ namespace Kandooz.KVR
     public class Hand : MonoBehaviour
     {
         public HandType hand;
-        public VRInputManager inputManager;
+        public AbstractVRInputManager inputManager;
         public Vector3 colliderPosition = Vector3.zero;
         public float collisionRadius = .1f;
-        public LayerMask interactingLayers=255;
-        [HideInInspector]public HandConstrains defaultHandConstraints = HandConstrains.Free;
+        public LayerMask interactingLayers = 255;
+        [HideInInspector] public HandConstrains defaultHandConstraints = HandConstrains.Free;
 
         [ReadOnly] [SerializeField] private bool interacting;
 
@@ -42,92 +42,23 @@ namespace Kandooz.KVR
         private void Update()
         {
             center = this.transform.TransformPoint(colliderPosition);
-            if (interacting)
-            {
-                if (interactable)
-                {
-                    switch (hand)
-                    {
-                        case HandType.right:
-                            if (interactable.interactionButton == GrabbingButton.Grip)
-                            {
-                                if (!inputManager.RightGripDown)
-                                {
-                                    StopInteracting();
-                                }
-                            }
-                            else if (interactable.interactionButton == GrabbingButton.Trigger)
-                            {
-                                if (!inputManager.RightTriggerDown)
-                                {
-                                    StopInteracting();
-                                }
-                            }
-                            break;
-                        case HandType.left:
-                            if (interactable.interactionButton == GrabbingButton.Grip)
-                            {
-                                if (!inputManager.LeftGripDown)
-                                {
-                                    StopInteracting();
 
-                                }
-                            }
-                            else if (interactable.interactionButton == GrabbingButton.Trigger)
-                            {
-                                if (!inputManager.LeftTriggerDown)
-                                {
-                                    StopInteracting();
-                                }
-                            }
-                            break;
-                        default:
-                            break;
+            if (interactable)
+            {
+                FingerName finger = (interactable.interactionButton == GrabbingButton.Trigger) ? FingerName.Trigger : FingerName.Grip;
+                bool buttonPressed = inputManager.GetFinger(hand, finger);
+                if (interacting)
+                {
+                    if (!buttonPressed)
+                    {
+                        StopInteracting();
                     }
                 }
-            }
-            else
-            {
-                if (interactable)
+                else
                 {
-
-                    switch (hand)
+                    if (buttonPressed)
                     {
-                        case HandType.right:
-                            if (interactable.interactionButton == GrabbingButton.Grip)
-                            {
-                                if (inputManager.RightGripDown)
-                                {
-                                    StartInteracting();
-                                }
-                            }
-                            else if (interactable.interactionButton == GrabbingButton.Trigger)
-                            {
-                                if (inputManager.RightTriggerDown)
-                                {
-                                    StartInteracting();
-                                }
-                            }
-                            break;
-                        case HandType.left:
-                            if (interactable.interactionButton == GrabbingButton.Grip)
-                            {
-                                if (inputManager.LeftGripDown)
-                                {
-                                    StartInteracting();
-
-                                }
-                            }
-                            else if (interactable.interactionButton == GrabbingButton.Trigger)
-                            {
-                                if (inputManager.LeftTriggerDown)
-                                {
-                                    StartInteracting();
-                                }
-                            }
-                            break;
-                        default:
-                            break;
+                        StartInteracting();
                     }
                 }
             }
@@ -136,26 +67,26 @@ namespace Kandooz.KVR
         {
             //if (!interacting) 
             //{
-                hoveredObject[0] = null;
-                Physics.OverlapSphereNonAlloc(center, collisionRadius * this.transform.lossyScale.magnitude, hoveredObject, interactingLayers);
-                if (hoveredObject[0])
+            hoveredObject[0] = null;
+            Physics.OverlapSphereNonAlloc(center, collisionRadius * this.transform.lossyScale.magnitude, hoveredObject, interactingLayers);
+            if (hoveredObject[0])
+            {
+                if (currentCollider != hoveredObject[0])
                 {
-                    if (currentCollider != hoveredObject[0])
+                    if (interactable)
                     {
-                        if (interactable)
-                        {
-                            interactable.OnHandHoverEnd(this);
-                        }
-                        interactable = hoveredObject[0].GetComponent<Interactable>();
-                        if (interactable)
-                        {
-                            interactable.OnHandHoverStart(this);
-                        }
-                        currentCollider = hoveredObject[0];
+                        interactable.OnHandHoverEnd(this);
                     }
+                    interactable = hoveredObject[0].GetComponent<Interactable>();
+                    if (interactable)
+                    {
+                        interactable.OnHandHoverStart(this);
+                    }
+                    currentCollider = hoveredObject[0];
                 }
+            }
             //}
-            
+
             else
             {
                 if (interactable)

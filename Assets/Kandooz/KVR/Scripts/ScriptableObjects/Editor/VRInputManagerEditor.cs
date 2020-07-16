@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 namespace Kandooz.KVR.Editors
 {
-    [CustomEditor(typeof(Kandooz.KVR.VRInputManager))]
+    [CustomEditor(typeof(Kandooz.KVR.UnityAxisBasedVRInputManager))]
     public class VRInputManagerEditor : Editor
     {
         internal class InputAxis
@@ -30,10 +30,10 @@ namespace Kandooz.KVR.Editors
         // NB: ALL AXIS VALUES WILL BE -1'd DURING PROCESSING, SO USE THE "REAL" AXIS VALUE
         //
 
-        VRInputManager manager;
+        UnityAxisBasedVRInputManager manager;
         private void OnEnable()
         {
-            manager = (VRInputManager)target;
+            manager = (UnityAxisBasedVRInputManager)target;
         }
         public override void OnInspectorGUI()
         {
@@ -71,7 +71,7 @@ namespace Kandooz.KVR.Editors
                 SeedInputs(manager);
             }
         }
-        public static void SeedInputs(VRInputManager manager)
+        public static void SeedInputs(UnityAxisBasedVRInputManager manager)
         {
 
             var axisList = new List<InputAxis>();

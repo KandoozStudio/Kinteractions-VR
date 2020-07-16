@@ -9,8 +9,8 @@ namespace Kandooz.KVR
         Normal,
         Knuckles
     }
-    [CreateAssetMenu(menuName = "Kandooz/KVR/InputManager")]
-    public class VRInputManager : ScriptableObject
+    [CreateAssetMenu(menuName = "Kandooz/KVR/Axis VR Input Manager")]
+    public class UnityAxisBasedVRInputManager : AbstractVRInputManager
     {
         public ControllerType type;
         [Header("Left hand")]
@@ -51,12 +51,7 @@ namespace Kandooz.KVR
         public string RightPinky { get => rightPinky;  }
         public string RightThumb { get => rightThumb; }
 
-        public bool RightGripDown { get => Input.GetAxis(rightGrip)> .2f; }
-        public bool RightTriggerDown { get => Input.GetAxis(rightTrigger)>.2f; }
-        public bool LeftGripDown { get => Input.GetAxis(leftGrip)> .2f; }
-        public bool LeftTriggerDown { get => Input.GetAxis(LeftTrigger)> .2f; }
-
-        public float GetFingerValue(HandType hand, FingerName finger)
+        public override float GetFingerValue(HandType hand, FingerName finger)
         {
             var value = 0f;
             switch (type)
@@ -253,7 +248,77 @@ namespace Kandooz.KVR
             }
             return value;
         }
-
-
+        public override bool GetFingerDown(HandType handType, FingerName finger)
+        {
+            /// Todo Add other buttons
+            bool value = false;
+            switch (finger)
+            {
+                case FingerName.Thumb:
+                    break;
+                case FingerName.Index:
+                    value = (handType == HandType.right) ? Input.GetButtonDown(rightTrigger) : Input.GetButtonDown(leftTrigger);
+                    break;
+                case FingerName.Middle:
+                    break;
+                case FingerName.Ring:
+                    break;
+                case FingerName.Pinky:
+                    break;
+                case FingerName.Grip:
+                    value= (handType == HandType.right) ? Input.GetButtonDown(rightGrip) : Input.GetButtonDown(LeftGrip);
+                    break;
+            }
+            return value;
+        }
+        public override bool GetFinger(HandType handType, FingerName finger)
+        {
+            /// Todo Add other buttons
+            /// Todo use Buttons instead of axis
+            bool value = false;
+            switch (finger)
+            {
+                case FingerName.Thumb:
+                    break;
+                case FingerName.Index:
+                    break;
+                case FingerName.Middle:
+                    break;
+                case FingerName.Ring:
+                    break;
+                case FingerName.Pinky:
+                    break;
+                case FingerName.Trigger:
+                    value = (handType == HandType.right) ? Input.GetAxis(rightTrigger)>.2f : Input.GetAxis(leftTrigger) > .2f;
+                    break;
+                case FingerName.Grip:
+                    value = (handType == HandType.right) ? Input.GetAxis(rightGrip)>.2f : Input.GetAxis(LeftGrip)>.2f;
+                    break;
+            }
+            return value;
+        }
+        public override  bool GetFIngerUp(HandType handType, FingerName finger)
+        {
+            /// Todo Add other buttons
+            bool value = false;
+            switch (finger)
+            {
+                case FingerName.Thumb:
+                    break;
+                case FingerName.Index:
+                    value = (handType == HandType.right) ? Input.GetButtonUp(rightTrigger) : Input.GetButtonDown(leftTrigger);
+                    break;
+                case FingerName.Middle:
+                    break;
+                case FingerName.Ring:
+                    break;
+                case FingerName.Pinky:
+                    break;
+                case FingerName.Grip:
+                    value = (handType == HandType.right) ? Input.GetButtonUp(rightGrip) : Input.GetButtonDown(LeftGrip);
+                    break;
+            }
+            return value;
+        }
     }
 }
