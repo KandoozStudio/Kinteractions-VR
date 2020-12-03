@@ -7,7 +7,6 @@ using UnityEngine.Playables;
 
 namespace Kandooz.KVR
 {
-
     public class HandAnimationController : MonoBehaviour
     {
         #region private variables

@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace Kandooz.KVR {
     [CustomPropertyDrawer(typeof(HandConstrains))]
-    public class HandConstraintEditor : PropertyDrawer
+    public class HandConstraintPropertyDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {

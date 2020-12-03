@@ -14,7 +14,7 @@ namespace Kandooz.KVR
         Ring = 3,
         Pinky = 4,
         Trigger=5,
-        Grip=6,
+        Grip=6
         
     }
     [System.Serializable]

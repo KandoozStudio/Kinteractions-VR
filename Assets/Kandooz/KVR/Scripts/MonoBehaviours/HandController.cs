@@ -12,7 +12,7 @@ namespace Kandooz.KVR
         private Vector3 shift;
         private float radius=1;
 
-        private Collider []collider;
+        private new Collider []collider;
         private void Start()
         {
             type = GetComponent<HandTracker>().type;
