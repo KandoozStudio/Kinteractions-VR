@@ -45,4 +45,4 @@ all you need to do is just access the Pose property and set it to the pose numbe
     animationController.StaticPose=true;
     animationController.Pose=2;// will set it to the third pose in the list
 
-when you no longer need the pose make sure to set it back to false
+Make sure to set it back to false if you no longer need the custom pose
