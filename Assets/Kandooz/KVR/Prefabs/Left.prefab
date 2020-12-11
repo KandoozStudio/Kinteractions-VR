@@ -4958,8 +4958,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8959232581592796020}
-  - component: {fileID: 8959232581592796011}
-  - component: {fileID: 8959232581592796010}
+  - component: {fileID: 599149730552363347}
+  - component: {fileID: 5134253606745257851}
+  - component: {fileID: 8958141740295526923}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -4982,7 +4983,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8959232581592796011
+--- !u!114 &599149730552363347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8959232581592796021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf036f16975e9b84caaee2f70c3cf28f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handData: {fileID: 11400000, guid: 3122c1717ae0c8042984635810a4a3c8, type: 2}
+  fingers:
+  - weight: 0
+  - weight: 0
+  - weight: 0
+  - weight: 0
+  - weight: 0
+  staticPose: 0
+  poses:
+  - clip: {fileID: 7400000, guid: 74f3b95c081a9e146ac0abb1f69e8b33, type: 2}
+  - clip: {fileID: 7400000, guid: a160b0a96b0202d4e98fedeab24be5ff, type: 2}
+  pose: 0
+--- !u!114 &5134253606745257851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8959232581592796021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3335560677ba95d4081ffde8eb33f434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweenScale: 1
+--- !u!114 &8958141740295526923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4994,20 +5032,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd43b5fb5c7a8604d8d1a8bc2946da2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hand: 1
---- !u!114 &8959232581592796010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8959232581592796021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 013c8b57fc1786a42b0797fb0eea2707, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputManager: {fileID: 11400000, guid: c42b8da7bcb6b334f87c8217c6df499d, type: 2}
+  hand: 0
+  inputManager: {fileID: 11400000, guid: 1fc59b4552fbc4e4792630786d2a2598, type: 2}
+  colliderPosition: {x: 0, y: 0, z: 0}
+  collisionRadius: 0.1
+  interactingLayers:
+    serializedVersion: 2
+    m_Bits: 255
+  defaultHandConstraints:
+    indexFingerLimits:
+      locked: 0
+      x: 0
+      y: 1
+    middleFingerLimits:
+      locked: 0
+      x: 0
+      y: 1
+    ringFingerLimits:
+      locked: 0
+      x: 0
+      y: 1
+    pinkyFingerLimits:
+      locked: 0
+      x: 0
+      y: 1
+    thumbFingerLimits:
+      locked: 0
+      x: 0
+      y: 1
+  interacting: 0
 --- !u!1 &8959232581674255428
 GameObject:
   m_ObjectHideFlags: 0
@@ -5575,7 +5628,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8959232581741187977}
   - component: {fileID: 8959232582708545626}
-  - component: {fileID: 8959232582708545627}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -5617,32 +5669,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8959232582708545627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8959232582708545572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf036f16975e9b84caaee2f70c3cf28f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handData: {fileID: 11400000, guid: 2d360471f3ebee044a8beec1b7d9a8ef, type: 2}
-  fingers:
-  - weight: 0
-  - weight: 0
-  - weight: 0
-  - weight: 0
-  - weight: 0
-  staticPose: 0
-  poses:
-  - clip: {fileID: 7400000, guid: f1f69292e5547cd489187b7223ded172, type: 2}
-  - clip: {fileID: 7400000, guid: 74f3b95c081a9e146ac0abb1f69e8b33, type: 2}
-  - clip: {fileID: 7400000, guid: a160b0a96b0202d4e98fedeab24be5ff, type: 2}
-  - clip: {fileID: 7400000, guid: 8abb2adb86f001544aa503f78138fee1, type: 2}
-  pose: 2
 --- !u!1 &8959232582737940195
 GameObject:
   m_ObjectHideFlags: 0

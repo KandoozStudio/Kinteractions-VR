@@ -4263,6 +4263,8 @@ GameObject:
   - component: {fileID: 4122631648479029651}
   - component: {fileID: 4122631648479029653}
   - component: {fileID: 4122631648479029650}
+  - component: {fileID: 660076812880683787}
+  - component: {fileID: 5996820935397581870}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -4298,6 +4300,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: 0
+  inputManager: {fileID: 11400000, guid: 1fc59b4552fbc4e4792630786d2a2598, type: 2}
+  colliderPosition: {x: 0, y: 0, z: 0}
+  collisionRadius: 0.1
+  interactingLayers:
+    serializedVersion: 2
+    m_Bits: 255
+  defaultHandConstraints:
+    indexFingerLimits:
+      locked: 0
+      x: 0
+      y: 1
+    middleFingerLimits:
+      locked: 0
+      x: 0
+      y: 1
+    ringFingerLimits:
+      locked: 0
+      x: 0
+      y: 1
+    pinkyFingerLimits:
+      locked: 0
+      x: 0
+      y: 1
+    thumbFingerLimits:
+      locked: 0
+      x: 0
+      y: 1
+  interacting: 0
 --- !u!114 &4122631648479029650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4310,7 +4340,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013c8b57fc1786a42b0797fb0eea2707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputManager: {fileID: 11400000, guid: c42b8da7bcb6b334f87c8217c6df499d, type: 2}
+  inputManager: {fileID: 11400000, guid: 1fc59b4552fbc4e4792630786d2a2598, type: 2}
+--- !u!114 &660076812880683787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4122631648479029648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf036f16975e9b84caaee2f70c3cf28f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handData: {fileID: 11400000, guid: 2d360471f3ebee044a8beec1b7d9a8ef, type: 2}
+  fingers:
+  - weight: 0
+  - weight: 0
+  - weight: 0
+  - weight: 0
+  - weight: 0
+  staticPose: 1
+  poses:
+  - clip: {fileID: 7400000, guid: f1f69292e5547cd489187b7223ded172, type: 2}
+  - clip: {fileID: 7400000, guid: 74f3b95c081a9e146ac0abb1f69e8b33, type: 2}
+  - clip: {fileID: 7400000, guid: a160b0a96b0202d4e98fedeab24be5ff, type: 2}
+  - clip: {fileID: 7400000, guid: 8abb2adb86f001544aa503f78138fee1, type: 2}
+  pose: 2
+--- !u!114 &5996820935397581870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4122631648479029648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3335560677ba95d4081ffde8eb33f434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweenScale: 1
 --- !u!1 &4122631648586019046
 GameObject:
   m_ObjectHideFlags: 0
@@ -4781,7 +4850,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4122631649451084938}
   - component: {fileID: 4122631649298721323}
-  - component: {fileID: 4122631649298721320}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -4823,32 +4891,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4122631649298721320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4122631649298721321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf036f16975e9b84caaee2f70c3cf28f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handData: {fileID: 11400000, guid: 2d360471f3ebee044a8beec1b7d9a8ef, type: 2}
-  fingers:
-  - weight: 0
-  - weight: 0
-  - weight: 0
-  - weight: 0
-  - weight: 0
-  staticPose: 1
-  poses:
-  - clip: {fileID: 7400000, guid: f1f69292e5547cd489187b7223ded172, type: 2}
-  - clip: {fileID: 7400000, guid: 74f3b95c081a9e146ac0abb1f69e8b33, type: 2}
-  - clip: {fileID: 7400000, guid: a160b0a96b0202d4e98fedeab24be5ff, type: 2}
-  - clip: {fileID: 7400000, guid: 8abb2adb86f001544aa503f78138fee1, type: 2}
-  pose: 2
 --- !u!1 &4122631649445200036
 GameObject:
   m_ObjectHideFlags: 0
