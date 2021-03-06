@@ -14,6 +14,12 @@ namespace Kandooz.KVR
         Trigger ,
         Grip
     }
+    public enum InteractableState
+    {
+        None,
+        Hovered,
+        Grapped
+    }
     public class Interactable : MonoBehaviour
     {
         public HandData handData;
@@ -33,7 +39,7 @@ namespace Kandooz.KVR
         [HideInInspector] public SerializedTransform leftHandPivot;
 
         public bool InteractedWith { get; set; }
-
+        public InteractableState state { get; set; }
         public void OnHandHoverStart(Hand hand)
         {
             onHandHoverStart.Invoke(hand);

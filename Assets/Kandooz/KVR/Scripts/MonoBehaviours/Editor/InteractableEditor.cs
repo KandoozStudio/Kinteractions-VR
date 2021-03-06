@@ -238,11 +238,11 @@ namespace Kandooz.KVR
 
                     var constraints = (currentHand == HandtoEdit.left) ? interactable.leftHandLimits : interactable.rightHandLimits;
 
-                    visibleHand[FingerName.Index] = Mathf.Lerp(constraints.indexFingerLimits.x, constraints.indexFingerLimits.y, t);
-                    visibleHand[FingerName.Middle] = Mathf.Lerp(constraints.middleFingerLimits.x, constraints.middleFingerLimits.y, t);
-                    visibleHand[FingerName.Ring] = Mathf.Lerp(constraints.ringFingerLimits.x, constraints.ringFingerLimits.y, t);
-                    visibleHand[FingerName.Pinky] = Mathf.Lerp(constraints.pinkyFingerLimits.x, constraints.pinkyFingerLimits.y, t);
-                    visibleHand[FingerName.Thumb] = Mathf.Lerp(constraints.thumbFingerLimits.x, constraints.thumbFingerLimits.y, t);
+                    visibleHand[FingerName.Index] = Mathf.Lerp(constraints.indexFingerLimits.min, constraints.indexFingerLimits.max, t);
+                    visibleHand[FingerName.Middle] = Mathf.Lerp(constraints.middleFingerLimits.min, constraints.middleFingerLimits.max, t);
+                    visibleHand[FingerName.Ring] = Mathf.Lerp(constraints.ringFingerLimits.min, constraints.ringFingerLimits.max, t);
+                    visibleHand[FingerName.Pinky] = Mathf.Lerp(constraints.pinkyFingerLimits.min, constraints.pinkyFingerLimits.max, t);
+                    visibleHand[FingerName.Thumb] = Mathf.Lerp(constraints.thumbFingerLimits.min, constraints.thumbFingerLimits.max, t);
                 }
             }
         }

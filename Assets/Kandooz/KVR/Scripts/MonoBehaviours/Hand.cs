@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.XR;
 using Kandooz.Common;
 using UnityEngine.Assertions;
-
 public enum HandType
 {
     right, left
@@ -12,13 +11,12 @@ public enum HandType
 
 namespace Kandooz.KVR
 {
-
     public class Hand : MonoBehaviour
     {
         public HandType hand;
         public AbstractVRInputManager inputManager;
         public Vector3 colliderPosition = Vector3.zero;
-        public float collisionRadius = .1f;
+        public float collisionRadius = .25f;
         public LayerMask interactingLayers = 255;
         [HideInInspector] public HandConstrains defaultHandConstraints = HandConstrains.Free;
 

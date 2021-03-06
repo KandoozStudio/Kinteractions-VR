@@ -57,19 +57,19 @@ namespace Kandooz.KVR
                 switch (finger)
                 {
                     case FingerName.Thumb:
-                        value = Mathf.Lerp(hand.Constraints.thumbFingerLimits.x, hand.Constraints.thumbFingerLimits.y, value);
+                        value = Mathf.Lerp(hand.Constraints.thumbFingerLimits.min, hand.Constraints.thumbFingerLimits.max, value);
                         break;
                     case FingerName.Index:
-                        value = Mathf.Lerp(hand.Constraints.indexFingerLimits.x, hand.Constraints.indexFingerLimits.y, value);
+                        value = Mathf.Lerp(hand.Constraints.indexFingerLimits.min, hand.Constraints.indexFingerLimits.max, value);
                         break;
                     case FingerName.Middle:
-                        value = Mathf.Lerp(hand.Constraints.middleFingerLimits.x, hand.Constraints.middleFingerLimits.y, value);
+                        value = Mathf.Lerp(hand.Constraints.middleFingerLimits.min, hand.Constraints.middleFingerLimits.max, value);
                         break;
                     case FingerName.Ring:
-                        value = Mathf.Lerp(hand.Constraints.ringFingerLimits.x, hand.Constraints.ringFingerLimits.y, value);
+                        value = Mathf.Lerp(hand.Constraints.ringFingerLimits.min, hand.Constraints.ringFingerLimits.max, value);
                         break;
                     case FingerName.Pinky:
-                        value = Mathf.Lerp(hand.Constraints.pinkyFingerLimits.x, hand.Constraints.pinkyFingerLimits.y, value);
+                        value = Mathf.Lerp(hand.Constraints.pinkyFingerLimits.min, hand.Constraints.pinkyFingerLimits.max, value);
                         break;
                 }
                 animationController[i] = value;

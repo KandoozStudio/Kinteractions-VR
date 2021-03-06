@@ -10,7 +10,7 @@ namespace Kandooz.KVR
     [CreateAssetMenu(menuName = "Kandooz/KVR/Hand Data")]
     public class HandData : ScriptableObject
     {
-        [Tooltip("The Hand must have HandAnimationController Script")]
+        [Tooltip("The Hand must have HandAnimationController Script attached")]
         public HandAnimationController leftHandPrefab;
         public HandAnimationController rightHandPrefab;
         [Header("Avatar Masks")]
