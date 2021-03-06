@@ -26,10 +26,10 @@ namespace Kandooz.KVR
         public GrabbingButton interactionButton;
 
         [Header("Events")]
-        public HandEvent onHandHoverStart;
-        public HandEvent onHandHoverEnd;
-        public HandEvent onInteractionStart;
-        public HandEvent onInteractionEnd;
+        [HideInInspector] public HandEvent onHandHoverStart;
+        [HideInInspector] public HandEvent onHandHoverEnd;
+        [HideInInspector] public HandEvent onInteractionStart;
+        [HideInInspector] public HandEvent onInteractionEnd;
         [Header("Right Hand properties")]
         [HideInInspector] public HandConstrains rightHandLimits;
         [HideInInspector] public SerializedTransform rightHandPivot;
@@ -61,11 +61,12 @@ namespace Kandooz.KVR
                 return false;
             }
         }
-        public bool OnInterActionEnd(Hand hand)
+        public bool OnInteractionEnd(Hand hand)
         {
             InteractedWith = false;
             onInteractionEnd.Invoke(hand);
             return true;
         }
+
     }
 }

@@ -123,7 +123,7 @@ namespace Kandooz.KVR
             SetDefaultConstraints();
             interacting = false;
             currentCollider = null;
-            interactable.OnInterActionEnd(this);
+            interactable.OnInteractionEnd(this);
             interactable = null;
         }
         public void SetHandConstraints(HandConstrains constraints)

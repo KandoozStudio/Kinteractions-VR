@@ -11,7 +11,7 @@ namespace Kandooz.KVR
     public class InteractableEditor : Editor
     {
         HandAnimationController visibleHand;
-
+        private bool showEvents = false;
         HandtoEdit currentHand = HandtoEdit.none;
         private Interactable interactable;
 
@@ -171,6 +171,15 @@ namespace Kandooz.KVR
                     if (visibleHand) GameObject.DestroyImmediate(visibleHand.gameObject);
                 }
                 serializedObject.ApplyModifiedProperties();
+            }
+            showEvents = EditorGUILayout.Foldout(showEvents, "Interaction Events");
+            if (showEvents)
+            {
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("onHandHoverStart"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("onHandHoverEnd"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("onInteractionStart"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("onInteractionEnd"));
+
             }
         }
 
