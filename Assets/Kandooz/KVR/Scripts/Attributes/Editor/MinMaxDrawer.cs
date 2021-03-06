@@ -41,20 +41,20 @@ namespace Kandooz.KVR
             var sliderPosition = position;
             sliderPosition.width *= 3f / 4;
             sliderPosition.width -= 5;
-            float minValue = property.FindPropertyRelative("x").floatValue;
-            float maxValue = property.FindPropertyRelative("y").floatValue;
+            float minValue = property.FindPropertyRelative("min").floatValue;
+            float maxValue = property.FindPropertyRelative("max").floatValue;
             float minLimit = 0;
             float maxLimit = 1;
             EditorGUI.MinMaxSlider(sliderPosition, "limits", ref minValue, ref maxValue, minLimit, maxLimit);
             EditorGUI.LabelField(labelPosition, minValue.ToString("0.0") + " : " + maxValue.ToString("0.0")); ;
 
-            property.FindPropertyRelative("x").floatValue = minValue;
-            property.FindPropertyRelative("y").floatValue = maxValue;
+            property.FindPropertyRelative("min").floatValue = minValue;
+            property.FindPropertyRelative("max").floatValue = maxValue;
         }
         private void DrawNormalSlider(Rect position, SerializedProperty property)
         {
-            EditorGUI.PropertyField(position, property.FindPropertyRelative("x"),new GUIContent("value"));
-            property.FindPropertyRelative("y").floatValue = property.FindPropertyRelative("x").floatValue;
+            EditorGUI.PropertyField(position, property.FindPropertyRelative("min"),new GUIContent("value"));
+            property.FindPropertyRelative("max").floatValue = property.FindPropertyRelative("min").floatValue;
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
