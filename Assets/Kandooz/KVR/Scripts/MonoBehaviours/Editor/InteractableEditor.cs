@@ -25,7 +25,7 @@ namespace Kandooz.KVR
             if (visibleHand)
             {
                 GameObject.DestroyImmediate(visibleHand.gameObject);
-                HandtoEdit currentHand = HandtoEdit.none;
+                currentHand = HandtoEdit.none;
             }
             else if (visibleHand = interactable.GetComponentInChildren<HandAnimationController>())
             {
@@ -96,6 +96,7 @@ namespace Kandooz.KVR
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
+
             if (Application.isPlaying)
             {
                 if(visibleHand)
@@ -103,73 +104,90 @@ namespace Kandooz.KVR
             }
             else if (interactable.handData)
             {
-                EditorGUILayout.BeginHorizontal();
-                if (GUILayout.Button("Edit Right hand"))
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("constraintHandOnHover"));
+                if (serializedObject.FindProperty("constraintHandOnHover").boolValue)
                 {
-                    if (currentHand == HandtoEdit.right)
-                    {
-                        currentHand = HandtoEdit.none;
-                    }
-                    else
-                    {
-                        if (visibleHand)
-                        {
-                            DestroyImmediate(visibleHand.gameObject);
-                        }
-                        currentHand = HandtoEdit.right;
-                    }
-                }
-                if (GUILayout.Button("Edit Left hand"))
-                {
-                    if (currentHand == HandtoEdit.left)
-                    {
-                        currentHand = HandtoEdit.none;
-                    }
-                    else
-                    {
-                        if (visibleHand)
-                        {
-                            DestroyImmediate(visibleHand.gameObject);
-                        }
-
-                        currentHand = HandtoEdit.left;
-                    }
-                }
-                EditorGUILayout.EndHorizontal();
-                if (currentHand != HandtoEdit.none)
-                {
-
                     EditorGUI.indentLevel++;
                     EditorGUILayout.BeginVertical("GroupBox");
-                    switch (currentHand)
-                    {
-                        case HandtoEdit.none:
-                            break;
-                        case HandtoEdit.right:
-                            EditorGUILayout.PropertyField(serializedObject.FindProperty("rightHandLimits"));
-                            EditorGUILayout.Space();
-                            EditorGUILayout.PropertyField(serializedObject.FindProperty("rightHandPivot").FindPropertyRelative("position"));
-                            EditorGUILayout.PropertyField(serializedObject.FindProperty("rightHandPivot").FindPropertyRelative("rotation"));
-                            break;
-                        case HandtoEdit.left:
-                            EditorGUILayout.PropertyField(serializedObject.FindProperty("leftHandLimits"));
-                            EditorGUILayout.Space();
 
-                            EditorGUILayout.PropertyField(serializedObject.FindProperty("leftHandPivot").FindPropertyRelative("position"));
-                            EditorGUILayout.PropertyField(serializedObject.FindProperty("leftHandPivot").FindPropertyRelative("rotation"));
-                            break;
-                        default:
-                            break;
-                    }
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("hoverHandConstraints"));
                     EditorGUILayout.EndVertical();
                     EditorGUI.indentLevel--;
-                    serializedObject.ApplyModifiedProperties();
-                    HandPositionSceneEditor(currentHand);
+
+
                 }
-                else
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("constraintHandOnInteraction"));
+
+                if (serializedObject.FindProperty("constraintHandOnInteraction").boolValue)
                 {
-                    if (visibleHand) GameObject.DestroyImmediate(visibleHand.gameObject);
+                    EditorGUILayout.BeginHorizontal();
+                    if (GUILayout.Button("Edit Right hand"))
+                    {
+                        if (currentHand == HandtoEdit.right)
+                        {
+                            currentHand = HandtoEdit.none;
+                        }
+                        else
+                        {
+                            if (visibleHand)
+                            {
+                                DestroyImmediate(visibleHand.gameObject);
+                            }
+                            currentHand = HandtoEdit.right;
+                        }
+                    }
+                    if (GUILayout.Button("Edit Left hand"))
+                    {
+                        if (currentHand == HandtoEdit.left)
+                        {
+                            currentHand = HandtoEdit.none;
+                        }
+                        else
+                        {
+                            if (visibleHand)
+                            {
+                                DestroyImmediate(visibleHand.gameObject);
+                            }
+
+                            currentHand = HandtoEdit.left;
+                        }
+                    }
+                    EditorGUILayout.EndHorizontal();
+                    if (currentHand != HandtoEdit.none)
+                    {
+                        EditorGUI.indentLevel++;
+                        EditorGUILayout.BeginVertical("GroupBox");
+                        switch (currentHand)
+                        {
+                            case HandtoEdit.none:
+                                break;
+                            case HandtoEdit.right:
+                                EditorGUILayout.PropertyField(serializedObject.FindProperty("rightHandLimits"));
+                                EditorGUILayout.Space();
+                                EditorGUILayout.PropertyField(serializedObject.FindProperty("rightHandPivot").FindPropertyRelative("position"));
+                                EditorGUILayout.PropertyField(serializedObject.FindProperty("rightHandPivot").FindPropertyRelative("rotation"));
+                                break;
+                            case HandtoEdit.left:
+                                EditorGUILayout.PropertyField(serializedObject.FindProperty("leftHandLimits"));
+                                EditorGUILayout.Space();
+
+                                EditorGUILayout.PropertyField(serializedObject.FindProperty("leftHandPivot").FindPropertyRelative("position"));
+                                EditorGUILayout.PropertyField(serializedObject.FindProperty("leftHandPivot").FindPropertyRelative("rotation"));
+                                break;
+                            default:
+                                break;
+                        }
+                        EditorGUILayout.EndVertical();
+                        EditorGUI.indentLevel--;
+                        serializedObject.ApplyModifiedProperties();
+                        HandPositionSceneEditor(currentHand);
+                    }
+                    else
+                    {
+                        if (visibleHand) GameObject.DestroyImmediate(visibleHand.gameObject);
+                    }
                 }
+
                 serializedObject.ApplyModifiedProperties();
             }
             showEvents = EditorGUILayout.Foldout(showEvents, "Interaction Events");
@@ -245,7 +263,7 @@ namespace Kandooz.KVR
                         visibleHand.Init();
                     }
 
-                    var constraints = (currentHand == HandtoEdit.left) ? interactable.leftHandLimits : interactable.rightHandLimits;
+                    var constraints = (currentHand == HandtoEdit.left) ? interactable.LeftHandLimits : interactable.RightHandLimits;
 
                     visibleHand[FingerName.Index] = Mathf.Lerp(constraints.indexFingerLimits.min, constraints.indexFingerLimits.max, t);
                     visibleHand[FingerName.Middle] = Mathf.Lerp(constraints.middleFingerLimits.min, constraints.middleFingerLimits.max, t);

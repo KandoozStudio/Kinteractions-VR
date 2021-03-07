@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Kandooz.Common;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace Kandooz.KVR
@@ -9,64 +10,144 @@ namespace Kandooz.KVR
         public Vector3 position;
         public Vector3 rotation;
     }
-    public enum GrabbingButton
+    public enum InteractionButton
     {
-        Trigger ,
-        Grip
+        None = 0,
+        Trigger = 1,
+        Grip = 2
     }
     public enum InteractableState
     {
-        None,
-        Hovered,
-        Grapped
+        None = 0,
+        Hovered = 1,
+        InteractedWith = 2
     }
     public class Interactable : MonoBehaviour
     {
         public HandData handData;
-        public GrabbingButton interactionButton;
+        [SerializeField] private InteractionButton interactionButton;
+        [SerializeField] private AbstractVRInputManager inputManager;
 
         [Header("Events")]
         [HideInInspector] public HandEvent onHandHoverStart;
         [HideInInspector] public HandEvent onHandHoverEnd;
         [HideInInspector] public HandEvent onInteractionStart;
         [HideInInspector] public HandEvent onInteractionEnd;
+
+        [Header("Custom Poses")]
+        [SerializeField] [HideInInspector] private bool constraintHandOnHover = false;
+        [SerializeField] [HideInInspector] private bool constraintHandOnInteraction = true;
+
+        [HideInInspector] [SerializeField] private HandConstrains hoverHandConstraints = HandConstrains.Pointing;
+
+
         [Header("Right Hand properties")]
-        [HideInInspector] public HandConstrains rightHandLimits;
-        [HideInInspector] public SerializedTransform rightHandPivot;
+        [HideInInspector] [SerializeField] private HandConstrains rightHandLimits;
+        [HideInInspector] [SerializeField] public SerializedTransform rightHandPivot;
 
         [Header("Left Hand properties")]
-        [HideInInspector] public HandConstrains leftHandLimits;
-        [HideInInspector] public SerializedTransform leftHandPivot;
+        [HideInInspector] [SerializeField] private HandConstrains leftHandLimits;
+        [HideInInspector] [SerializeField] public SerializedTransform leftHandPivot;
 
-        public bool InteractedWith { get; set; }
-        public InteractableState state { get; set; }
+        private Hand currentHand;
+        [ReadOnly] private InteractableState state;
+        protected InteractableState State
+        {
+            get => state; set
+            {
+                switch (value)
+                {
+                    case InteractableState.None:
+                        if (currentHand)
+                        {
+                            currentHand.SetDefaultConstraints();
+                        }
+                        if (state == InteractableState.Hovered)
+                        {
+                            onHandHoverEnd.Invoke(currentHand);
+                        }
+                        else if (state == InteractableState.InteractedWith)
+                        {
+                            onInteractionEnd.Invoke(currentHand);
+                            currentHand.StopInteracting();
+
+                        }
+                        currentHand = null;
+                        break;
+                    case InteractableState.Hovered:
+                        if (state != InteractableState.Hovered)
+                        {
+                            if (constraintHandOnHover)
+                            {
+                                SetConstraints(hoverHandConstraints);
+                            }
+                        }
+                        break;
+                    case InteractableState.InteractedWith:
+                        if (state != InteractableState.InteractedWith)
+                        {
+                            onInteractionStart.Invoke(currentHand);
+                            currentHand.StartInteracting();
+                            if (constraintHandOnInteraction)
+                            {
+                                var constraint = (currentHand.hand == HandType.left) ? leftHandLimits : rightHandLimits;
+                                SetConstraints(constraint);
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                state = value;
+            }
+        }
+        public HandConstrains RightHandLimits { get => rightHandLimits; }
+        public HandConstrains LeftHandLimits { get => leftHandLimits; }
+
         public void OnHandHoverStart(Hand hand)
         {
-            onHandHoverStart.Invoke(hand);
+            if (State != InteractableState.InteractedWith)
+            {
+                this.currentHand = hand;
+                State = InteractableState.Hovered;
+            }
         }
         public void OnHandHoverEnd(Hand hand)
         {
+            State = InteractableState.None;
             onHandHoverEnd.Invoke(hand);
         }
-        public bool OnInteractionStart(Hand hand)
+        private void SetConstraints(HandConstrains constraint)
         {
-            if (!InteractedWith)
-            {
-                onInteractionStart.Invoke(hand);
-                InteractedWith = true;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            currentHand.SetHandConstraints(constraint);
         }
-        public bool OnInteractionEnd(Hand hand)
+        private void Update()
         {
-            InteractedWith = false;
-            onInteractionEnd.Invoke(hand);
-            return true;
-        }
+            if (currentHand && interactionButton != InteractionButton.None)
+            {
+                FingerName finger = (interactionButton == InteractionButton.Trigger) ? FingerName.Trigger : FingerName.Grip;
+                bool buttonPressed = inputManager.GetFinger(currentHand.hand, finger);
+                switch (State)
+                {
+                    case InteractableState.Hovered:
+                        if (buttonPressed)
+                        {
+                            State = InteractableState.InteractedWith;
+                            currentHand.StartInteracting();
+                        }
+                        break;
+                    case InteractableState.InteractedWith:
+                        if (!buttonPressed)
+                        {
+                            State = InteractableState.None;
+                            currentHand.StopInteracting();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
 
+        }
     }
 }

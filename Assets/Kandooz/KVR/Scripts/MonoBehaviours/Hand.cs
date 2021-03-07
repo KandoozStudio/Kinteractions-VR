@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using Kandooz.Common;
-using UnityEngine.Assertions;
 public enum HandType
 {
     right, left
@@ -14,13 +13,12 @@ namespace Kandooz.KVR
     public class Hand : MonoBehaviour
     {
         public HandType hand;
-        public AbstractVRInputManager inputManager;
         public Vector3 colliderPosition = Vector3.zero;
         public float collisionRadius = .25f;
         public LayerMask interactingLayers = 255;
         [HideInInspector] public HandConstrains defaultHandConstraints = HandConstrains.Free;
 
-        [ReadOnly] [SerializeField] private bool interacting;
+        [ReadOnly] [SerializeField] private bool occupied;
 
         private HandConstrains constraints = HandConstrains.Free;
         private Interactable interactable;
@@ -40,31 +38,10 @@ namespace Kandooz.KVR
         private void Update()
         {
             center = this.transform.TransformPoint(colliderPosition);
-
-            if (interactable)
+            if (occupied)
             {
-                FingerName finger = (interactable.interactionButton == GrabbingButton.Trigger) ? FingerName.Trigger : FingerName.Grip;
-                bool buttonPressed = inputManager.GetFinger(hand, finger);
-                if (interacting)
-                {
-                    if (!buttonPressed)
-                    {
-                        StopInteracting();
-                    }
-                }
-                else
-                {
-                    if (buttonPressed)
-                    {
-                        StartInteracting();
-                    }
-                }
+                return;
             }
-        }
-        private void FixedUpdate()
-        {
-            //if (!interacting) 
-            //{
             hoveredObject[0] = null;
             Physics.OverlapSphereNonAlloc(center, collisionRadius * this.transform.lossyScale.magnitude, hoveredObject, interactingLayers);
             if (hoveredObject[0])
@@ -83,8 +60,6 @@ namespace Kandooz.KVR
                     currentCollider = hoveredObject[0];
                 }
             }
-            //}
-
             else
             {
                 if (interactable)
@@ -96,40 +71,25 @@ namespace Kandooz.KVR
                 currentCollider = null;
             }
 
-
         }
+
         #endregion
         public void StartInteracting()
         {
-            if (interactable.OnInteractionStart(this))
-            {
-                interacting = true;
-                switch (hand)
-                {
-                    case HandType.right:
-                        SetHandConstraints(interactable.rightHandLimits);
-                        break;
-                    case HandType.left:
-                        SetHandConstraints(interactable.leftHandLimits);
-                        break;
-                    default:
-                        break;
-                }
-            }
+                occupied = true;
         }
         public void StopInteracting()
         {
-            Assert.IsNotNull(interactable, "function called with null interactable");
-            SetDefaultConstraints();
-            interacting = false;
+            occupied = false;
             currentCollider = null;
-            interactable.OnInteractionEnd(this);
             interactable = null;
         }
+        
         public void SetHandConstraints(HandConstrains constraints)
         {
             this.constraints = constraints;
         }
+        
         public void SetDefaultConstraints()
         {
             this.constraints = this.defaultHandConstraints;

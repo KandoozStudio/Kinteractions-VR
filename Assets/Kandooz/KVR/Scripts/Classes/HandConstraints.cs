@@ -11,10 +11,10 @@ namespace Kandooz.KVR
         /// Defines whether the finger is locked or free
         /// </summary>
         public bool locked;
-        [Range(0,1)]
+        [Range(0, 1)]
         public float min;
         public float max;
-        public FingerConstraints(bool locked,float min,float max)
+        public FingerConstraints(bool locked, float min, float max)
         {
             this.min = min;
             this.max = max;
@@ -25,12 +25,15 @@ namespace Kandooz.KVR
         /// <summary>
         /// Short for new FingerConstraints(false,0,1);
         /// </summary>
-        public static FingerConstraints Free { get
+        public static FingerConstraints Free
+        {
+            get
             {
-                
+
 
                 return new FingerConstraints(false, 0, 1); ;
-            } }
+            }
+        }
     }
     [System.Serializable]
     public struct HandConstrains
@@ -54,6 +57,19 @@ namespace Kandooz.KVR
                 hand.ringFingerLimits = FingerConstraints.Free;
                 hand.pinkyFingerLimits = FingerConstraints.Free;
                 hand.thumbFingerLimits = FingerConstraints.Free;
+                return hand;
+            }
+        }
+        public static HandConstrains Pointing
+        {
+            get
+            {
+                var hand = new HandConstrains();
+                hand.indexFingerLimits = new FingerConstraints(false, 0, 1);
+                hand.middleFingerLimits = new FingerConstraints(false, .3f, 1);
+                hand.ringFingerLimits = new FingerConstraints(false, .3f, 1);
+                hand.pinkyFingerLimits = new FingerConstraints(false, .3f, 1);
+                hand.thumbFingerLimits = new FingerConstraints(false, .3f, 1);
                 return hand;
             }
         }
