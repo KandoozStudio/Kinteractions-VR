@@ -23,7 +23,8 @@ namespace Kandooz.KVR
         [Header("Animation clips")]
         public AnimationClip opened;
         public AnimationClip closed;
-        [HideInInspector] public List<AnimationClip> poses;
+        [Header("Custom Poseses")]
+        [HideInInspector] public List<PoseData> poses;
         public AvatarMask this[FingerName i]
         {
             get
