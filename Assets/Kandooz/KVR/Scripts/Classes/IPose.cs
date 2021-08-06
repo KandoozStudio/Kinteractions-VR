@@ -1,15 +1,13 @@
-﻿namespace Kandooz.KVR
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Kandooz.KVR
 {
     interface IPose
     {
-        float this[FingerName index]
-        {
-            set;
-        }
-        float this[int index]
-        {
-            set;
-        }
-        float Weight { set;  }
+        float this[int indexer]{set;}
+        float Weight { get; set; }
     }
 }
