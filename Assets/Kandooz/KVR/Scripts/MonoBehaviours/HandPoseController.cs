@@ -1,9 +1,5 @@
-﻿using Kandooz.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
@@ -19,7 +15,7 @@ namespace Kandooz.KVR
         [HideInInspector] [SerializeField] private bool staticPose;
 
         [HideInInspector] [SerializeField] private List<IPose> poses;
-        private CrossFadingFloat staticPoseCrossFader;
+        private float staticPoseCrossFader;
         private AnimationMixerPlayable handMixer;
         private bool initialized;
         AnimationMixerPlayable poseMixer;
