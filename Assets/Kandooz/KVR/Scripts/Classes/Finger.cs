@@ -45,6 +45,7 @@ namespace Kandooz.KVR
         public Finger(PlayableGraph graph,AnimationClip closed, AnimationClip opened, AvatarMask mask,VariableTweener lerper)
         {
             mixer = AnimationLayerMixerPlayable.Create(graph, 2);
+            
             var openPlayable = AnimationClipPlayable.Create(graph, opened);
             graph.Connect(openPlayable, 0, mixer, 0);
             var closedPlayable = AnimationClipPlayable.Create(graph, closed);
@@ -61,6 +62,7 @@ namespace Kandooz.KVR
 
             };
         }
+
         public AnimationLayerMixerPlayable Mixer
         {
             get
