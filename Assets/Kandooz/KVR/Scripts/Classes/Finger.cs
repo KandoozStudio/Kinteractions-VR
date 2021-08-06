@@ -29,12 +29,13 @@ namespace Kandooz.KVR
         {
             set
             {
-                if (Mathf.Abs(value - lastweight) > .001f)
+                if (true)
                 {
-                    value = Mathf.Clamp01(value);
                     weight = value;
                     lastweight = value;
                     crossFadingWeight.Value = value;
+                    mixer.SetInputWeight(0, 1 - value);
+                    mixer.SetInputWeight(1, value);
                 }
             }
             get
@@ -59,7 +60,6 @@ namespace Kandooz.KVR
             {
                 mixer.SetInputWeight(0, 1 - value);
                 mixer.SetInputWeight(1, value);
-
             };
         }
 

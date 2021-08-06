@@ -8,6 +8,6 @@ namespace Kandooz.KVR
     interface IPose
     {
         float this[int indexer]{set;}
-        float Weight { get; set; }
+
     }
 }

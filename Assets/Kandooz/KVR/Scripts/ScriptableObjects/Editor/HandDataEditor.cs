@@ -8,28 +8,22 @@ namespace Kandooz.KVR
     [CustomEditor(typeof(HandData))]
     public class HandDataEditor : Editor
     {
-        ReorderableList poses;
-        void OnEnable()
-        {
-            poses = new ReorderableList(serializedObject, serializedObject.FindProperty("poses"), true, true, true, true);
-            poses.drawHeaderCallback = (rect) => { EditorGUI.LabelField(rect, "Custom Poses"); };
 
-            poses.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
-            {
-                rect.height -= 2;
-                rect.x += 2;
-                var element = serializedObject.FindProperty("poses").GetArrayElementAtIndex(index);
-                EditorGUI.PropertyField(rect, element, new GUIContent(""));
-                
-            };
-        }
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
             EditorGUILayout.Space();
             EditorGUILayout.Space();
-            poses.DoLayoutList();
+            EditorGUILayout.LabelField("Default Pose  animations");
+            EditorGUI.indentLevel++;
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("defaultPose").FindPropertyRelative("open"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("defaultPose").FindPropertyRelative("closed"));
+            EditorGUI.indentLevel--;
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("poses"));
             serializedObject.ApplyModifiedProperties();
+            //poses.DoLayoutList();
+            //serializedObject.ApplyModifiedProperties();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Kandooz.KVR
         private float start;
         private float target;
         private float value;
-        private readonly float rate;
+        private float rate;
         private float t;
         private VariableTweener lerper;
         public float Value
@@ -29,7 +29,7 @@ namespace Kandooz.KVR
                     t = 0;
                     start = this.value;
                     target = value;
-                    lerper.AddCrossFadingFloat(this);
+                    lerper.AddTweenable(this);
                 }
 #if UNITY_EDITOR
                 else
@@ -40,12 +40,15 @@ namespace Kandooz.KVR
 #endif
             }
         }
-        public TweenableFloat(VariableTweener lerper, float rate = 2f, float value = 0)
+
+        public float Rate {  set => rate = value; }
+
+        public TweenableFloat(VariableTweener lerper,Action<float> onChange=null, float rate = 1f, float value = 0)
         {
             start = target = this.value = value;
             this.rate = rate;
-            t = 1;
-            onChange = null;
+            this.t = 1;
+            this.onChange = onChange;
             this.lerper = lerper;
         }
         public bool Tween(float elapsedTime)
