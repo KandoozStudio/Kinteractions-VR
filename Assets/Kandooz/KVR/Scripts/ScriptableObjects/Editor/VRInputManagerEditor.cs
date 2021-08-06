@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 namespace Kandooz.KVR.Editors
 {
-    [CustomEditor(typeof(Kandooz.KVR.VRInputManager))]
+    [CustomEditor(typeof(Kandooz.KVR.UnityAxisBasedVRInputManager))]
     public class VRInputManagerEditor : Editor
     {
         internal class InputAxis
@@ -30,10 +30,10 @@ namespace Kandooz.KVR.Editors
         // NB: ALL AXIS VALUES WILL BE -1'd DURING PROCESSING, SO USE THE "REAL" AXIS VALUE
         //
 
-        VRInputManager manager;
+        UnityAxisBasedVRInputManager manager;
         private void OnEnable()
         {
-            manager = (VRInputManager)target;
+            manager = (UnityAxisBasedVRInputManager)target;
         }
         public override void OnInspectorGUI()
         {
@@ -68,10 +68,10 @@ namespace Kandooz.KVR.Editors
 
             if(GUILayout.Button("Seed Axis"))
             {
-                SeedInputs();
+                SeedInputs(manager);
             }
         }
-        public void SeedInputs()
+        public static void SeedInputs(UnityAxisBasedVRInputManager manager)
         {
 
             var axisList = new List<InputAxis>();
@@ -231,7 +231,7 @@ namespace Kandooz.KVR.Editors
             serializedObject.ApplyModifiedProperties();
 
         }
-        private void AddAxe(InputAxis axe, ref UnityEditor.SerializedProperty currentList)
+        private static void AddAxe(InputAxis axe, ref UnityEditor.SerializedProperty currentList)
         {
             var index = currentList.arraySize++;
             var newItem = currentList.GetArrayElementAtIndex(index);
@@ -291,7 +291,7 @@ namespace Kandooz.KVR.Editors
             } while (iteratorProperty.Next(false));
 
         }
-        private bool ElementExsists(string name, UnityEditor.SerializedProperty currentList)
+        private static  bool ElementExsists(string name, UnityEditor.SerializedProperty currentList)
         {
             bool elementExsist = false;
 

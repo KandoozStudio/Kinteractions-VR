@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Kandooz.KVR
 {
-    public class StaticPose : IPose
+    class StaticPose : IPose
     {
-        public float this[int indexer] { set => throw new NotImplementedException(); }
-
-        public float Weight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public float this[FingerName index] { set => throw new NotImplementedException(); }
+        public float this[int index] { set => throw new NotImplementedException(); }
+        public float Weight { set => throw new NotImplementedException(); }
     }
-
 }

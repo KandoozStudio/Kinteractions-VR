@@ -10,16 +10,15 @@ public enum HandType
 
 namespace Kandooz.KVR
 {
-
     public class Hand : MonoBehaviour
     {
         public HandType hand;
-        public VRInputManager inputManager;
         public Vector3 colliderPosition = Vector3.zero;
-        public float collisionRadius = .02f;
-        [HideInInspector]public HandConstrains defaultHandConstraints = HandConstrains.Free;
+        public float collisionRadius = .25f;
+        public LayerMask interactingLayers = 255;
+        [HideInInspector] public HandConstrains defaultHandConstraints = HandConstrains.Free;
 
-        [ReadOnly] [SerializeField] private bool interacting;
+        [ReadOnly] [SerializeField] private bool occupied;
 
         private HandConstrains constraints = HandConstrains.Free;
         private Interactable interactable;
@@ -39,100 +38,12 @@ namespace Kandooz.KVR
         private void Update()
         {
             center = this.transform.TransformPoint(colliderPosition);
-            if (interacting)
+            if (occupied)
             {
-                if (interactable)
-                {
-                    switch (hand)
-                    {
-                        case HandType.right:
-                            if (interactable.interactionButton == GrabbingButton.Grip)
-                            {
-                                if (!inputManager.RightGripDown)
-                                {
-                                    StopInteracting();
-                                }
-                            }
-                            if (interactable.interactionButton == GrabbingButton.Trigger)
-                            {
-                                if (!inputManager.RightTriggerDown)
-                                {
-                                    StopInteracting();
-                                }
-                            }
-                            break;
-                        case HandType.left:
-                            if (interactable.interactionButton == GrabbingButton.Grip)
-                            {
-                                if (!inputManager.LeftGripDown)
-                                {
-                                    StopInteracting();
-
-                                }
-                            }
-                            if (interactable.interactionButton == GrabbingButton.Trigger)
-                            {
-                                if (!inputManager.LeftTriggerDown)
-                                {
-                                    StopInteracting();
-                                }
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                return;
             }
-            else
-            {
-                if (interactable)
-                {
-
-                    switch (hand)
-                    {
-                        case HandType.right:
-                            if (interactable.interactionButton == GrabbingButton.Grip)
-                            {
-                                if (inputManager.RightGripDown)
-                                {
-                                    StartInteracting();
-                                }
-                            }
-                            if (interactable.interactionButton == GrabbingButton.Trigger)
-                            {
-                                if (inputManager.RightTriggerDown)
-                                {
-                                    StartInteracting();
-                                }
-                            }
-                            break;
-                        case HandType.left:
-                            if (interactable.interactionButton == GrabbingButton.Grip)
-                            {
-                                if (inputManager.LeftGripDown)
-                                {
-                                    StartInteracting();
-
-                                }
-                            }
-                            if (interactable.interactionButton == GrabbingButton.Trigger)
-                            {
-                                if (inputManager.LeftTriggerDown)
-                                {
-                                    StartInteracting();
-                                }
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-        }
-        private void FixedUpdate()
-        {
             hoveredObject[0] = null;
-            Physics.OverlapSphereNonAlloc(center, collisionRadius * this.transform.lossyScale.magnitude, hoveredObject);
+            Physics.OverlapSphereNonAlloc(center, collisionRadius * this.transform.lossyScale.magnitude, hoveredObject, interactingLayers);
             if (hoveredObject[0])
             {
                 if (currentCollider != hoveredObject[0])
@@ -159,39 +70,26 @@ namespace Kandooz.KVR
                 interactable = null;
                 currentCollider = null;
             }
-            Debug.Log(hoveredObject[0]);
 
         }
-        #endregion
 
+        #endregion
         public void StartInteracting()
         {
-            interacting = true;
-            interactable.OnInteractionStart(this);
-            switch (hand)
-            {
-                case HandType.right:
-                    SetHandConstraints(interactable.rightHandLimits);
-                    break;
-                case HandType.left:
-                    SetHandConstraints(interactable.leftHandLimits);
-                    break;
-                default:
-                    break;
-            }
+                occupied = true;
         }
         public void StopInteracting()
         {
-            interactable.OnInterActionEnd(this);
-            SetDefaultConstraints();
-            interacting = false;
-            interactable = null;
+            occupied = false;
             currentCollider = null;
+            interactable = null;
         }
+        
         public void SetHandConstraints(HandConstrains constraints)
         {
             this.constraints = constraints;
         }
+        
         public void SetDefaultConstraints()
         {
             this.constraints = this.defaultHandConstraints;

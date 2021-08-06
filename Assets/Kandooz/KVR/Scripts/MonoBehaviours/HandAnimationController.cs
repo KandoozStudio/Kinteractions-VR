@@ -7,36 +7,6 @@ using UnityEngine.Playables;
 
 namespace Kandooz.KVR
 {
-    [System.Serializable]
-    public class Pose
-    {
-        public AnimationClipPlayable playable;
-        public AnimationClip clip;
-        private float weight;
-        private CrossFadingFloat fader;
-
-        public float Weight
-        {
-            get
-            {
-                return weight;
-            }
-        }
-
-        public void SetWeight(float value)
-        {
-            if (fader == null)
-            {
-                var that = this;
-                fader = new CrossFadingFloat();
-                fader.onChange += (v) =>
-                {
-                    that.weight = v;
-                };
-            }
-            fader.Value = value;
-        }
-    }
     public class HandAnimationController : MonoBehaviour
     {
         #region private variables
@@ -45,11 +15,12 @@ namespace Kandooz.KVR
         [HideInInspector] [SerializeField] public PlayableGraph graph;
         [HideInInspector] [SerializeField] private bool staticPose;
         [HideInInspector] [SerializeField] private List<Pose> poses;
-        private CrossFadingFloat staticPoseCrossFader;
+        private TweenableFloat staticPoseCrossFader;
         private AnimationMixerPlayable handMixer;
         private bool initialized;
         AnimationMixerPlayable poseMixer;
         [HideInInspector] [SerializeField] private int pose;
+        private VariableTweener lerper;
         #endregion
 
         public bool StaticPose
@@ -64,7 +35,7 @@ namespace Kandooz.KVR
                 {
                     if (staticPoseCrossFader == null)
                     {
-                        staticPoseCrossFader = new CrossFadingFloat();
+                        staticPoseCrossFader = new TweenableFloat(lerper);
                         staticPoseCrossFader.onChange += (v) => {
                             handMixer.SetInputWeight(0, 1-v);
                             handMixer.SetInputWeight(1, v);
@@ -116,13 +87,16 @@ namespace Kandooz.KVR
         }
         public void Init()
         {
-            if (handData) {
+            InitializeTweener();
+            if (handData)
+            {
                 graph = PlayableGraph.Create("Hand Animation Controller graph");
+
                 fingers = new Finger[5];
                 var fingerMixer = AnimationLayerMixerPlayable.Create(graph, fingers.Length);
                 for (uint i = 0; i < fingers.Length; i++)
                 {
-                    fingers[i] = new Finger(graph, handData.closed, handData.opened, handData[(int)i]);
+                    fingers[i] = new Finger(graph, handData.closed, handData.opened, handData[(int)i], lerper);
                     fingerMixer.SetLayerAdditive(i, false);
                     fingerMixer.SetLayerMaskFromAvatarMask(i, handData[(int)i]);
                     graph.Connect(fingers[i].Mixer, 0, fingerMixer, (int)i);
@@ -140,7 +114,7 @@ namespace Kandooz.KVR
                         var poseClip = handData.poses[i];
                         if (poseClip)
                         {
-                            var pose = new Pose();
+                            var pose = new Pose(lerper);
                             pose.playable = AnimationClipPlayable.Create(graph, handData.poses[i]);
                             pose.clip = handData.poses[i];
                             poses.Add(pose);
@@ -167,6 +141,19 @@ namespace Kandooz.KVR
                 initialized = false;
             }
         }
+
+        private void InitializeTweener()
+        {
+            if (!lerper)
+            {
+                lerper = GetComponent<VariableTweener>();
+                if (!lerper)
+                {
+                    lerper = gameObject.AddComponent<VariableTweener>();
+                }
+            }
+        }
+
         void Start()
         {
             if (!initialized)
@@ -178,20 +165,27 @@ namespace Kandooz.KVR
         }
         void OnDisable()
         {
+            initialized = false;
             graph.Destroy();
+        }
+        private void OnEnable()
+        {
+            Init();
         }
         public void Update()
         {
-            if (!EditorApplication.isPlaying)
-            {
-                //graph.SetTimeUpdateMode(UnityEngine.Playables.DirectorUpdateMode.Manual);
-                graph.Evaluate();
-            }
             graph.Evaluate();
 
             for (int i = 0; i < poses.Count; i++)
             {
-                poseMixer.SetInputWeight(i, poses[i].Weight);
+                try
+                {
+                    poseMixer.SetInputWeight(i, poses[i].Weight);
+                }
+                catch
+                {
+                    poses.RemoveAt(i);
+                }
             }
         }
     }

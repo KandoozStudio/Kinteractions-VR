@@ -1,0 +1,156 @@
+fileFormatVersion: 2
+guid: e72bfea655525f04ca7515cb3cc7f45a
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Bazooka.000
+    100002: Bazooka.001
+    100004: Glock
+    100006: Hand_grenade
+    100008: Lightsaber
+    100010: Lightsaber.001
+    100012: Shield_001
+    100014: Shotgun
+    100016: Submachine gun
+    100018: //RootNode
+    100020: Sword
+    400000: Bazooka.000
+    400002: Bazooka.001
+    400004: Glock
+    400006: Hand_grenade
+    400008: Lightsaber
+    400010: Lightsaber.001
+    400012: Shield_001
+    400014: Shotgun
+    400016: Submachine gun
+    400018: //RootNode
+    400020: Sword
+    2100000: Diffuse_Color
+    2100002: No Name
+    2300000: Bazooka.000
+    2300002: Bazooka.001
+    2300004: Glock
+    2300006: Hand_grenade
+    2300008: Lightsaber
+    2300010: Lightsaber.001
+    2300012: Shield_001
+    2300014: Shotgun
+    2300016: Submachine gun
+    2300018: Sword
+    3300000: Bazooka.000
+    3300002: Bazooka.001
+    3300004: Glock
+    3300006: Hand_grenade
+    3300008: Lightsaber
+    3300010: Lightsaber.001
+    3300012: Shield_001
+    3300014: Shotgun
+    3300016: Submachine gun
+    3300018: Sword
+    4300000: Shield_001
+    4300002: Submachine gun
+    4300004: Shotgun
+    4300006: Glock
+    4300008: Lightsaber
+    4300010: Lightsaber.001
+    4300012: Hand_grenade
+    4300014: Bazooka.001
+    4300016: Bazooka.000
+    4300018: Sword
+    6400000: Bazooka.000
+    6400002: Bazooka.001
+    6400004: Glock
+    6400006: Hand_grenade
+    6400008: Lightsaber
+    6400010: Lightsaber.001
+    6400012: Shield_001
+    6400014: Shotgun
+    6400016: Submachine gun
+    6400018: Sword
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Diffuse_Color
+    second: {fileID: 2100000, guid: 1fad94201f440094288e2394d7f32ffc, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

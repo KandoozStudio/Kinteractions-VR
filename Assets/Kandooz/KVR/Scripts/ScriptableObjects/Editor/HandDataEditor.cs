@@ -13,12 +13,7 @@ namespace Kandooz.KVR
         {
             poses = new ReorderableList(serializedObject, serializedObject.FindProperty("poses"), true, true, true, true);
             poses.drawHeaderCallback = (rect) => { EditorGUI.LabelField(rect, "Custom Poses"); };
-            poses.onAddCallback = (list) => {
-                var elements = serializedObject.FindProperty("poses");
-                elements.InsertArrayElementAtIndex(elements.arraySize);
 
-            };
-            poses.onRemoveCallback = (list) => { };
             poses.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
             {
                 rect.height -= 2;
