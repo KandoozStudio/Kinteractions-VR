@@ -11,19 +11,10 @@ namespace Kandooz
         [HideInInspector] public GameObject bone;
         [HideInInspector] public RigVisualizer root ;
         [HideInInspector] public static RigVisualizer selected;
-        private GameObject sphere;
-        
-        private void Start()
-        {
-            var sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere).transform;
-            sphere.parent = this.transform;
-            sphere.localPosition = Vector3.zero;
-            sphere.localScale = Vector3.one * .01f;
-        }
         void OnDrawGizmos()
         {
             Gizmos.color = color;
-
+            Gizmos.DrawSphere(this.transform.position, .005f);
             Color childColor = color;
             childColor.r = color.b;
             childColor.g = color.r;

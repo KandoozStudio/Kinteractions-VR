@@ -8,7 +8,6 @@ namespace Kandooz.KVR
     public class HandAnimationControllerEditor : Editor
     {
         HandPoseController controller;
-        //HandAnimationController controller;
         void OnEnable()
         {
             controller = (HandPoseController)target;
@@ -17,6 +16,7 @@ namespace Kandooz.KVR
                 controller.Initialize();
             }
             EditorApplication.update += Update;
+
             controller.Initialize();
         }
         void OnDisable()
@@ -94,6 +94,34 @@ namespace Kandooz.KVR
                 var fingerWeight = fingers.GetArrayElementAtIndex(i);
                 EditorGUILayout.PropertyField(fingerWeight, new GUIContent(((FingerName)i).ToString()));
             }
+        }
+        Vector3 last = Vector3.one * 10000;
+        protected virtual void OnSceneGUI()
+        {
+            EditorGUI.BeginChangeCheck();
+            var fingerPositions = controller.GetComponentsInChildren<FingerVisualizer>();
+            foreach (var finger in fingerPositions)
+            {
+                var position = finger.transform.position;
+                var rotation = controller.transform.rotation;
+                var value = Mathf.Max( controller[finger.finger],0.0001f);
+                value*= DoFingerHandle(position, rotation);
+                if (value < 0.0002)
+                {
+                    value = 0;
+                }
+                value = Mathf.Clamp01(value);
+                controller[finger.finger] = value;
+            }
+            EditorGUI.EndChangeCheck();
+        }
+
+        private float DoFingerHandle(Vector3 position, Quaternion rotation)
+        {
+            Handles.color = Color.green*.7f;
+            var result = Handles.ScaleSlider(1, position, controller.transform.right, rotation, .05f, 2f);
+
+            return result;
         }
     }
 }
