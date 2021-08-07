@@ -16,6 +16,7 @@ namespace Kandooz.KVR
             } }
 
         public AnimationLayerMixerPlayable PoseMixer { get => poseMixer; }
+        public string Name { get ; set; }
 
         public TweenablePose(PlayableGraph graph, PoseData poseData, HandData data, int index, VariableTweener tweener)
         {

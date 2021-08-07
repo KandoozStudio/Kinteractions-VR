@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace Kandooz.KVR
 {
-    interface IPose
+    public interface IPose
     {
         float this[int indexer]{set;}
+        string Name { get; set; }
 
     }
 }

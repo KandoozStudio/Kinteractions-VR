@@ -7,18 +7,19 @@ using UnityEngine.Playables;
 namespace Kandooz.KVR
 {
     [RequireComponent(typeof(VariableTweener))]
-    class HandPoseController : MonoBehaviour
+    public class HandPoseController : MonoBehaviour
     {
         #region private variables
-        [SerializeField] private HandData handData;
-        [SerializeField] private float[] fingers = new float[5];
-        [SerializeField] public PlayableGraph graph;
-        [SerializeField] private int pose;
-        [SerializeField] private List<IPose> poses;
-
+        [HideInInspector][SerializeField] private HandData handData;
+        [Range(0,1)]
+        [HideInInspector][SerializeField] private float[] fingers = new float[5];
+        [HideInInspector] [SerializeField] private int pose;
+        
+        private List<IPose> poses;
         private VariableTweener variableTweener;
         private AnimationMixerPlayable handMixer;
         private Animator animator;
+        private PlayableGraph graph;
 
         #endregion
         public float this[FingerName index]
@@ -51,6 +52,10 @@ namespace Kandooz.KVR
                 }
             }
         }
+
+        public HandData HandData { get => handData; set => handData = value; }
+        public PlayableGraph Graph { get => graph;  }
+        public List<IPose> Poses { get => poses;  }
 
         public void Awake()
         {
@@ -94,32 +99,44 @@ namespace Kandooz.KVR
         private void InitializePoses()
         {
             poses = new List<IPose>(handData.poses.Count + 1);
-            var pose = CreateAndConnectPose(0, handData.defaultPose);   
-            poses.Add(pose);
+            CreateAndConnectPose(0, handData.defaultPose);   
+            
             for (int i = 0; i < handData.poses.Count; i++)
             {
-                pose = CreateAndConnectPose(i + 1, handData.poses[i]);
-                poses.Add(pose);
+               CreateAndConnectPose(i + 1, handData.poses[i]);
             }
         }
 
-        private IPose CreateAndConnectPose(int poseID, PoseData data)
+        private void CreateAndConnectPose(int poseID, PoseData data)
         {
+            IPose pose;
             if (data.type == PoseData.PoseType.Tweenable)
             {
-                var pose = new TweenablePose(graph, data, handData, poseID, variableTweener);
-                graph.Connect(pose.PoseMixer, 0, handMixer, poseID);
-                pose.PoseMixer.SetInputWeight(0, 1);
-                return pose;
+                pose=CreateTweenablePose(poseID, data);
             }
             else
             {
-                var pose = new StaticPose(graph, data, variableTweener);
-                graph.Connect(pose.Mixer, 0, handMixer, poseID);
-                return pose;
+                pose=CreateStaticPose(poseID, data);
             }
+            pose.Name = data.Name;
+            poses.Add(pose);
         }
 
+        private IPose CreateStaticPose(int poseID, PoseData data)
+        {
+            var pose = new StaticPose(graph, data, variableTweener);
+            pose.Name = data.Name;
+            graph.Connect(pose.Mixer, 0, handMixer, poseID);
+            return pose;
+        }
+
+        private IPose CreateTweenablePose(int poseID, PoseData data)
+        {
+            var pose = new TweenablePose(graph, data, handData, poseID, variableTweener);
+            graph.Connect(pose.PoseMixer, 0, handMixer, poseID);
+            pose.PoseMixer.SetInputWeight(0, 1);
+            return pose;
+        }
 
         public void Update()
         {

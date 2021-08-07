@@ -5,6 +5,7 @@ using UnityEngine.Playables;
 
 namespace Kandooz.KVR
 {
+    [System.Serializable]
     class StaticPose : IPose
     {
         public float this[FingerName index] { set  { } }
@@ -13,6 +14,7 @@ namespace Kandooz.KVR
         private AnimationClipPlayable playable;
 
         public AnimationClipPlayable Mixer { get => playable;  }
+        public string Name { get ; set ; }
 
         public StaticPose(PlayableGraph graph, PoseData poseData, VariableTweener tweener)
         {

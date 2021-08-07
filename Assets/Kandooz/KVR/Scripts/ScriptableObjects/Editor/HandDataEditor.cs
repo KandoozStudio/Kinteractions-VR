@@ -6,11 +6,17 @@ using UnityEngine;
 namespace Kandooz.KVR
 {
     [CustomEditor(typeof(HandData))]
+    [CanEditMultipleObjects]
     public class HandDataEditor : Editor
     {
-
+        HandData data;
+        private void OnEnable()
+        {
+            data = (HandData)target;
+        }
         public override void OnInspectorGUI()
         {
+
             DrawDefaultInspector();
             EditorGUILayout.Space();
             EditorGUILayout.Space();
@@ -19,11 +25,10 @@ namespace Kandooz.KVR
             EditorGUILayout.PropertyField(serializedObject.FindProperty("defaultPose").FindPropertyRelative("open"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("defaultPose").FindPropertyRelative("closed"));
             EditorGUI.indentLevel--;
-
             EditorGUILayout.PropertyField(serializedObject.FindProperty("poses"));
             serializedObject.ApplyModifiedProperties();
-            //poses.DoLayoutList();
-            //serializedObject.ApplyModifiedProperties();
+            data.defaultPose.Name = "default";
+
         }
     }
 }
