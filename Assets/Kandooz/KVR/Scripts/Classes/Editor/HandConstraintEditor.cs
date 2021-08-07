@@ -1,40 +1,35 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-namespace Kandooz.KVR {
+namespace Kandooz.KVR
+{
     [CustomPropertyDrawer(typeof(HandConstrains))]
     public class HandConstraintPropertyDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            float x = position.x;
             EditorGUI.BeginProperty(position, label, property);
-            
-            var pos = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
-            position.x = x;
-            var indent = EditorGUI.indentLevel;
-            EditorGUI.indentLevel = 1;
-            var height = EditorGUI.GetPropertyHeight(property.FindPropertyRelative("thumbFingerLimits")) ;
-            
-            var fingerPosition = new Rect(position.x, position.y+EditorGUIUtility.singleLineHeight, position.width, height);
-
-            EditorGUI.PropertyField(fingerPosition, property.FindPropertyRelative("indexFingerLimits"));
-            fingerPosition.y += height;
-
-            EditorGUI.PropertyField(fingerPosition, property.FindPropertyRelative("middleFingerLimits"));           
-            fingerPosition.y += height;
-
-            EditorGUI.PropertyField(fingerPosition, property.FindPropertyRelative("ringFingerLimits"));
-            fingerPosition.y += height;
-
-            EditorGUI.PropertyField(fingerPosition, property.FindPropertyRelative("pinkyFingerLimits"));
-            fingerPosition.y += height;
-
-            EditorGUI.PropertyField(fingerPosition, property.FindPropertyRelative("thumbFingerLimits"));
-
+            EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
+            EditorGUI.indentLevel++;
+            position.y += EditorGUIUtility.singleLineHeight;
+            position = DrawPropertyAndIncrementHeight(property,  position, "indexFingerLimits");
+            position = DrawPropertyAndIncrementHeight(property,  position, "middleFingerLimits");
+            position = DrawPropertyAndIncrementHeight(property,  position, "ringFingerLimits");
+            position = DrawPropertyAndIncrementHeight(property,  position, "pinkyFingerLimits");
+            position = DrawPropertyAndIncrementHeight(property,  position, "thumbFingerLimits");
             EditorGUI.EndProperty();
-            EditorGUI.indentLevel = indent;
+            EditorGUI.indentLevel--;
         }
+
+        private static Rect DrawPropertyAndIncrementHeight(SerializedProperty property, Rect position, string proptertyName)
+        {
+            var height = EditorGUI.GetPropertyHeight(property.FindPropertyRelative(proptertyName));
+            position.height = height;
+            EditorGUI.PropertyField(position, property.FindPropertyRelative(proptertyName));
+            position.y += height;
+            return position;
+        }
+
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             var height = EditorGUI.GetPropertyHeight(property.FindPropertyRelative("thumbFingerLimits")) * 5;

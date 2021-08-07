@@ -56,6 +56,11 @@ namespace Kandooz.KVR
             {
                 controller.Initialize();
             }
+            if (!controller.HandData)
+            {
+                EditorGUILayout.LabelField("Please select a handData object or create one");
+                return;
+            }
             DrawCurrentPoseEditor(serializedObject);
             if (IsStaticPose())
             {

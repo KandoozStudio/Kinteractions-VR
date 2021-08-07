@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
@@ -56,11 +55,9 @@ namespace Kandooz.KVR
                 return pose;
             }
         }
-
         public HandData HandData { get => handData; set => handData = value; }
         public PlayableGraph Graph { get => graph; }
         public List<IPose> Poses { get => poses; }
-
         public void Awake()
         {
             Initialize();
@@ -141,16 +138,18 @@ namespace Kandooz.KVR
             pose.PoseMixer.SetInputWeight(0, 1);
             return pose;
         }
-
         public void Update()
         {
+            if (!graph.IsValid())
+            {
+                InitializeGraph();
+            }
             graph.Evaluate();
             for (int i = 0; i < fingers.Length; i++)
             {
                 this[i] = fingers[i];
             }
             Pose = pose;
-
         }
     }
 }

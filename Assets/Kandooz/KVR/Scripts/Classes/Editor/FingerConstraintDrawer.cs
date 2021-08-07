@@ -6,7 +6,8 @@ using UnityEditor;
 namespace Kandooz.KVR
 {
     [CustomPropertyDrawer(typeof(FingerConstraints))]
-    public class MinMaxDrawer : PropertyDrawer
+    //TODO : refactor
+    public class FingerConstraintDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -53,6 +54,7 @@ namespace Kandooz.KVR
         }
         private void DrawNormalSlider(Rect position, SerializedProperty property)
         {
+            position.width *= .8f;
             EditorGUI.PropertyField(position, property.FindPropertyRelative("min"),new GUIContent("value"));
             property.FindPropertyRelative("max").floatValue = property.FindPropertyRelative("min").floatValue;
         }
