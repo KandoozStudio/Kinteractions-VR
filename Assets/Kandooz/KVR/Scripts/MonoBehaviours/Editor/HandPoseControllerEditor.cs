@@ -23,7 +23,6 @@ namespace Kandooz.KVR
         {
             EditorApplication.update -= Update;
         }
-
         void Update()
         {
             if (!EditorApplication.isPlaying)
@@ -47,8 +46,6 @@ namespace Kandooz.KVR
             serializedObject.ApplyModifiedProperties();
 
         }
-
-
         public void DisplayHandEditor(SerializedObject serializedObject)
         {
 
@@ -59,12 +56,18 @@ namespace Kandooz.KVR
             {
                 controller.Initialize();
             }
-
-            DrawFingerEditor(serializedObject);
-
             DrawCurrentPoseEditor(serializedObject);
+            if (IsStaticPose())
+            {
+                DrawFingerEditor(serializedObject);
+            }
         }
-
+        private bool IsStaticPose()
+        {
+            var currentPose = controller.Poses[controller.Pose];
+            var isStatic = currentPose.GetType() != typeof(StaticPose);
+            return isStatic;
+        }
         private void DrawCurrentPoseEditor(SerializedObject serializedObject)
         {
             var currentPose = serializedObject.FindProperty("pose");
@@ -72,13 +75,12 @@ namespace Kandooz.KVR
             string[] list = new string[poses.Count];
             for (int i = 0; i < list.Length; i++)
             {
-                
+
                 list[i] = poses[i].Name;
             }
             controller.Pose =
                 EditorGUILayout.Popup(new GUIContent("pose"), currentPose.intValue, list);
         }
-
         private static void DrawFingerEditor(SerializedObject serializedObject)
         {
             var fingers = serializedObject.FindProperty("fingers");

@@ -10,11 +10,11 @@ namespace Kandooz.KVR
     public class HandPoseController : MonoBehaviour
     {
         #region private variables
-        [HideInInspector][SerializeField] private HandData handData;
-        [Range(0,1)]
-        [HideInInspector][SerializeField] private float[] fingers = new float[5];
+        [HideInInspector] [SerializeField] private HandData handData;
+        [Range(0, 1)]
+        [HideInInspector] [SerializeField] private float[] fingers = new float[5];
         [HideInInspector] [SerializeField] private int pose;
-        
+
         private List<IPose> poses;
         private VariableTweener variableTweener;
         private AnimationMixerPlayable handMixer;
@@ -51,11 +51,15 @@ namespace Kandooz.KVR
                     }
                 }
             }
+            get
+            {
+                return pose;
+            }
         }
 
         public HandData HandData { get => handData; set => handData = value; }
-        public PlayableGraph Graph { get => graph;  }
-        public List<IPose> Poses { get => poses;  }
+        public PlayableGraph Graph { get => graph; }
+        public List<IPose> Poses { get => poses; }
 
         public void Awake()
         {
@@ -99,11 +103,11 @@ namespace Kandooz.KVR
         private void InitializePoses()
         {
             poses = new List<IPose>(handData.poses.Count + 1);
-            CreateAndConnectPose(0, handData.defaultPose);   
-            
+            CreateAndConnectPose(0, handData.defaultPose);
+
             for (int i = 0; i < handData.poses.Count; i++)
             {
-               CreateAndConnectPose(i + 1, handData.poses[i]);
+                CreateAndConnectPose(i + 1, handData.poses[i]);
             }
         }
 
@@ -112,11 +116,11 @@ namespace Kandooz.KVR
             IPose pose;
             if (data.type == PoseData.PoseType.Tweenable)
             {
-                pose=CreateTweenablePose(poseID, data);
+                pose = CreateTweenablePose(poseID, data);
             }
             else
             {
-                pose=CreateStaticPose(poseID, data);
+                pose = CreateStaticPose(poseID, data);
             }
             pose.Name = data.Name;
             poses.Add(pose);

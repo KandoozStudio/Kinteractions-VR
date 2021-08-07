@@ -6,7 +6,7 @@ using UnityEngine.Playables;
 namespace Kandooz.KVR
 {
     [System.Serializable]
-    class StaticPose : IPose
+    public class StaticPose : IPose
     {
         public float this[FingerName index] { set  { } }
         public float this[int index] { set { } }
