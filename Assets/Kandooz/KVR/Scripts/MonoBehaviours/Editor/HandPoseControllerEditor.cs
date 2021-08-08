@@ -105,7 +105,7 @@ namespace Kandooz.KVR
                 var position = finger.transform.position;
                 var rotation = controller.transform.rotation;
                 var value = Mathf.Max( controller[finger.finger],0.0001f);
-                value*= DoFingerHandle(position, rotation);
+                value= DoFingerHandle(position, rotation,value);
                 if (value < 0.0002)
                 {
                     value = 0;
@@ -116,11 +116,14 @@ namespace Kandooz.KVR
             EditorGUI.EndChangeCheck();
         }
 
-        private float DoFingerHandle(Vector3 position, Quaternion rotation)
+        private float DoFingerHandle(Vector3 position, Quaternion rotation,float value=1)
         {
             Handles.color = Color.green*.7f;
-            var result = Handles.ScaleSlider(1, position, controller.transform.right, rotation, .05f, 2f);
-
+            var result = Handles.ScaleSlider(value, position, controller.transform.right, rotation, .05f, 2f);
+            while(Mathf.Abs(result-value)>.00001 && Mathf.Abs(result - value) < .07)
+            {
+                value = (value) * 10;
+            }
             return result;
         }
     }
