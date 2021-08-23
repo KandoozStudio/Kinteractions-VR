@@ -10,25 +10,34 @@ namespace Kandooz.KVR
         [HideInInspector] [SerializeField] HandConstrains LeftHandConstraints;
         [HideInInspector] [SerializeField] HandConstrains righHandConstraints;
 
-        [HideInInspector] [SerializeField] bool constraintOnhover=false;
+        [HideInInspector] [SerializeField] bool constraintOnhover = false;
         [HideInInspector] [SerializeField] HandConstrains LeftHandHoverConstraints;
         [HideInInspector] [SerializeField] HandConstrains righHandHoverConstraints;
 
         [HideInInspector] [SerializeField] Interactor currentInteractor;
+        [Header(header: "Events")]
+        [SerializeField] InteractorEvent onHoverStart;
+        [SerializeField] InteractorEvent onHoverEnd;
+        [SerializeField] InteractorEvent onHover;
+        [SerializeField] InteractorEvent onInteractionStart;
+        [SerializeField] InteractorEvent onInteractionEnd;
+
         IPose pose;
         public IPose Pose { get => pose; set => pose = value; }
 
         public void OnHoverStart(Interactor interactor)
         {
-
+            onHoverStart.Invoke(interactor);
         }
         public void OnHoverEnd(Interactor interactor)
         {
+            onHoverEnd.Invoke(interactor);
 
         }
-        public void OnHoverUpdate(Interactor interactor)
+        public void OnHover(Interactor interactor)
         {
-            var interactionButtonPressed=interactor.Mapper.InputManager.GetButtonDown(interactor.Mapper.Hand, button);
+            onHover.Invoke(interactor);
+            var interactionButtonPressed = interactor.Mapper.InputManager.GetButtonDown(interactor.Mapper.Hand, button);
             if (interactionButtonPressed)
             {
                 interactor.StartInteraction();
@@ -37,11 +46,13 @@ namespace Kandooz.KVR
         }
         public void OnInterationStart(Interactor interactor)
         {
+            onInteractionStart.Invoke(interactor);
             interactor.StartInteraction();
             currentInteractor = interactor;
         }
         public void OnInterationEnd(Interactor interactor)
         {
+            onInteractionEnd.Invoke(interactor);
             interactor.EndInteraction();
             currentInteractor = null;
         }
@@ -49,7 +60,7 @@ namespace Kandooz.KVR
         {
             if (currentInteractor)
             {
-            var InteractionUp=currentInteractor.Mapper.InputManager.GetButtonDown(currentInteractor.Mapper.Hand, button);
+                var InteractionUp = currentInteractor.Mapper.InputManager.GetButtonDown(currentInteractor.Mapper.Hand, button);
                 if (currentInteractor)
                 {
                     OnInterationEnd(currentInteractor);

@@ -38,7 +38,7 @@ namespace Kandooz.KVR
             }
             if (currentInteractale)
             {
-                currentInteractale.OnHoverUpdate(this);
+                currentInteractale.OnHover(this);
             }
         }
         private void OnTriggerEnter(Collider other)
@@ -47,7 +47,7 @@ namespace Kandooz.KVR
             {
                 return;
             }
-            var interactable = other.GetComponentInParent<Interactable>();
+            var interactable = other.GetComponent<Interactable>();
             if (interactable)
             {
                 ChangeCurrentCollider(other, interactable);
