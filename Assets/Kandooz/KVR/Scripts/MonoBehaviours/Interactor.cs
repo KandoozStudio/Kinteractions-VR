@@ -6,16 +6,18 @@ using UnityEngine;
 namespace Kandooz.KVR
 {
     [RequireComponent(typeof(HandInputMapper))]
-    [RequireComponent(typeof(Collider))]    
+    [RequireComponent(typeof(Collider))]
     public class Interactor : MonoBehaviour
     {
         HandInputMapper mapper;
-        [ReadOnly][SerializeField] Interactable currentInteractale;
-        [ReadOnly][SerializeField] Collider currentCollider;
-        [ReadOnly][SerializeField] bool interacting;
+        [ReadOnly] [SerializeField] Interactable currentInteractale;
+        [ReadOnly] [SerializeField] Collider currentCollider;
+        [ReadOnly] [SerializeField] bool interacting;
+        [ReadOnly] [SerializeField] List<Collider> availableColliders;
         private void Awake()
         {
             mapper = GetComponent<HandInputMapper>();
+            availableColliders = new List<Collider>(); ;
         }
         private void OnTriggerEnter(Collider other)
         {
@@ -23,40 +25,13 @@ namespace Kandooz.KVR
             {
                 return;
             }
-            if (currentCollider != other)
-            {
-                CheckInteractablevalididty(other);
-            }
-        }
-        private void CheckInteractablevalididty(Collider other)
-        {
             var interactable = other.GetComponentInParent<Interactable>();
             if (interactable)
             {
+                ChangeCurrentCollider(other, interactable);
+            }
 
-                if (IsColliderCloserThanCurrent(other))
-                {
-                    currentCollider = other;
-                    currentInteractale = interactable;
-                }
-            }
         }
-        private bool IsColliderCloserThanCurrent(Collider collider)
-        {
-            if (!currentCollider)
-            {
-                return true;
-            }
-            var distanceTocurrentInteractor = (currentCollider.transform.position - this.transform.position).magnitude;
-            var distanceToNewInteractor = (collider.transform.position - this.transform.position).magnitude;
-            if (distanceTocurrentInteractor > distanceToNewInteractor)
-            {
-                
-                return true;
-            }
-            return false;
-        }
-
         private void OnTriggerExit(Collider other)
         {
             if (interacting)
@@ -65,10 +40,64 @@ namespace Kandooz.KVR
             }
             if (currentCollider == other)
             {
-                currentCollider = null;
-                currentInteractale = null;
+                DeselectCurrentInteractable();
+                SelectNextColliderInList();
+            }
+            RemoveColliderFromList(other);
+        }
+        private void ChangeCurrentCollider(Collider other, Interactable interactable)
+        {
+            if (ShouldChangeCurrentCollider(other))
+            {
+                DeselectCurrentInteractable();
+                SelectInteractable(other, interactable);
+
+            }
+            else
+            {
+                availableColliders.Add(other);
+
             }
         }
-
+        private bool ShouldChangeCurrentCollider(Collider collider)
+        {
+            if (!currentCollider)
+            {
+                return true;
+            }
+            var currentDistance = (currentCollider.transform.position - this.transform.position).magnitude;
+            var newDistance = (collider.transform.position - this.transform.position).magnitude;
+            return currentDistance > newDistance;
+            
+        }
+        private void SelectInteractable(Collider collider, Interactable interactable)
+        {
+            currentCollider = collider;
+            currentInteractale = interactable;
+            currentInteractale.OnHoverStart(this);
+        }
+        private void DeselectCurrentInteractable()
+        {
+            if (currentInteractale)
+            {
+                currentInteractale.OnHoverEnd(this);
+            }
+            currentCollider = null;
+            currentInteractale = null;
+        }
+        private void SelectNextColliderInList()
+        {
+            if (availableColliders.Count > 0)
+            {
+                var collider = availableColliders[availableColliders.Count - 1];
+                var interactable = collider.GetComponent<Interactable>();
+                SelectInteractable(collider, interactable);
+                availableColliders.RemoveAt(availableColliders.Count - 1);
+            }
+        }
+        private void RemoveColliderFromList(Collider collider)
+        {
+            availableColliders.Remove(collider);
+        }
     }
 }
