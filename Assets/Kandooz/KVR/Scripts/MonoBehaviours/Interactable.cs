@@ -26,6 +26,10 @@ namespace Kandooz.KVR
         {
 
         }
+        public void OnHoverUpdate(Interactor interactor)
+        {
+
+        }
         public void OnInterationStart(Interactor interactor)
         {
 

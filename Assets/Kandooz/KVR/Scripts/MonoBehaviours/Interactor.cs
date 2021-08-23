@@ -14,10 +14,22 @@ namespace Kandooz.KVR
         [ReadOnly] [SerializeField] Collider currentCollider;
         [ReadOnly] [SerializeField] bool interacting;
         [ReadOnly] [SerializeField] List<Collider> availableColliders;
+        public HandInputMapper Mapper { get => mapper; }
         private void Awake()
         {
             mapper = GetComponent<HandInputMapper>();
             availableColliders = new List<Collider>(); ;
+        }
+        private void Update()
+        {
+            if (interacting)
+            {
+                return;
+            }
+            if (currentInteractale)
+            {
+                currentInteractale.OnHoverUpdate(this);
+            }
         }
         private void OnTriggerEnter(Collider other)
         {
