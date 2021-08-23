@@ -15,6 +15,16 @@ namespace Kandooz.KVR
         [ReadOnly] [SerializeField] bool interacting;
         [ReadOnly] [SerializeField] List<Collider> availableColliders;
         public HandInputMapper Mapper { get => mapper; }
+        public void StartInteraction()
+        {
+            interacting = true;
+        }
+        public void EndInteraction()
+        {
+            interacting = false;
+            DeselectCurrentInteractable();
+        }
+
         private void Awake()
         {
             mapper = GetComponent<HandInputMapper>();

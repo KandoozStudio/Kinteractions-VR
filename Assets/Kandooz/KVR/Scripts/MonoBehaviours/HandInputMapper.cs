@@ -16,6 +16,7 @@ namespace Kandooz.KVR
         public int Pose { get { return poseController.Pose; } set { poseController.Pose = value; } }
 
         public AbstractVRInputManager InputManager { get => inputManager; set => inputManager = value; }
+        public HandSource Hand { get => hand; }
 
         private void Awake()
         {
