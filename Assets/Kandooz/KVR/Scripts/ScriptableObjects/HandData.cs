@@ -11,8 +11,8 @@ namespace Kandooz.KVR
     public class HandData : ScriptableObject
     {
         [Tooltip("The Hand must have HandAnimationController Script attached")]
-        public HandAnimationController leftHandPrefab;
-        public HandAnimationController rightHandPrefab;
+        //public HandAnimationController leftHandPrefab;
+        //public HandAnimationController rightHandPrefab;
         [Header("Avatar Masks")]
         [SerializeField] public AvatarMask thumbAvatarMask;
         [SerializeField] public AvatarMask indexAvatarMask;
@@ -20,11 +20,11 @@ namespace Kandooz.KVR
         [SerializeField] public AvatarMask ringAvatarMask;
         [SerializeField] public AvatarMask pinkyAvatarMask;
 
-        [Header("Animation clips")]
-        public AnimationClip opened;
-        public AnimationClip closed;
+        [Header("Default pose clips")]
+        [HideInInspector]public PoseData defaultPose;
+
         [Header("Custom Poseses")]
-        [HideInInspector] public List<PoseData> poses;
+        [HideInInspector]public List<PoseData> poses;
         public AvatarMask this[FingerName i]
         {
             get

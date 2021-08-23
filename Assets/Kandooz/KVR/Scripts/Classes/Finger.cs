@@ -6,17 +6,7 @@ using UnityEngine.Animations;
 using UnityEngine.Playables;
 namespace Kandooz.KVR
 {
-    public enum FingerName
-    {
-        Thumb = 0,
-        Index = 1,
-        Middle = 2,
-        Ring = 3,
-        Pinky = 4,
-        Trigger=5,
-        Grip=6
-        
-    }
+
     [System.Serializable]
     public class Finger
     {
@@ -29,12 +19,13 @@ namespace Kandooz.KVR
         {
             set
             {
-                if (Mathf.Abs(value - lastweight) > .001f)
+                if (true)
                 {
-                    value = Mathf.Clamp01(value);
                     weight = value;
                     lastweight = value;
                     crossFadingWeight.Value = value;
+                    mixer.SetInputWeight(0, 1 - value);
+                    mixer.SetInputWeight(1, value);
                 }
             }
             get
@@ -59,7 +50,6 @@ namespace Kandooz.KVR
             {
                 mixer.SetInputWeight(0, 1 - value);
                 mixer.SetInputWeight(1, value);
-
             };
         }
 

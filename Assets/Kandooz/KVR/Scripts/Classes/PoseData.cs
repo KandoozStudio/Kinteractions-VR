@@ -1,19 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Kandooz.KVR
 {
+    [Serializable]
     public struct PoseData
     {
         public AnimationClip open;
         public AnimationClip closed;
+        public PoseType type;
+        [SerializeField] private string name;
+
+        public string Name
+        {
+            get {
+                if (name != "")
+                {
+                    return name;
+                }
+                if (type == PoseType.Static)
+                {
+                    return open.name;
+                }
+                return $"{open.name}--{closed.name}";
+            }
+            set => name = value;
+        }
+
         public enum PoseType
         {
-            Static,Tweenable
+            Static, Tweenable
+        }
+        public void SetPosNameIfEmpty(string name)
+        {
+            if (this.Name == "")
+            {
+                this.Name = name;
+            }
         }
     }
 }

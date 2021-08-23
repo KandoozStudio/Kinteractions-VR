@@ -13,15 +13,15 @@ namespace Kandooz.KVR
         {
             values = new List<ITweenable>();
         }
-        public void AddCrossFadingFloat( TweenableFloat value)
+        public void AddTweenable(ITweenable value)
         {
             values.Add(value);
         }
         void Update()
         {
-            for (int i = values.Count-1; i >=0 ; i--)
+            for (int i = values.Count - 1; i >= 0; i--)
             {
-                if (values[i].Tween(Time.deltaTime*tweenScale))
+                if (values[i].Tween(Time.deltaTime * tweenScale))
                 {
                     values.RemoveAt(i);
                 }
