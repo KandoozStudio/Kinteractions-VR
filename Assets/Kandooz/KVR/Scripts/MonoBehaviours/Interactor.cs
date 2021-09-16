@@ -5,7 +5,6 @@ using UnityEngine;
 namespace Kandooz.KVR
 {
     [RequireComponent(typeof(HandInputMapper))]
-    [RequireComponent(typeof(Collider))]
     public class Interactor : MonoBehaviour
     {
         HandInputMapper mapper;
