@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using ScriptableSystem;
 using Kandooz.KVR;
-
-[CreateAssetMenu(menuName ="Kandooz/KVR/Gesture")]
-public class GestureVariable : ScriptableVariable<Gesture>
+namespace Kandooz.KVR
 {
+    [CreateAssetMenu(menuName = "Kandooz/KVR/Gesture")]
+    public class GestureVariable : ScriptableVariable<Gesture>
+    {
+    }
+
 }
