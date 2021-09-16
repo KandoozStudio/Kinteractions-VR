@@ -85,6 +85,7 @@ namespace Kandooz.KVR
         }
         public override bool GetButtonDown(HandSource hand, Button button)
         {
+            return false;
             throw new System.NotImplementedException();
         }
         public override bool GetButtonUp(HandSource hand, Button button)

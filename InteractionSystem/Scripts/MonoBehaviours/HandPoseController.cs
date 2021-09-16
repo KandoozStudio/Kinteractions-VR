@@ -87,7 +87,6 @@ namespace Kandooz.KVR
             InitializePoses();
             graph.Play();
         }
-
         private void CreateGraphAndSetItsoutputs()
         {
             graph = PlayableGraph.Create();
@@ -96,7 +95,6 @@ namespace Kandooz.KVR
             var playableOutput = AnimationPlayableOutput.Create(graph, "Hand mixer", animator);
             playableOutput.SetSourcePlayable(handMixer);
         }
-
         private void InitializePoses()
         {
             poses = new List<IPose>(handData.poses.Count + 1);
@@ -107,7 +105,6 @@ namespace Kandooz.KVR
                 CreateAndConnectPose(i + 1, handData.poses[i]);
             }
         }
-
         private void CreateAndConnectPose(int poseID, PoseData data)
         {
             IPose pose;
@@ -122,7 +119,6 @@ namespace Kandooz.KVR
             pose.Name = data.Name;
             poses.Add(pose);
         }
-
         private IPose CreateStaticPose(int poseID, PoseData data)
         {
             var pose = new StaticPose(graph, data, variableTweener);
@@ -130,7 +126,6 @@ namespace Kandooz.KVR
             graph.Connect(pose.Mixer, 0, handMixer, poseID);
             return pose;
         }
-
         private IPose CreateTweenablePose(int poseID, PoseData data)
         {
             var pose = new TweenablePose(graph, data, handData, poseID, variableTweener);

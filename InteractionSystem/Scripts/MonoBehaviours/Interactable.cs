@@ -11,18 +11,15 @@ namespace Kandooz.KVR
     {
         [SerializeField] Button InterActionButton;
         [Header(header: "Events")]
-        [SerializeField] InteractorEvent onHoverStart;
-        [SerializeField] InteractorEvent onHoverEnd;
-        [SerializeField] InteractorEvent onHover;
-        [SerializeField] InteractorEvent onInteractionStart;
-        [SerializeField] InteractorEvent onInteractionEnd;
+        public InteractorEvent onHoverStart;
+        public InteractorEvent onHoverEnd;
+        public InteractorEvent onHover;
+        public InteractorEvent onInteractionStart;
+        public InteractorEvent onInteractionEnd;
         [Header(header: "Debug")]
-
-        [ReadOnly][SerializeField] Interactor currentInteractor;
-
+        [ReadOnly] [SerializeField] Interactor currentInteractor;
         IPose pose;
         public IPose Pose { get => pose; set => pose = value; }
-
         public void OnHoverStart(Interactor interactor)
         {
             onHoverStart.Invoke(interactor);

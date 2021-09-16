@@ -10,9 +10,9 @@ namespace Kandooz.KVR
         [SerializeField] private AbstractVRInputManager inputManager;
         [SerializeField] private HandSource hand;
         [UnityEngine.Space]
-        [HideInInspector] [SerializeField] HandConstrains constraints = HandConstrains.Free;
+        [HideInInspector] [SerializeField] HandConstraints constraints = HandConstraints.Free;
         HandPoseController poseController;
-        public HandConstrains Constraints { get => constraints; set => constraints = value; }
+        public HandConstraints Constraints { get => constraints; set => constraints = value; }
         public int Pose { get { return poseController.Pose; } set { poseController.Pose = value; } }
 
         public AbstractVRInputManager InputManager { get => inputManager; set => inputManager = value; }

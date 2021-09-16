@@ -38,7 +38,7 @@ namespace Kandooz.KVR
 
                 if (GUILayout.Button("restore default constraints", GUILayout.Width(230), GUILayout.Height(25)))
                 {
-                    this.mapper.Constraints = HandConstrains.Free;
+                    this.mapper.Constraints = HandConstraints.Free;
                     Undo.RegisterCompleteObjectUndo(mapper, "restored default constraints");
                 }
                 GUILayout.FlexibleSpace();

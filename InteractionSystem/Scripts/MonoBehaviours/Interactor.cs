@@ -23,7 +23,7 @@ namespace Kandooz.KVR
             DeselectCurrentInteractable();
         }
 
-        private void Awake()
+        private void Start()
         {
             mapper = GetComponent<HandInputMapper>();
             availableColliders = new List<Collider>(); ;

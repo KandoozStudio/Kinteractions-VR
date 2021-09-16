@@ -39,7 +39,7 @@ namespace Kandooz.KVR
         }
     }
     [System.Serializable]
-    public struct HandConstrains
+    public struct HandConstraints
     {
         public FingerConstraints indexFingerLimits;
         public FingerConstraints middleFingerLimits;
@@ -50,11 +50,11 @@ namespace Kandooz.KVR
         /// <summary>
         /// A non constrained Hand
         /// </summary>
-        public static HandConstrains Free
+        public static HandConstraints Free
         {
             get
             {
-                var hand = new HandConstrains();
+                var hand = new HandConstraints();
                 hand.indexFingerLimits = FingerConstraints.Free;
                 hand.middleFingerLimits = FingerConstraints.Free;
                 hand.ringFingerLimits = FingerConstraints.Free;
@@ -63,11 +63,11 @@ namespace Kandooz.KVR
                 return hand;
             }
         }
-        public static HandConstrains Pointing
+        public static HandConstraints Pointing
         {
             get
             {
-                var hand = new HandConstrains();
+                var hand = new HandConstraints();
                 hand.indexFingerLimits = new FingerConstraints(false, 0, 1);
                 hand.middleFingerLimits = new FingerConstraints(false, .3f, 1);
                 hand.ringFingerLimits = new FingerConstraints(false, .3f, 1);
