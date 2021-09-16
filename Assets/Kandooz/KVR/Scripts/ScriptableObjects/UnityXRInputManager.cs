@@ -5,37 +5,29 @@ using UnityEngine.XR;
 
 namespace Kandooz.KVR
 {
+    [CreateAssetMenu(menuName ="Kandooz/KVR/InputManager")]
     public class UnityXRInputManager : AbstractVRInputManager
     {
-        InputDevice leftHandDevice;
-        InputDevice rightHandDevice;
+        InputDevice handDevice;
+        List<UnityEngine.XR.InputDevice> devices = new List<UnityEngine.XR.InputDevice>();
+
 
         public override float GetFinger(HandSource hand, FingerName finger)
         {
-            GetHandDevices();
-            float value=0;
-            switch (hand)
-            {
-                case HandSource.Right:
-                    value = GetFingerValue(rightHandDevice,finger);
-                    break;
-                case HandSource.Left:
-                    value = GetFingerValue(leftHandDevice,finger);
-                    break;
-            }
-            return value;
+            GetHandDevices(hand);
+            return GetFingerValue(handDevice, finger);
         }
 
-        private float GetFingerValue(InputDevice device,FingerName finger)
+        private float GetFingerValue(InputDevice device, FingerName finger)
         {
-            float value=0;
+            float value = 0;
             switch (finger)
             {
                 case FingerName.Thumb:
 
-                    if (GripPressed(device))
+                    if (ThumbPressed(device))
                     {
-                        value =1;
+                        value = 1;
                     }
                     break;
                 case FingerName.Index:
@@ -50,7 +42,7 @@ namespace Kandooz.KVR
             return value;
         }
 
-        private static bool GripPressed(InputDevice device)
+        private static bool ThumbPressed(InputDevice device)
         {
             bool gripPressed = false;
             bool temp = false;
@@ -63,22 +55,24 @@ namespace Kandooz.KVR
             return gripPressed;
         }
 
-        private void GetHandDevices()
+        private void GetHandDevices(HandSource source)
         {
-
-            var leftHandDevices = new List<UnityEngine.XR.InputDevice>();
-            UnityEngine.XR.InputDevices.GetDevicesAtXRNode(UnityEngine.XR.XRNode.LeftHand, leftHandDevices);
-            if (leftHandDevices.Count > 0)
+            switch (source)
             {
-                leftHandDevice = leftHandDevices[0];
+                case HandSource.Right:
+                    UnityEngine.XR.InputDevices.GetDevicesAtXRNode(UnityEngine.XR.XRNode.RightHand, devices);
+                    break;
+                case HandSource.Left:
+                    UnityEngine.XR.InputDevices.GetDevicesAtXRNode(UnityEngine.XR.XRNode.LeftHand, devices);
+                    break;
+                default:
+                    break;
+            }
+            if (devices.Count > 0)
+            {
+                handDevice = devices[0];
             }
 
-            var rightHandDevices = new List<UnityEngine.XR.InputDevice>();
-            UnityEngine.XR.InputDevices.GetDevicesAtXRNode(UnityEngine.XR.XRNode.LeftHand, leftHandDevices);
-            if (rightHandDevices.Count > 0)
-            {
-                rightHandDevice = leftHandDevices[0];
-            }
         }
 
         public override float GetAxis(HandSource hand, Axis axisName)

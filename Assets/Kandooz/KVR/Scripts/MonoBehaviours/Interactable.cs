@@ -28,10 +28,13 @@ namespace Kandooz.KVR
         public void OnHoverStart(Interactor interactor)
         {
             onHoverStart.Invoke(interactor);
+            GetComponent<Animator>().SetBool("hover", true);
         }
         public void OnHoverEnd(Interactor interactor)
         {
+            GetComponent<Animator>().SetBool("hover", false);
             onHoverEnd.Invoke(interactor);
+
 
         }
         public void OnHover(Interactor interactor)

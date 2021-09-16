@@ -62,7 +62,7 @@ namespace Kandooz.KVR
                 return;
             }
             DrawCurrentPoseEditor(serializedObject);
-            if (IsStaticPose())
+            if (!IsStaticPose())
             {
                 DrawFingerEditor(serializedObject);
             }
@@ -70,7 +70,7 @@ namespace Kandooz.KVR
         private bool IsStaticPose()
         {
             var currentPose = controller.Poses[controller.Pose];
-            var isStatic = currentPose.GetType() != typeof(StaticPose);
+            var isStatic = currentPose.GetType() == typeof(StaticPose);
             return isStatic;
         }
         private void DrawCurrentPoseEditor(SerializedObject serializedObject)

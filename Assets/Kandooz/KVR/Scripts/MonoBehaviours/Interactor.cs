@@ -1,5 +1,4 @@
 ﻿using Kandooz.Common;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,10 +9,10 @@ namespace Kandooz.KVR
     public class Interactor : MonoBehaviour
     {
         HandInputMapper mapper;
-        [ReadOnly] [SerializeField] Interactable currentInteractale;
-        [ReadOnly] [SerializeField] Collider currentCollider;
-        [ReadOnly] [SerializeField] bool interacting;
-        [ReadOnly] [SerializeField] List<Collider> availableColliders;
+        [Kandooz.Common.ReadOnly] [SerializeField] Interactable currentInteractale;
+        [Kandooz.Common.ReadOnly] [SerializeField] Collider currentCollider;
+        [Kandooz.Common.ReadOnly] [SerializeField] bool interacting;
+        [Kandooz.Common.ReadOnly] [SerializeField] List<Collider> availableColliders;
         public HandInputMapper Mapper { get => mapper; }
         public void StartInteraction()
         {

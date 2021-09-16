@@ -58,7 +58,7 @@ namespace Kandooz.KVR
         public HandData HandData { get => handData; set => handData = value; }
         public PlayableGraph Graph { get => graph; }
         public List<IPose> Poses { get => poses; }
-        public void Awake()
+        public void Start()
         {
             Initialize();
         }

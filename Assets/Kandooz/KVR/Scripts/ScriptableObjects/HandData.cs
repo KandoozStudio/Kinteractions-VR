@@ -78,5 +78,14 @@ namespace Kandooz.KVR
             }
         }
 
+        private void OnEnable()
+        {
+            defaultPose.type = PoseData.PoseType.Tweenable;
+        }
+        private void Awake()
+        {
+            defaultPose.type = PoseData.PoseType.Tweenable;
+        }
+
     }
 }

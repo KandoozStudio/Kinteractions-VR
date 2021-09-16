@@ -16,9 +16,9 @@ namespace Kandooz.KVR
         public int Pose { get { return poseController.Pose; } set { poseController.Pose = value; } }
 
         public AbstractVRInputManager InputManager { get => inputManager; set => inputManager = value; }
-        public HandSource Hand { get => hand; }
+        public HandSource Hand { get => hand; set => this.hand = value; }
 
-        private void Awake()
+        private void Start()
         {
             poseController = GetComponent<HandPoseController>();
         }
@@ -28,7 +28,8 @@ namespace Kandooz.KVR
             {
                 var finger = (FingerName)i;
                 var value = inputManager.GetFinger(hand, finger);
-                MapFingertoPoseController(FingerName.Index, value);
+                MapFingertoPoseController((FingerName)i, value);
+                
             }
         }
 
