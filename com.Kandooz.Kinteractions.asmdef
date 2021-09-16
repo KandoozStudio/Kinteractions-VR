@@ -1,0 +1,16 @@
+{
+    "name": "com.Kandooz.Kinteractions",
+    "rootNamespace": "",
+    "references": [
+        "GUID:21ae877b204b19d4e8fa190a55c79f3f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

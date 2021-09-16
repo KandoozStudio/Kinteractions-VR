@@ -1,7 +1,0 @@
-
-[submodule "Assets/Kandooz/Hands"]
-	path = Assets/Kandooz/Hands
-	url = git@github.com:KandoozStudio/Hands.git
-[submodule "Assets/Kandooz/ScriptableSystem"]
-	path = Assets/Kandooz/ScriptableSystem
-	url = https://github.com/AhmadAboBakr/ScriptableSystem.git
