@@ -1,0 +1,14 @@
+{
+  "name": "com.kandooz.kvr",
+  "displayName": "KinteractionVR",
+  "version": "3.0",
+  "unity": "2020.3",
+  "description": "VR Interaction system",
+  "dependencies": {
+    "com.Kandooz.ScriptableSystem": "1.*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KandoozStudio/Kinteractions-VR.git"
+  }
+}

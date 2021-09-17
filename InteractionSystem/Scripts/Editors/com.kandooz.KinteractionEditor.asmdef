@@ -1,0 +1,16 @@
+{
+    "name": "com.kandooz.KinteractionEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d22fa902b77c8634aac5703afee295d3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

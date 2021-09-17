@@ -5,9 +5,9 @@
 - Cross platform ( it shoud work no matter the platform) 
 
 # Core Components:
-- [Hand Animation System](HandAnimationController.md)
-- [VR Input System](VRInput.md)
-- [Interactions system](Interactable.md)
+- [Hand Animation System](Readme/HandAnimationController.md)
+- [VR Input System](Readme/VRInput.md)
+- [Interactions system](Readme/Interactable.md)
 
 # how to use it
 
