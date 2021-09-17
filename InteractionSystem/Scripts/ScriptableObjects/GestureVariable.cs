@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ScriptableSystem;
+using Kandooz.ScriptableSystem;
 using Kandooz.KVR;
 namespace Kandooz.KVR
 {
