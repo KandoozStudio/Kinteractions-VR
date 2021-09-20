@@ -17,7 +17,7 @@ namespace Kandooz.KVR
         }
         private void OnHoverStart(Interactor interactor)
         {
-            interactor.Mapper.Constraints=hoverConstraints;
+            interactor.Mapper.Constraints = hoverConstraints;
         }
         private void OnHoverEnd(Interactor interactor)
         {

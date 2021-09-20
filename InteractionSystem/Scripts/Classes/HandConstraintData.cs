@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Kandooz.KVR
 {
     [System.Serializable]
-    public struct Handconstrainter
+    public struct HandConstraintData
     {
         public HandPoseController prefab;
         public HandConstraints constraints;
