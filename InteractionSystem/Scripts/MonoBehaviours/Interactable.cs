@@ -9,7 +9,7 @@ namespace Kandooz.KVR
     /// </summary>
     public class Interactable : MonoBehaviour
     {
-        [SerializeField] Button InterActionButton;
+        [SerializeField] Button interActionButton;
         [Header(header: "Events")]
         public InteractorEvent onHoverStart;
         public InteractorEvent onHoverEnd;
@@ -18,20 +18,28 @@ namespace Kandooz.KVR
         public InteractorEvent onInteractionEnd;
         [Header(header: "Debug")]
         [ReadOnly] [SerializeField] Interactor currentInteractor;
-        IPose pose;
-        public IPose Pose { get => pose; set => pose = value; }
+        [ReadOnly] [SerializeField] Interactor currentHoverer;
+        [ReadOnly] [SerializeField] bool interacted;
+
         public void OnHoverStart(Interactor interactor)
         {
+            if (currentHoverer != null)
+            {
+                OnHoverEnd(currentHoverer);
+            }
             onHoverStart.Invoke(interactor);
         }
         public void OnHoverEnd(Interactor interactor)
         {
+            currentHoverer = null;
             onHoverEnd.Invoke(interactor);
         }
         public void OnHover(Interactor interactor)
         {
             onHover.Invoke(interactor);
-            var interactionButtonPressed = interactor.Mapper.InputManager.GetButtonDown(interactor.Mapper.Hand, InterActionButton);
+            if (interacted) 
+                return;
+            var interactionButtonPressed = interactor.Mapper.InputManager.GetButtonDown(interactor.Mapper.Hand, interActionButton);
             if (interactionButtonPressed)
             {
                 interactor.StartInteraction();
@@ -40,24 +48,28 @@ namespace Kandooz.KVR
         }
         public void OnInterationStart(Interactor interactor)
         {
+            interacted = true;
             currentInteractor = interactor;
             onInteractionStart.Invoke(interactor);
             interactor.StartInteraction();
         }
         public void OnInterationEnd(Interactor interactor)
         {
-            currentInteractor = null;
+            interacted = false;
             onInteractionEnd.Invoke(interactor);
-            interactor.EndInteraction();
+            interactor.EndInteraction(this);
+
+            currentInteractor = null;
         }
         void Update()
         {
             if (currentInteractor)
             {
-                var InteractionUp = currentInteractor.Mapper.InputManager.GetButtonDown(currentInteractor.Mapper.Hand, InterActionButton);
-                if (currentInteractor)
+                var InteractionUp = currentInteractor.Mapper.InputManager.GetButtonUp(currentInteractor.Mapper.Hand, interActionButton);
+                if (InteractionUp)
                 {
                     OnInterationEnd(currentInteractor);
+
                 }
             }
         }

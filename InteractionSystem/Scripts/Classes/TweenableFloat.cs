@@ -25,7 +25,6 @@ namespace Kandooz.KVR
                 if (UnityEditor.EditorApplication.isPlaying)
 #endif
                 {
-
                     t = 0;
                     start = this.value;
                     target = value;
@@ -43,11 +42,11 @@ namespace Kandooz.KVR
 
         public float Rate {  set => rate = value; }
 
-        public TweenableFloat(VariableTweener lerper,Action<float> onChange=null, float rate = 1f, float value = 0)
+        public TweenableFloat(VariableTweener lerper,Action<float> onChange=null, float rate = 2f, float value = 0)
         {
             start = target = this.value = value;
             this.rate = rate;
-            this.t = 1;
+            this.t = 0;
             this.onChange = onChange;
             this.lerper = lerper;
         }

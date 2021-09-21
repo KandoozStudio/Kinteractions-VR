@@ -17,10 +17,11 @@ namespace Kandooz.KVR
         {
             interacting = true;
         }
-        public void EndInteraction()
+        public void EndInteraction(Interactable interactable)
         {
             interacting = false;
-            DeselectCurrentInteractable();
+            interactable.OnHoverStart(this);
+
         }
 
         private void Start()
