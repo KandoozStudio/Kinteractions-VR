@@ -10,14 +10,11 @@ namespace Kandooz.KVR
     {
         InputDevice handDevice;
         List<UnityEngine.XR.InputDevice> devices = new List<UnityEngine.XR.InputDevice>();
-
-
         public override float GetFinger(HandSource hand, FingerName finger)
         {
             GetHandDevices(hand);
             return GetFingerValue(handDevice, finger);
         }
-
         private float GetFingerValue(InputDevice device, FingerName finger)
         {
             float value = 0;
@@ -41,7 +38,6 @@ namespace Kandooz.KVR
             }
             return value;
         }
-
         private static bool ThumbPressed(InputDevice device)
         {
             bool gripPressed = false;
@@ -54,7 +50,6 @@ namespace Kandooz.KVR
             gripPressed |= temp;
             return gripPressed;
         }
-
         private void GetHandDevices(HandSource source)
         {
             switch (source)
@@ -74,28 +69,29 @@ namespace Kandooz.KVR
             }
 
         }
-
         public override float GetAxis(HandSource hand, Axis axisName)
         {
             throw new System.NotImplementedException();
         }
         public override bool GetButton(HandSource hand, Button button)
         {
-            throw new System.NotImplementedException();
+            bool value = false;
+            GetHandDevices(hand);
+            handDevice.TryGetFeatureValue(new InputFeatureUsage<bool>(button.ToString()), out value);
+            return value;
         }
         public override bool GetButtonDown(HandSource hand, Button button)
         {
+            bool value = false;
             GetHandDevices(hand);
-
-            return Input.GetKeyDown(KeyCode.Escape);
+            handDevice.TryGetFeatureValue(new InputFeatureUsage<bool>(button.ToString()),out value);
+            return value;
         }
         public override bool GetButtonUp(HandSource hand, Button button)
         {
+            GetHandDevices(hand);
+
             return Input.GetKeyUp(KeyCode.Escape);
         }
-
-
-
-
     }
 }
