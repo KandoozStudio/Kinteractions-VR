@@ -23,7 +23,6 @@ namespace Kandooz.KVR
             interactable.OnHoverStart(this);
 
         }
-
         private void Start()
         {
             mapper = GetComponent<HandInputMapper>();

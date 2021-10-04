@@ -13,7 +13,34 @@ namespace Kandooz.KVR
         public HandConstraintData CurrentConstraints { get => currentConstraints;}
         private void Start()
         {
+            GetDependencies();
+            SubscribeToInteractableEvents();
+            IntilaizeConstrainsRelativeTransform();
+        }
+        private void IntilaizeConstrainsRelativeTransform()
+        {
+            if (!rightHand.relativeTransform)
+            {
+                InitializeRelativeTransform(rightHand);
+            }
+            if (!leftHand.relativeTransform)
+            {
+                InitializeRelativeTransform(leftHand);
+            }
+        }
+        private void InitializeRelativeTransform(HandConstraintData hand)
+        {
+            hand.relativeTransform = new GameObject().transform;
+            hand.relativeTransform.parent = this.transform;
+            hand.relativeTransform.localPosition = Vector3.zero;
+            hand.relativeTransform.localRotation = Quaternion.identity;
+        }
+        private void GetDependencies()
+        {
             interactable = GetComponent<Interactable>();
+        }
+        private void SubscribeToInteractableEvents()
+        {
             interactable.onInteractionStart.AddListener(OnInteractionStart);
             interactable.onInteractionEnd.AddListener(OnInteractionEnd);
         }
@@ -26,7 +53,7 @@ namespace Kandooz.KVR
         {
             interactor.Mapper.Constraints = HandConstraints.Free;
         }
-        private HandConstraintData GetHand(HandSource hand)
+        public  HandConstraintData GetHand(HandSource hand)
         {
             return hand == HandSource.Left ? leftHand : rightHand;
         }
