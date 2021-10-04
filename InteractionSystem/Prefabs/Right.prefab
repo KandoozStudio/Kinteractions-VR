@@ -52,7 +52,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7336660728988616596
 MeshRenderer:
@@ -147,7 +147,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &3896284719573671535
 MeshRenderer:
@@ -242,7 +242,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &3383233065918170157
 MeshRenderer:
@@ -337,7 +337,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &4403587396851865404
 MeshRenderer:
@@ -432,7 +432,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &5397493369469102636
 MeshRenderer:
@@ -527,7 +527,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &5525980599739380784
 MeshRenderer:
@@ -622,7 +622,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7403647008398363415
 MeshRenderer:
@@ -717,7 +717,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &6054259719249964521
 MeshRenderer:
@@ -812,7 +812,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7016836310379331601
 MeshRenderer:
@@ -907,7 +907,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1730852448415697597
 MeshRenderer:
@@ -1002,7 +1002,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &632168650918301832
 MeshRenderer:
@@ -1097,7 +1097,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2687229122676006448
 MeshRenderer:
@@ -1192,7 +1192,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &6746705661091863327
 MeshRenderer:
@@ -1287,7 +1287,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &3183282908280488495
 MeshRenderer:
@@ -1382,7 +1382,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &8159292397889051935
 MeshRenderer:
@@ -1477,7 +1477,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7873236627349723275
 MeshRenderer:
@@ -1572,7 +1572,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &4348041864689217549
 MeshRenderer:
@@ -1667,7 +1667,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &4112021598052626832
 MeshRenderer:
@@ -1762,7 +1762,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &3752430226510950877
 MeshRenderer:
@@ -2132,7 +2132,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6673727286058188486}
-  m_LocalRotation: {x: 0.09910316, y: -0.009844896, z: 0.00059847586, w: 0.99502826}
+  m_LocalRotation: {x: 0.087024406, y: -0.010396816, z: -0.00028234877, w: 0.996152}
   m_LocalPosition: {x: -0.000000003799796, y: 0.021726089, z: 0.00000004039146}
   m_LocalScale: {x: 0.99999994, y: 1.0000001, z: 0.99999976}
   m_Children:
@@ -2489,7 +2489,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6673727286682303089}
-  m_LocalRotation: {x: 0.2670071, y: -0.002836635, z: 0.024061069, w: 0.96339}
+  m_LocalRotation: {x: 0.25618324, y: -0.0031063703, z: 0.024027811, w: 0.96632457}
   m_LocalPosition: {x: -7.45058e-10, y: 0.0106085, z: 1.3038516e-10}
   m_LocalScale: {x: 0.99999994, y: 1.0000004, z: 0.9999998}
   m_Children:
@@ -2538,8 +2538,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6673727286684649983}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.60582316, y: -0.46545553, z: 0.31676674, w: 0.5621284}
+  m_LocalPosition: {x: 0.072, y: 0.0714, z: 0.0052}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 6673727285846433114}
@@ -2547,7 +2547,7 @@ Transform:
   - {fileID: 3953650485049941841}
   m_Father: {fileID: 6673727287778141759}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -157.281, y: 79.548, z: -94.05798}
 --- !u!114 &6673727286684649977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2589,7 +2589,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6673727286692591823}
-  m_LocalRotation: {x: 0.15939096, y: 0.007694589, z: -0.015105781, w: 0.98706996}
+  m_LocalRotation: {x: 0.14775257, y: 0.007871994, z: -0.015014194, w: 0.9888791}
   m_LocalPosition: {x: -0.00000000115484, y: 0.012416186, z: 5.7043505e-11}
   m_LocalScale: {x: 1.0000001, y: 0.99999934, z: 1.0000004}
   m_Children:
@@ -2628,7 +2628,10 @@ GameObject:
   - component: {fileID: 3932676985305157275}
   - component: {fileID: 2891290403249115796}
   - component: {fileID: 2891290403249115787}
-  - component: {fileID: 6673727286873178912}
+  - component: {fileID: 115494859202234197}
+  - component: {fileID: 7512985143483258102}
+  - component: {fileID: 1905736580}
+  - component: {fileID: 2936767539996003902}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -2643,7 +2646,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6673727286873178917}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2680,7 +2683,7 @@ MonoBehaviour:
   fingers:
   - 0
   - 0
-  - 0.018
+  - 0
   - 0
   - 0
   pose: 0
@@ -2696,7 +2699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f1c30c85fdeafb4c84324d64bed6bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputManager: {fileID: 0}
+  inputManager: {fileID: 11400000, guid: 807d6807a1372814d8aee68e90dddf33, type: 2}
   hand: 0
   constraints:
     indexFingerLimits:
@@ -2719,7 +2722,51 @@ MonoBehaviour:
       locked: 0
       min: 0
       max: 1
---- !u!114 &6673727286873178912
+--- !u!54 &115494859202234197
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6673727286873178917}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 50
+  m_AngularDrag: 50
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &7512985143483258102
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6673727286873178917}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Center: {x: -0.1, y: 0, z: 0}
+--- !u!138 &1905736580
+FixedJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6673727286873178917}
+  m_ConnectedBody: {fileID: 0}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
+--- !u!114 &2936767539996003902
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2728,15 +2775,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6673727286873178917}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a2a9c34df4095f47b9ca8f975175f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 58c2e48a65c059e4d9e30cee007fb2c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Device: 1
-  m_PoseSource: 5
-  m_PoseProviderComponent: {fileID: 0}
-  m_TrackingType: 0
-  m_UpdateType: 0
-  m_UseRelativeTransform: 0
+  currentInteractale: {fileID: 0}
+  currentCollider: {fileID: 0}
+  interacting: 0
+  availableColliders: []
 --- !u!1 &6673727286917688586
 GameObject:
   m_ObjectHideFlags: 0
@@ -3166,14 +3211,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6673727287624712348}
-  m_LocalRotation: {x: 0.70041186, y: -0.23971477, z: -0.37948704, w: 0.55493224}
+  m_LocalRotation: {x: 0.5545966, y: -0.4888232, z: -0.49344468, w: 0.4582432}
   m_LocalPosition: {x: 0, y: 0, z: -0.1056}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 6673727286684649976}
   m_Father: {fileID: 6673727286873178918}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 143.457, y: -276.868, z: -289.575}
+  m_LocalEulerAnglesHint: {x: 178.518, y: -275.341, z: -275.864}
 --- !u!95 &6673727287624712350
 Animator:
   serializedVersion: 3
@@ -3357,7 +3402,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &6431218305600127517
 MeshRenderer:
@@ -3452,7 +3497,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2921352725407034765
 MeshRenderer:
@@ -3547,7 +3592,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037452644769591
 MeshRenderer:
@@ -3642,7 +3687,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037452717421680
 MeshRenderer:
@@ -3737,7 +3782,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037452753212613
 MeshRenderer:
@@ -3832,7 +3877,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037452855122486
 MeshRenderer:
@@ -3927,7 +3972,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037452988672028
 MeshRenderer:
@@ -4022,7 +4067,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037453023543855
 MeshRenderer:
@@ -4117,7 +4162,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037453025070470
 MeshRenderer:
@@ -4212,7 +4257,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037453194101629
 MeshRenderer:
@@ -4307,7 +4352,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037453239227047
 MeshRenderer:
@@ -4402,7 +4447,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037453291756298
 MeshRenderer:
@@ -4497,7 +4542,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037453421420864
 MeshRenderer:
@@ -4592,7 +4637,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037453421819045
 MeshRenderer:
@@ -4687,7 +4732,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037453468119912
 MeshRenderer:
@@ -4782,7 +4827,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037453579592830
 MeshRenderer:
@@ -4877,7 +4922,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037453715998001
 MeshRenderer:
@@ -4972,7 +5017,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037453739214952
 MeshRenderer:
@@ -5067,7 +5112,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037453814850402
 MeshRenderer:
@@ -5162,7 +5207,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037453896826574
 MeshRenderer:
@@ -5257,7 +5302,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037453956263474
 MeshRenderer:
@@ -5352,7 +5397,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037454096317449
 MeshRenderer:
@@ -5447,7 +5492,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037454114644960
 MeshRenderer:
@@ -5542,7 +5587,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037454146969450
 MeshRenderer:
@@ -5637,7 +5682,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037454230792811
 MeshRenderer:
@@ -5732,7 +5777,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037454463758672
 MeshRenderer:
@@ -5827,7 +5872,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037454545165714
 MeshRenderer:
@@ -5922,7 +5967,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7326037454643727597
 MeshRenderer:
@@ -6017,7 +6062,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &8510084685584462188
 MeshRenderer:
@@ -6112,7 +6157,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &5630348271921579314
 MeshRenderer:
@@ -6207,7 +6252,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &3924183363030564390
 MeshRenderer:
@@ -6302,7 +6347,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &7275301331691179593
 MeshRenderer:
@@ -6397,7 +6442,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &151896425057853704
 MeshRenderer:
