@@ -3,17 +3,17 @@ using UnityEngine;
 
 namespace Kandooz.KVR
 {
-    public class TweenableFloat : ITweenable
+    public class TweenableVector : ITweenable
     {
-        public event Action<float> onChange;
+        public event Action<Vector3> onChange;
         public event Action onFinished;
-        private float start;
-        private float target;
-        private float value;
+        private Vector3 start;
+        private Vector3 target;
+        private Vector3 value;
         private float rate;
         private float t;
         private VariableTweener lerper;
-        public float Value
+        public Vector3 Value
         {
             get
             {
@@ -41,25 +41,24 @@ namespace Kandooz.KVR
             }
         }
 
-        public float Rate {  set => rate = value; }
+        public float Rate { set => rate = value; }
 
-        public TweenableFloat(VariableTweener lerper,Action<float> onChange=null, float rate = 2f, float value = 0)
+        public TweenableVector(VariableTweener lerper,Vector3 value,  float rate = 2f)
         {
-            start = target = this.value = value;
+            this.start = this.target = this.value = value;
             this.rate = rate;
-            this.t = 0;
-            this.onChange = onChange;
+            this.t = 1;
             this.lerper = lerper;
         }
         public bool Tween(float elapsedTime)
         {
             t += rate * elapsedTime;
-            this.value = Mathf.Lerp(start, target, t);
+            this.value = Vector3.Lerp(start, target, t);
             onChange(value);
 
             if (t >= 1)
             {
-                onFinished?.Invoke();
+                onFinished();
                 return true;
             }
             return false;
