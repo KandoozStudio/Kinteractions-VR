@@ -14,7 +14,7 @@ namespace Kandooz
         void OnDrawGizmos()
         {
             Gizmos.color = color;
-            Gizmos.DrawSphere(this.transform.position, .005f);
+            Gizmos.DrawSphere(this.transform.position, .01f);
             Color childColor = color;
             childColor.r = color.b;
             childColor.g = color.r;

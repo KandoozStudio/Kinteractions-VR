@@ -1,21 +1,24 @@
 ﻿
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
+using UnityEngine.InputSystem;
 
 namespace Kandooz.KVR
 {
-    [CreateAssetMenu(menuName ="Kandooz/KVR/InputManager")]
+    [CreateAssetMenu(menuName = "Kandooz/KVR/InputManager")]
     public class UnityXRInputManager : AbstractVRInputManager
     {
-        InputDevice handDevice;
+        public UnityEngine.InputSystem.InputActionAsset asset;
+        UnityEngine.XR.InputDevice handDevice;
+        Dictionary<Button, UnityEngine.InputSystem.InputAction> rightButtonsDown;
+        Dictionary<Button, UnityEngine.InputSystem.InputAction> leftButtonsDown;
         List<UnityEngine.XR.InputDevice> devices = new List<UnityEngine.XR.InputDevice>();
         public override float GetFinger(HandSource hand, FingerName finger)
         {
             GetHandDevices(hand);
             return GetFingerValue(handDevice, finger);
         }
-        private float GetFingerValue(InputDevice device, FingerName finger)
+        private float GetFingerValue(UnityEngine.XR.InputDevice device, FingerName finger)
         {
             float value = 0;
             switch (finger)
@@ -38,7 +41,7 @@ namespace Kandooz.KVR
             }
             return value;
         }
-        private static bool ThumbPressed(InputDevice device)
+        private static bool ThumbPressed(UnityEngine.XR.InputDevice device)
         {
             bool gripPressed = false;
             bool temp = false;
@@ -77,21 +80,77 @@ namespace Kandooz.KVR
         {
             bool value = false;
             GetHandDevices(hand);
-            handDevice.TryGetFeatureValue(new InputFeatureUsage<bool>(button.ToString()), out value);
+            handDevice.TryGetFeatureValue(new UnityEngine.XR.InputFeatureUsage<bool>(button.ToString()), out value);
             return value;
         }
         public override bool GetButtonDown(HandSource hand, Button button)
         {
-            bool value = false;
-            GetHandDevices(hand);
-            handDevice.TryGetFeatureValue(new InputFeatureUsage<bool>(button.ToString()),out value);
-            return value;
+            var handButtons = hand == HandSource.Left ? leftButtonsDown : rightButtonsDown;
+            
+            //var value = handButtons.ContainsKey(button) != null ? handButtons[button].ReadValue<bool>() : false;
+            return false;
         }
         public override bool GetButtonUp(HandSource hand, Button button)
         {
             GetHandDevices(hand);
 
             return Input.GetKeyUp(KeyCode.Escape);
+        }
+
+        private void OnEnable()
+        {
+            Awake();
+        }
+        private void OnDisable()
+        {
+
+        }
+        private void Awake()
+        {
+            InitializeButtonsDictionaries();
+            var obj = new GameObject();
+
+            for (int i = 0; i < 11; i++)
+            {
+                var button = (Button)i;
+                InitializeButtonValue(button);
+                InitializeHandCallbacks(button, "Right",rightButtonsDown);
+                InitializeHandCallbacks(button, "Left",leftButtonsDown);
+            }
+        }
+        private void InitializeHandCallbacks(Button button, string hand, Dictionary<Button,InputAction> handAction)
+
+        {
+            var buttonName = hand + button.ToString();
+            try
+            {
+
+                handAction[button] = asset.FindAction(buttonName);
+                handAction[button].started += (ctx) =>
+                {
+                    Debug.Log("yes"+buttonName);
+                };
+                handAction[button].canceled+= (ctx) =>
+                {
+                    Debug.Log("no"+buttonName);
+                };
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log(buttonName);
+            }
+        }
+
+        private void InitializeButtonValue(Button button, bool value = false)
+        {
+            //rightButtonsDown[button] = value;
+            //leftButtonsDown[button] = value;
+        }
+
+        private void InitializeButtonsDictionaries()
+        {
+            rightButtonsDown ??= new Dictionary<Button, UnityEngine.InputSystem.InputAction>();
+            leftButtonsDown ??= new Dictionary<Button, UnityEngine.InputSystem.InputAction>();
         }
     }
 }

@@ -1250,6 +1250,43 @@ Transform:
   m_Father: {fileID: 2139519716}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &659202430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8395337347516322555, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1590044095760702964}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &659202431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659202430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: cccd5edfd630c3548bd92cd56b93edbc,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: VR Buttons
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 933503402}
 --- !u!1001 &712877053
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1667,6 +1704,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 910316726}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!20 &933503402 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8395337348197028396, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1590044095760702964}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1037040420
 GameObject:
   m_ObjectHideFlags: 0
@@ -1826,7 +1869,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1258912869
 PrefabInstance:
@@ -2488,13 +2531,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1455997092}
   m_LocalRotation: {x: 0.006615483, y: 0.96543044, z: -0.25941107, w: 0.024623312}
-  m_LocalPosition: {x: 0.12629974, y: 0.649, z: 0.343}
+  m_LocalPosition: {x: 0.009, y: 2.135, z: 0.366}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 1741450449}
   - {fileID: 1849716401}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1455997100
 MonoBehaviour:
@@ -3676,7 +3719,7 @@ PrefabInstance:
     - target: {fileID: 8395337347516322500, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8395337347516322500, guid: 0f72fc8e920d86544a4a1a2a5ea7c95d,
         type: 3}
