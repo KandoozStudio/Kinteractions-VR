@@ -5,4 +5,11 @@ namespace Kandooz.Interactions.Runtime
         Trigger,
         Grip
     }
+
+    public enum ButtonState
+    {
+        Up,
+        Down,
+        
+    }
 }
