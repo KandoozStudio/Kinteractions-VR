@@ -1,14 +1,23 @@
-using System;
+using UnityEngine;
 
 namespace Kandooz.Interactions.Runtime
 {
-    public class Gradable :InteractableBase
+    public class Gradable : InteractableBase
     {
-        private IGrabStrategy grabStrategy;
         
+        private IGrabStrategy grabStrategy;
+
         private void Awake()
         {
-            
+            Rigidbody body = GetComponent<Rigidbody>();
+            if (body)
+            {
+                grabStrategy = new RigidBodyGrabStrategy(body);
+            }
+            else
+            {
+                grabStrategy = new TransformGrabStrategy(transform);
+            }
         }
 
         protected override void OnActivate()
@@ -18,6 +27,7 @@ namespace Kandooz.Interactions.Runtime
 
         protected override void OnAHoverStart()
         {
+            
         }
 
         protected override void OnAHoverEnd()
@@ -26,7 +36,13 @@ namespace Kandooz.Interactions.Runtime
 
         protected override void OnSelected()
         {
+            grabStrategy.Initialize();
+            LerpObjectToPosition();
             grabStrategy.Grab(this, CurrentInteractor);
+        }
+
+        private void LerpObjectToPosition()
+        {
         }
 
         protected override void OnDeSelected()
@@ -34,4 +50,5 @@ namespace Kandooz.Interactions.Runtime
             grabStrategy.UnGrab(this, CurrentInteractor);
         }
     }
+
 }

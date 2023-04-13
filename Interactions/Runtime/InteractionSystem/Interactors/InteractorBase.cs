@@ -1,7 +1,5 @@
 using System;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Kandooz.Interactions.Runtime
 {
@@ -9,11 +7,14 @@ namespace Kandooz.Interactions.Runtime
     public abstract class InteractorBase : MonoBehaviour
     {
         [SerializeField] private Hand hand;
-        [SerializeField][ReadOnly] protected InteractableBase currentInteractable;
+        [SerializeField] [ReadOnly] protected InteractableBase currentInteractable;
         private XRButtonObserver onInteractionStateChanged;
         private XRButtonObserver onActivate;
         private IDisposable interactionSubscriber, activationSubscriber;
+        private Joint joint;
+
         public HandIdentifier Hand => hand.HandIdentifier;
+        public Joint InteractorJoint => joint;
 
         private void Awake()
         {
@@ -92,25 +93,14 @@ namespace Kandooz.Interactions.Runtime
 
         private void OnActivate()
         {
-            currentInteractable?.OnStateChanged(InteractionState.Activated, this);
+            if (!currentInteractable) return;
+
+            currentInteractable.OnStateChanged(InteractionState.Activated, this);
         }
-    }
 
-    public class XRButtonObserver : IObserver<ButtonState>
-    {
-        private readonly Action onComplete;
-        private readonly Action<Exception> onExceptionRaised;
-        private readonly Action<ButtonState> onButtonStateChanged;
-
-        public void OnCompleted() => onComplete();
-        public void OnError(Exception error) => onExceptionRaised(error);
-        public void OnNext(ButtonState buttonState) => onButtonStateChanged(buttonState);
-
-        public XRButtonObserver(Action<ButtonState> onButtonStateChanged, Action onComplete, Action<Exception> onExceptionRaised)
+        public void ToggleJointObject(bool enable)
         {
-            this.onComplete = onComplete;
-            this.onExceptionRaised = onExceptionRaised;
-            this.onButtonStateChanged = onButtonStateChanged;
+            joint.gameObject.SetActive(enable);
         }
     }
 }
