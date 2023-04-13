@@ -1,24 +1,33 @@
 using System;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Kandooz.Interactions.Runtime
 {
     [RequireComponent(typeof(Hand))]
     public abstract class InteractorBase : MonoBehaviour
     {
-        [SerializeField] private Hand hand;
+        [FormerlySerializedAs("hander")] [SerializeField] private Hand hand;
         [SerializeField] [ReadOnly] protected InteractableBase currentInteractable;
+
+        private Transform attachmentPoint;
         private XRButtonObserver onInteractionStateChanged;
         private XRButtonObserver onActivate;
         private IDisposable interactionSubscriber, activationSubscriber;
         private Joint joint;
+        private Rigidbody body;
 
+        public Transform AttachmentPoint => attachmentPoint;
         public HandIdentifier Hand => hand.HandIdentifier;
         public Joint InteractorJoint => joint;
 
         private void Awake()
         {
-            hand = GetComponent<Hand>();
+            GetDependencies();
+            InitializeAttachmentPoint();
+            InitializeJoint();
+
             onInteractionStateChanged = new XRButtonObserver((state) =>
             {
                 if (currentInteractable is null) return;
@@ -50,6 +59,30 @@ namespace Kandooz.Interactions.Runtime
                         break;
                 }
             }, null, null);
+        }
+
+        private void InitializeJoint()
+        {
+            var jointObject = new GameObject("Joint Object");
+            jointObject.transform.parent = attachmentPoint;
+            jointObject.AddComponent<FixedJoint>().connectedBody = body;
+            jointObject.AddComponent<FixedJoint>();
+            jointObject.SetActive(false);
+        }
+
+        private void GetDependencies()
+        {
+            body = GetComponent<Rigidbody>();
+            hand = GetComponent<Hand>();
+        }
+
+        private void InitializeAttachmentPoint()
+        {
+            var attachmentObject = new GameObject("AttachmentPoint");
+            attachmentObject.transform.parent = transform;
+            attachmentPoint = attachmentObject.transform;
+            attachmentPoint.localPosition = Vector3.zero;
+            attachmentPoint.localRotation = Quaternion.identity;
         }
 
         protected void OnHoverStart()
