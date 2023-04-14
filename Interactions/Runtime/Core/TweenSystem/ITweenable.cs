@@ -3,6 +3,6 @@
     public interface ITweenable
     {
         
-        bool Tween(float elapsedTime);
+        bool Tween(float scaledDetaTime);
     }
 }

@@ -51,9 +51,21 @@ namespace Kandooz.Interactions.Runtime.Core
             this.onChange = onChange;
             this.lerper = lerper;
         }
-        public bool Tween(float elapsedTime)
+
+
+        public void Subscribe(Action<ITweenable> action)
         {
-            t += rate * elapsedTime;
+            throw new NotImplementedException();
+        }
+
+        public void Unsubscribe(Action<ITweenable> action)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Tween(float scaledDetaTime)
+        {
+            t += rate * scaledDetaTime;
             this.value = Mathf.Lerp(start, target, t);
             onChange(value);
 

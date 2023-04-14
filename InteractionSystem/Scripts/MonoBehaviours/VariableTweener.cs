@@ -7,7 +7,7 @@ namespace Kandooz.KVR
     public class VariableTweener : MonoBehaviour
     {
         public float tweenScale = 1f;
-        private static List<ITweenable> values= new List<ITweenable>();
+        private List<ITweenable> values= new List<ITweenable>();
 
         private void OnEnable()
         {
