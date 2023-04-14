@@ -15,12 +15,12 @@ namespace Kandooz.Interactions.Runtime
         private XRButtonObserver onInteractionStateChanged;
         private XRButtonObserver onActivate;
         private IDisposable interactionSubscriber, activationSubscriber;
-        private Joint joint;
+        private Joint attachmentJoint;
         private Rigidbody body;
 
         public Transform AttachmentPoint => attachmentPoint;
         public HandIdentifier Hand => hand.HandIdentifier;
-        public Joint InteractorJoint => joint;
+        public Joint InteractorAttachmentJoint => attachmentJoint;
 
         private void Awake()
         {
@@ -66,7 +66,8 @@ namespace Kandooz.Interactions.Runtime
             var jointObject = new GameObject("Joint Object");
             jointObject.transform.parent = attachmentPoint;
             jointObject.AddComponent<FixedJoint>().connectedBody = body;
-            jointObject.AddComponent<FixedJoint>();
+            attachmentJoint = jointObject.AddComponent<FixedJoint>();
+            attachmentJoint.enableCollision = false;
             jointObject.SetActive(false);
         }
 
@@ -133,7 +134,7 @@ namespace Kandooz.Interactions.Runtime
 
         public void ToggleJointObject(bool enable)
         {
-            joint.gameObject.SetActive(enable);
+            attachmentJoint.gameObject.SetActive(enable);
         }
     }
 }

@@ -17,12 +17,14 @@ namespace Kandooz.Interactions.Runtime
             //
         }
 
-        public void Grab(Gradable interactable, InteractorBase interactor)
+        public void Grab(Grabable interactable, InteractorBase interactor)
         {
-            transform.parent = this.transform.parent;
+            transform.parent = interactor.AttachmentPoint;
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.identity;
         }
 
-        public void UnGrab(Gradable interactable, InteractorBase interactor)
+        public void UnGrab(Grabable interactable, InteractorBase interactor)
         {
             transform.parent = null;
         }

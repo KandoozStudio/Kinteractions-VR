@@ -1,14 +1,16 @@
+using System;
 using Kandooz.Interactions.Runtime.Core;
 using UnityEngine;
 
 namespace Kandooz.Interactions.Runtime
 {
-    public class Gradable : InteractableBase
+    public class Grabable : InteractableBase
     {
         [SerializeField] private VariableTweener tweener;
         [SerializeField] private Transform rightHandRelativePosition;
         [SerializeField] private Transform leftHandRelativePosition;
 
+        private TransformTweenable transformTweenable= new();
         private IGrabStrategy grabStrategy;
         private void Awake()
         {
@@ -42,23 +44,26 @@ namespace Kandooz.Interactions.Runtime
         protected override void OnSelected()
         {
             grabStrategy.Initialize();
+            InitializeAttachmentPointTransform();
+            LerpObjectToPosition(() => grabStrategy.Grab(this, CurrentInteractor));
+        }
+
+        private void InitializeAttachmentPointTransform()
+        {
             var relativeTransform = CurrentInteractor.Hand == HandIdentifier.Left ? leftHandRelativePosition : rightHandRelativePosition;
             relativeTransform.parent = null;
             transform.parent = relativeTransform;
             CurrentInteractor.AttachmentPoint.localPosition = transform.localPosition;
             CurrentInteractor.AttachmentPoint.localRotation = transform.localRotation;
-
             transform.parent = null;
             relativeTransform.parent = transform;
-            LerpObjectToPosition();
-            //grabStrategy.Grab(this, CurrentInteractor);
-            transform.parent = CurrentInteractor.AttachmentPoint;
-            transform.localPosition = Vector3.zero;
-            transform.localRotation=Quaternion.identity;
         }
 
-        private void LerpObjectToPosition()
+        private void LerpObjectToPosition(Action callBack)
         {
+            transformTweenable.Initialize(transform, CurrentInteractor.AttachmentPoint);
+            tweener.AddTweenable(transformTweenable);
+            transformTweenable.OnTweenComplete += callBack;
         }
 
         protected override void OnDeSelected()

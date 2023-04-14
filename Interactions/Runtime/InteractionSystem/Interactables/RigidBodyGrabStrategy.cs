@@ -23,16 +23,17 @@ namespace Kandooz.Interactions.Runtime
             }
         }
 
-        public void Grab(Gradable interactable, InteractorBase interactor)
+        public void Grab(Grabable interactable, InteractorBase interactor)
         {
             ToggleRigidbodyAndColliders(true);
-            interactor.InteractorJoint.connectedBody = body;
+            interactor.InteractorAttachmentJoint.connectedBody = body;
             interactor.ToggleJointObject(true);
+            
         }
 
-        public void UnGrab(Gradable interactable, InteractorBase interactor)
+        public void UnGrab(Grabable interactable, InteractorBase interactor)
         {
-            interactor.InteractorJoint.connectedBody = null;
+            interactor.InteractorAttachmentJoint.connectedBody = null;
             interactor.ToggleJointObject(false);
         }
     }
