@@ -1,6 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using Kandooz.Interactions.Runtime;
 using UnityEditor;
 using UnityEditor.AssetImporters;
 using UnityEngine;
@@ -8,8 +7,13 @@ using UnityEngine;
 namespace Kandooz.Interactions.Editor
 {
     [ScriptedImporter(1, "kandooz")]
-    public class InteractionSystemInputSeeder : ScriptedImporter
+    public class InteractionSystemLoader : ScriptedImporter
     {
+        private const string XRILayersInitialized = "XRI_Layers_Initialized";
+        private const string XRILeftInteractorLayerName = "XRI_LeftInteractor";
+        private const string XRIRightinteractorLayerName = "XRI_RightInteractor";
+        private const string XRIInteractableLayerName = "XRI_Interactable";
+
         /// <summary>
         /// this list is copied from unity SeedXR Binding
         /// </summary>
@@ -431,41 +435,119 @@ namespace Kandooz.Interactions.Editor
 
         public override void OnImportAsset(AssetImportContext ctx)
         {
+            InitializeInputManager();
+            InitializeLayers();
+            InitializePhysics();
+            InitializeConfigFile();
+        }
+
+        private void InitializePhysics()
+        {
+            var leftLayer = LayerMask.NameToLayer(XRILeftInteractorLayerName);
+            var rightLayer = LayerMask.NameToLayer(XRIRightinteractorLayerName);
+            Physics.IgnoreLayerCollision(leftLayer, leftLayer);
+            Physics.IgnoreLayerCollision(rightLayer, rightLayer);
+        }
+
+        private void InitializeConfigFile()
+        {
+            var configFilesGUIDs = AssetDatabase.FindAssets("t:Kandooz.Interactions.Runtime.Config");
+            foreach (var guid in configFilesGUIDs)
+            {
+                var configFilePath = AssetDatabase.GUIDToAssetPath(guid);
+                if (configFilePath == null) continue;
+                var configFile = AssetDatabase.LoadAssetAtPath<Config>(configFilePath);
+                var serializedConfigFile = new SerializedObject(configFile);
+                serializedConfigFile.FindProperty("leftHandLayer").intValue = 1 << LayerMask.NameToLayer(XRILeftInteractorLayerName);
+                serializedConfigFile.FindProperty("rightHandLayer").intValue = 1 << LayerMask.NameToLayer(XRIRightinteractorLayerName);
+                serializedConfigFile.FindProperty("interactableLayer").intValue = 1 << LayerMask.NameToLayer(XRIInteractableLayerName);
+                serializedConfigFile.ApplyModifiedProperties();
+            }
+        }
+
+        private void InitializeLayers()
+        {
+
+            var tagManager = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/TagManager.asset")[0]);
+            var layers = tagManager.FindProperty("layers");
+            int index = 6;
+            int count = 0;
+            string[] layersName = new[] { XRILeftInteractorLayerName, XRIRightinteractorLayerName, XRIInteractableLayerName };
+            while (index < 32 && count < layersName.Length)
+            {
+                index++;
+                if (layers.GetArrayElementAtIndex(index).stringValue == layersName[count])
+                {
+                    count++;
+                    continue;
+                }
+                if (layers.GetArrayElementAtIndex(index).stringValue?.Length > 0) continue;
+             
+                layers.GetArrayElementAtIndex(index).stringValue = layersName[count];
+                count++;
+            }
+
+            tagManager.ApplyModifiedProperties();
+            EditorPrefs.SetBool(XRILayersInitialized, true);
+        }
+        
+        private void InitializeInputManager()
+        {
             var inputManagerAsset = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset")[0];
             var serializedObject = new SerializedObject(inputManagerAsset);
             var axis = serializedObject.FindProperty("m_Axes");
             if (axis is not { isArray: true }) return;
             var count = axis.arraySize;
-            for (int i = 0; i < count; i++)
-            {
-                var name = axis.GetArrayElementAtIndex(i).FindPropertyRelative("m_Name")?.stringValue;
-                if (name != null )
-                {
-                    FindAndRemoveItem(name);
-                }
-            }
+            RemoveDefinedAxis(count, axis);
+            AddNewAxes(axis, count);
+            serializedObject.ApplyModifiedProperties();
+        }
+
+        private void AddNewAxes(SerializedProperty axis, int count)
+        {
             for (var i = 0; i < axisList.Count; i++)
             {
                 var axe = axisList[i];
                 axis.InsertArrayElementAtIndex(count + i);
                 var property = axis.GetArrayElementAtIndex(count + i);
-                property.FindPropertyRelative("m_Name").stringValue = axe.name;
-                property.FindPropertyRelative("descriptiveName").stringValue = axe.descriptiveName;
-                property.FindPropertyRelative("positiveButton").stringValue = axe.positiveButton;
-                property.FindPropertyRelative("gravity").floatValue = axe.gravity;
-                property.FindPropertyRelative("dead").floatValue = axe.dead;
-                property.FindPropertyRelative("sensitivity").floatValue = axe.sensitivity;
-                property.FindPropertyRelative("type").intValue = axe.type;
-                property.FindPropertyRelative("axis").intValue = axe.axis;
+                SetAxe(property, axe);
             }
+        }
 
-            serializedObject.ApplyModifiedProperties();
+        private void RemoveDefinedAxis(int count, SerializedProperty axis)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                InitializeAxe(axis, i);
+            }
+        }
+
+        private void InitializeAxe(SerializedProperty axis, int i)
+        {
+            var name = axis.GetArrayElementAtIndex(i).FindPropertyRelative("m_Name")?.stringValue;
+            if (name != null)
+            {
+                FindAndRemoveItem(name);
+            }
+        }
+
+        private static void SetAxe(SerializedProperty property,
+            (string name, string descriptiveName, float dead, int axis, int type, string positiveButton, float gravity, float sensitivity) axe)
+        {
+            property.FindPropertyRelative("m_Name").stringValue = axe.name;
+            property.FindPropertyRelative("descriptiveName").stringValue = axe.descriptiveName;
+            property.FindPropertyRelative("positiveButton").stringValue = axe.positiveButton;
+            property.FindPropertyRelative("gravity").floatValue = axe.gravity;
+            property.FindPropertyRelative("dead").floatValue = axe.dead;
+            property.FindPropertyRelative("sensitivity").floatValue = axe.sensitivity;
+            property.FindPropertyRelative("type").intValue = axe.type;
+            property.FindPropertyRelative("axis").intValue = axe.axis;
         }
 
         private void FindAndRemoveItem(string name)
         {
-            var index=axisList.FindIndex(tuple => tuple.name == name);
-            if(index>=0) 
+            var index = axisList.FindIndex(tuple => tuple.name == name);
+            if (index >= 0)
                 axisList.RemoveAt(index);
         }
     }
