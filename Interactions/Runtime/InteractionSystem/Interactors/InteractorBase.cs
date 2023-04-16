@@ -8,7 +8,7 @@ namespace Kandooz.Interactions.Runtime
     [RequireComponent(typeof(Hand))]
     public abstract class InteractorBase : MonoBehaviour
     {
-        [FormerlySerializedAs("hander")] [SerializeField] private Hand hand;
+        private Hand hand;
         [SerializeField] [ReadOnly] protected InteractableBase currentInteractable;
 
         private Transform attachmentPoint;
