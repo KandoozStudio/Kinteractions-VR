@@ -3,25 +3,20 @@ using UnityEngine.Playables;
 
 namespace Kandooz.InteractionSystem.Core
 {
-    public class TweenablePose : IPose
+    public class DynamicPose : IPose
     {
         private AnimationLayerMixerPlayable poseMixer;
-        private Finger[] fingers;
-        private HandData handData;
-        private int index;
-        public float this[int indexer] { set  { 
-                fingers[indexer].Weight = value; 
-                
-            } }
+        private readonly FingerAnimationMixer[] fingers;
+        private readonly HandData handData;
+        public float this[int indexer] { set => fingers[indexer].Weight = value; }
 
         public AnimationLayerMixerPlayable PoseMixer { get => poseMixer; }
         public string Name { get ; set; }
 
-        public TweenablePose(PlayableGraph graph, PoseData poseData, HandData data, int index, VariableTweener tweener)
-        {
-            this.index = index;
+        public DynamicPose(PlayableGraph graph, PoseData poseData, HandData data, VariableTweener tweener)
+        { 
             this.handData = data;
-            fingers = new Finger[5];
+            fingers = new FingerAnimationMixer[5];
             poseMixer = AnimationLayerMixerPlayable.Create(graph, fingers.Length);
             
             for (uint i = 0; i < fingers.Length; i++)
@@ -41,7 +36,7 @@ namespace Kandooz.InteractionSystem.Core
 
         private void CreateAndConnectFinger(PlayableGraph graph, PoseData poseData, VariableTweener tweener, uint i)
         {
-            fingers[i] = new Finger(graph, poseData.closed, poseData.open, handData[(int)i], tweener);
+            fingers[i] = new FingerAnimationMixer(graph, poseData.closed, poseData.open, handData[(int)i], tweener);
             graph.Connect(fingers[i].Mixer, 0, poseMixer, (int)i);
         }
 

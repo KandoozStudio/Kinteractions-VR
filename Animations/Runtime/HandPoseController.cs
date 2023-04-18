@@ -128,7 +128,7 @@ namespace Kandooz.InteractionSystem.Core
         }
         private IPose CreateTweenablePose(int poseID, PoseData data)
         {
-            var pose = new TweenablePose(graph, data, handData, poseID, variableTweener);
+            var pose = new DynamicPose(graph, data, handData, variableTweener);
             graph.Connect(pose.PoseMixer, 0, handMixer, poseID);
             pose.PoseMixer.SetInputWeight(0, 1);
             return pose;
