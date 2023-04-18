@@ -1,0 +1,18 @@
+{
+    "name": "Kandooz.Pose.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3bfec178ac9324ef39f9a7b58774fe76"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
