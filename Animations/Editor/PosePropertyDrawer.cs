@@ -6,18 +6,18 @@ namespace  Kandooz.InteractionSystem.Animations.Editors
     [CustomPropertyDrawer(typeof(PoseData))]
     public class PosePropertyDrawer : PropertyDrawer
     {
-        static readonly string type = "type";
-        static readonly string name = "name";
-        static readonly string open = "open";
-        static readonly string closed = "closed";
+        private const string Type = "type";
+        private const string Name = "name";
+        private const string Open = "open";
+        private const string Closed = "closed";
 
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             var line = new Rect(position);
             line.height = EditorGUIUtility.singleLineHeight;
-            line = DrawPropertyAndIncreaseheight(property, line, type);
-            line = DrawPropertyAndIncreaseheight(property, line, name);
+            line = DrawPropertyAndIncreaseHeight(property, line, Type);
+            line = DrawPropertyAndIncreaseHeight(property, line, Name);
 
             EditorGUI.indentLevel++;
             if (IsStatic(property))
@@ -27,15 +27,15 @@ namespace  Kandooz.InteractionSystem.Animations.Editors
             }
             else
             {
-                line = DrawPropertyAndIncreaseheight(property, line, open);
-                line = DrawPropertyAndIncreaseheight(property, line, closed);
+                line = DrawPropertyAndIncreaseHeight(property, line, Open);
+                line = DrawPropertyAndIncreaseHeight(property, line, Closed);
 
             }
             EditorGUI.indentLevel--;
 
         }
 
-        private static Rect DrawPropertyAndIncreaseheight(SerializedProperty property, Rect line,string name)
+        private static Rect DrawPropertyAndIncreaseHeight(SerializedProperty property, Rect line,string name)
         {
             EditorGUI.PropertyField(line, property.FindPropertyRelative(name));
             line.y += line.height;
@@ -53,7 +53,7 @@ namespace  Kandooz.InteractionSystem.Animations.Editors
 
         private bool IsStatic(SerializedProperty property)
         {
-            return property.FindPropertyRelative("type").enumValueIndex == 0;
+            return property.FindPropertyRelative("type").enumValueIndex == (int)PoseData.PoseType.Static;
         }
     }
 

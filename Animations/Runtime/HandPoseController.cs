@@ -11,10 +11,13 @@ namespace Kandooz.InteractionSystem.Animations
     public class HandPoseController : MonoBehaviour
     {
         #region private variables
+
         [HideInInspector] [SerializeField] private HandData handData;
-        [Range(0, 1)]
-        [HideInInspector] [SerializeField] private float[] fingers = new float[5];
-        [HideInInspector] [SerializeField] private int pose;
+
+        [Range(0, 1)] [HideInInspector] [SerializeField]
+        private float[] fingers = new float[5];
+
+        [FormerlySerializedAs("pose")] [HideInInspector] [SerializeField] private int currentPoseIndex;
 
         private List<IPose> poses;
         private VariableTweener variableTweener;
@@ -23,47 +26,46 @@ namespace Kandooz.InteractionSystem.Animations
         private PlayableGraph graph;
 
         #endregion
+
         public float this[FingerName index]
         {
-            get { return this[(int)index]; }
-            set { this[(int)index] = value; }
+            get => this[(int)index];
+            set => this[(int)index] = value;
         }
+
         public float this[int index]
         {
-            get { return fingers[index]; }
+            get => fingers[index];
             set
             {
                 fingers[index] = value;
-                poses[pose][index] = value;
+                poses[currentPoseIndex][index] = value;
             }
         }
+
         public int Pose
         {
+            get => currentPoseIndex;
             set
             {
+                handMixer.SetInputWeight(currentPoseIndex, 0);
+                handMixer.SetInputWeight(value, 1);
+                currentPoseIndex = value;
+                for (int finger = 0; finger < fingers.Length; finger++)
                 {
-                    handMixer.SetInputWeight(pose, 0);
-                    handMixer.SetInputWeight(value, 1);
-
-                    pose = value;
-                    for (int finger = 0; finger < fingers.Length; finger++)
-                    {
-                        poses[value][finger] = fingers[finger];
-                    }
+                    poses[value][finger] = fingers[finger];
                 }
             }
-            get
-            {
-                return pose;
-            }
         }
-        public HandData HandData { get => handData; set => handData = value; }
-        public PlayableGraph Graph { get => graph; }
-        public List<IPose> Poses { get => poses; }
+        public HandData HandData => handData;
+        public PlayableGraph Graph => graph;
+        public List<IPose> Poses => poses;
+
         public void Start()
         {
             Initialize();
         }
+
         public void Initialize()
         {
             if (!handData)
@@ -71,9 +73,11 @@ namespace Kandooz.InteractionSystem.Animations
                 Debug.LogError("please select a hand data object");
                 return;
             }
+
             GetDependencies();
             InitializeGraph();
         }
+
         private void GetDependencies()
         {
             variableTweener = GetComponent<VariableTweener>();
@@ -83,13 +87,14 @@ namespace Kandooz.InteractionSystem.Animations
                 Debug.LogError("Please add animator to the object or it's children");
             }
         }
+
         private void InitializeGraph()
         {
-            CreateGraphAndSetItsoutputs();
+            CreateGraphAndSetItsOutputs();
             InitializePoses();
             graph.Play();
         }
-        private void CreateGraphAndSetItsoutputs()
+        private void CreateGraphAndSetItsOutputs()
         {
             graph = PlayableGraph.Create();
             graph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
@@ -97,6 +102,7 @@ namespace Kandooz.InteractionSystem.Animations
             var playableOutput = AnimationPlayableOutput.Create(graph, "Hand mixer", animator);
             playableOutput.SetSourcePlayable(handMixer);
         }
+
         private void InitializePoses()
         {
             poses = new List<IPose>(handData.poses.Count + 1);
@@ -107,46 +113,43 @@ namespace Kandooz.InteractionSystem.Animations
                 CreateAndConnectPose(i + 1, handData.poses[i]);
             }
         }
+
         private void CreateAndConnectPose(int poseID, PoseData data)
         {
-            IPose pose;
-            if (data.type == PoseData.PoseType.Tweenable)
-            {
-                pose = CreateTweenablePose(poseID, data);
-            }
-            else
-            {
-                pose = CreateStaticPose(poseID, data);
-            }
-            pose.Name = data.Name;
+            IPose pose = data.Type == PoseData.PoseType.Dynamic ? CreateDynamicPose(poseID, data) : CreateStaticPose(poseID, data);
             poses.Add(pose);
         }
+
         private IPose CreateStaticPose(int poseID, PoseData data)
         {
-            var pose = new StaticPose(graph, data, variableTweener);
+            var pose = new StaticPose(graph, data);
             pose.Name = data.Name;
             graph.Connect(pose.Mixer, 0, handMixer, poseID);
             return pose;
         }
-        private IPose CreateTweenablePose(int poseID, PoseData data)
+
+        private IPose CreateDynamicPose(int poseID, PoseData data)
         {
             var pose = new DynamicPose(graph, data, handData, variableTweener);
             graph.Connect(pose.PoseMixer, 0, handMixer, poseID);
             pose.PoseMixer.SetInputWeight(0, 1);
             return pose;
         }
+
         public void Update()
         {
             if (!graph.IsValid())
             {
                 InitializeGraph();
             }
+
             graph.Evaluate();
             for (int i = 0; i < fingers.Length; i++)
             {
                 this[i] = fingers[i];
             }
-            Pose = pose;
+
+            Pose = currentPoseIndex;
         }
     }
 }
