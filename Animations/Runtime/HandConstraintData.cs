@@ -1,6 +1,6 @@
 
 using UnityEngine;
-namespace Kandooz.InteractionSystem.Core
+namespace Kandooz.InteractionSystem.Animations
 {
     [System.Serializable]
     public struct HandConstraintData

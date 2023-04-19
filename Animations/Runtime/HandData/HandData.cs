@@ -3,11 +3,11 @@ using Kandooz.InteractionSystem.Core;
 using UnityEngine;
 
 
-namespace Kandooz.InteractionSystem.Core
+namespace Kandooz.InteractionSystem.Animations
 {
 
     [CreateAssetMenu(menuName = "Kandooz/KVR/Hand Data")]
-    public class HandData : ScriptableObject
+    public class HandData : ScriptableObject,IAvatarMaskIndexer
     {
         [Tooltip("The Hand must have HandAnimationController Script attached")]
         //public HandAnimationController leftHandPrefab;
@@ -19,11 +19,11 @@ namespace Kandooz.InteractionSystem.Core
         [SerializeField] public AvatarMask ringAvatarMask;
         [SerializeField] public AvatarMask pinkyAvatarMask;
 
-        [Header("Default pose clips")]
-        [HideInInspector]public PoseData defaultPose;
+        [Header("Default pose clips")] [HideInInspector]
+        public PoseData defaultPose;
 
-        [Header("Custom Poseses")]
-        [HideInInspector]public List<PoseData> poses;
+        [Header("Custom Poses")] [HideInInspector]
+        public List<PoseData> poses;
         public AvatarMask this[FingerName i]
         {
             get
@@ -77,14 +77,10 @@ namespace Kandooz.InteractionSystem.Core
             }
         }
 
-        private void OnEnable()
-        {
-            defaultPose.type = PoseData.PoseType.Tweenable;
-        }
-        private void Awake()
-        {
-            defaultPose.type = PoseData.PoseType.Tweenable;
-        }
+    }
 
+    public interface IAvatarMaskIndexer
+    {
+        public AvatarMask this[int i] { get; }
     }
 }

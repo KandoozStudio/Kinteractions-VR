@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using Kandooz.InteractionSystem.Core;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
+using UnityEngine.Serialization;
 
-namespace Kandooz.InteractionSystem.Core
+namespace Kandooz.InteractionSystem.Animations
 {
     [RequireComponent(typeof(VariableTweener))]
     public class HandPoseController : MonoBehaviour

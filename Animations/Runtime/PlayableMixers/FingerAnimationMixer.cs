@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Kandooz.InteractionSystem.Core;
+using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
-namespace Kandooz.InteractionSystem.Core
+namespace Kandooz.InteractionSystem.Animations
 {
 
     /// <summary>

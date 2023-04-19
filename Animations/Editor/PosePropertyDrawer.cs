@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-namespace  Kandooz.InteractionSystem.Core.Editor
+namespace  Kandooz.InteractionSystem.Animations.Editors
 {
     [CustomPropertyDrawer(typeof(PoseData))]
     public class PosePropertyDrawer : PropertyDrawer

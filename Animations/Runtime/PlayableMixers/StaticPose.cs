@@ -1,8 +1,9 @@
 ﻿
+using Kandooz.InteractionSystem.Core;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
 
-namespace Kandooz.InteractionSystem.Core
+namespace Kandooz.InteractionSystem.Animations
 {
     [System.Serializable]
     public class StaticPose : IPose
@@ -15,9 +16,9 @@ namespace Kandooz.InteractionSystem.Core
         public AnimationClipPlayable Mixer { get => playable;  }
         public string Name { get ; set ; }
 
-        public StaticPose(PlayableGraph graph, PoseData poseData, VariableTweener tweener)
+        public StaticPose(PlayableGraph graph, PoseData poseData)
         {
-            playable = AnimationClipPlayable.Create(graph, poseData.open);
+            playable = AnimationClipPlayable.Create(graph, poseData.OpenAnimationClip);
         }
 
     }

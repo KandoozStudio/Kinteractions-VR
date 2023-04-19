@@ -1,10 +1,10 @@
 ﻿using UnityEditor;
 
-namespace Kandooz.InteractionSystem.Core
+namespace Kandooz.InteractionSystem.Animations.Editors
 {
     [CustomEditor(typeof(HandData))]
     [CanEditMultipleObjects]
-    public class HandDataEditor : UnityEditor.Editor
+    public class HandDataEditor : Editor
     {
         HandData data;
         private void OnEnable()
@@ -13,7 +13,7 @@ namespace Kandooz.InteractionSystem.Core
         }
         public override void OnInspectorGUI()
         {
-
+            
             DrawDefaultInspector();
             EditorGUILayout.Space();
             EditorGUILayout.Space();
