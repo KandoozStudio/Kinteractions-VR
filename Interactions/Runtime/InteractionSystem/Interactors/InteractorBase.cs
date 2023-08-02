@@ -1,9 +1,7 @@
 using System;
 using Kandooz.Interactions;
 using Kandooz.InteractionSystem.Core;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Kandooz.InteractionSystem.Interactions
 {
