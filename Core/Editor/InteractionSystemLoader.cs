@@ -5,7 +5,7 @@ using UnityEditor.PackageManager;
 using UnityEngine;
 using Task = System.Threading.Tasks.Task;
 
-namespace Kandooz.InteractionSystem.Core.Editor
+namespace Kandooz.InteractionSystem.Core.Editors
 {
     [ScriptedImporter(1, "kandooz")]
     public class InteractionSystemLoader : ScriptedImporter

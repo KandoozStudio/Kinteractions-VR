@@ -29,7 +29,7 @@ namespace Kandooz.InteractionSystem.Animations
                 if (controller.Graph.IsValid())
                 {
 
-                    controller.Update();
+                    controller.UpdateGraphVariables();
                 }
                 else
                 {
@@ -69,7 +69,7 @@ namespace Kandooz.InteractionSystem.Animations
         }
         private bool IsStaticPose()
         {
-            var currentPose = controller.Poses[controller.Pose];
+            var currentPose = controller.Poses[controller.CurrentPoseIndex];
             var isStatic = currentPose.GetType() == typeof(StaticPose);
             return isStatic;
         }
@@ -83,7 +83,7 @@ namespace Kandooz.InteractionSystem.Animations
 
                 list[i] = poses[i].Name;
             }
-            controller.Pose =
+            controller.CurrentPoseIndex =
                 EditorGUILayout.Popup(new GUIContent("pose"), currentPose.intValue, list);
         }
         private static void DrawFingerEditor(SerializedObject serializedObject)

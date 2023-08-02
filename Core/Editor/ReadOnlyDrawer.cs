@@ -3,7 +3,7 @@ using System.Collections;
 using Kandooz.InteractionSystem.Core;
 using UnityEditor;
 
-namespace Kandooz.InteractionSystem.Core.Editor
+namespace Kandooz.InteractionSystem.Core.Editors
 {
     [CustomPropertyDrawer(typeof(ReadOnly))]
     public class ReadOnlyDrawer : PropertyDrawer

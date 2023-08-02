@@ -12,22 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f2489db449460543b6d0d4f8e8d4715, type: 3}
   m_Name: HandData
   m_EditorClassIdentifier: 
-  thumbAvatarMask: {fileID: 31900000, guid: 71a29947e2facdd46bca8b7fe0a94680, type: 2}
-  indexAvatarMask: {fileID: 31900000, guid: 8f9626a8820e4464196ec427d11cf27f, type: 2}
-  middleAvatarMask: {fileID: 31900000, guid: eec80a08e08ec9647bb2cf5a54f009d2, type: 2}
-  ringAvatarMask: {fileID: 31900000, guid: 5a07a421e3192e04aa6fe0ad429e62ee, type: 2}
-  pinkyAvatarMask: {fileID: 31900000, guid: 4527e08c1d9c1484d82eb39ec19657c2, type: 2}
   defaultPose:
-    open: {fileID: 7400000, guid: 3cf5ab229c9c4d74b897588042b2cfad, type: 2}
-    closed: {fileID: 7400000, guid: a89c1a53b08537f4081973764c151c02, type: 2}
-    type: 1
-    name: default
-  poses:
-  - open: {fileID: 7400000, guid: dc9fdb783afd55742b0115db3730e4ef, type: 2}
-    closed: {fileID: 7400000, guid: 50c5b4169b8a8914cb433ccb187b4f91, type: 2}
-    type: 2
-    name: 
-  - open: {fileID: 7400000, guid: 865bd2d0dce4baa4b90ebcad151da536, type: 2}
-    closed: {fileID: 7400000, guid: ffef98e138741024d97e259de898df6b, type: 2}
-    type: 2
-    name: 
+    open: {fileID: 7400002, guid: e1e4d19745953a04389ae805c9f465d2, type: 3}
+    closed: {fileID: -1609281748187839663, guid: e1e4d19745953a04389ae805c9f465d2,
+      type: 3}
+    name: Default
+    type: 0
+  poses: []
+  handAvatarMaskContainer:
+    thumbAvatarMask: {fileID: 31900000, guid: 71a29947e2facdd46bca8b7fe0a94680, type: 2}
+    indexAvatarMask: {fileID: 31900000, guid: 8f9626a8820e4464196ec427d11cf27f, type: 2}
+    middleAvatarMask: {fileID: 31900000, guid: eec80a08e08ec9647bb2cf5a54f009d2, type: 2}
+    ringAvatarMask: {fileID: 31900000, guid: 5a07a421e3192e04aa6fe0ad429e62ee, type: 2}
+    pinkyAvatarMask: {fileID: 31900000, guid: 4527e08c1d9c1484d82eb39ec19657c2, type: 2}

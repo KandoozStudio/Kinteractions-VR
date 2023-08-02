@@ -7,13 +7,14 @@ namespace Kandooz.InteractionSystem.Animations.Editors
     public class HandDataEditor : Editor
     {
         HandData data;
+
         private void OnEnable()
         {
             data = (HandData)target;
         }
+
         public override void OnInspectorGUI()
         {
-            
             DrawDefaultInspector();
             EditorGUILayout.Space();
             EditorGUILayout.Space();
@@ -24,7 +25,8 @@ namespace Kandooz.InteractionSystem.Animations.Editors
             EditorGUI.indentLevel--;
             EditorGUILayout.PropertyField(serializedObject.FindProperty("poses"));
             serializedObject.ApplyModifiedProperties();
-            data.defaultPose.Name = "default";
+            data.DefaultPose.SetPosNameIfEmpty("default");
+            data.DefaultPose.SetType(PoseData.PoseType.Dynamic);
 
         }
     }

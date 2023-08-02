@@ -1,4 +1,5 @@
 ﻿using Kandooz.InteractionSystem.Core;
+using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
 
@@ -9,14 +10,16 @@ namespace Kandooz.InteractionSystem.Animations
         private AnimationLayerMixerPlayable poseMixer;
         private readonly FingerAnimationMixer[] fingers;
         private readonly IAvatarMaskIndexer handData;
+        private string name;
         public float this[int indexer] { set => fingers[indexer].Weight = value; }
 
         public AnimationLayerMixerPlayable PoseMixer => poseMixer;
-        public string Name { get ; set; }
+        public string Name => name;
 
         public DynamicPose(PlayableGraph graph, PoseData poseData, IAvatarMaskIndexer data, VariableTweener tweener)
         { 
             this.handData = data;
+            this.name = poseData.Name;
             fingers = new FingerAnimationMixer[5];
             poseMixer = AnimationLayerMixerPlayable.Create(graph, fingers.Length);
             
