@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f16953eba7fc4575a8da8b63809a9f2d, type: 3}
-  m_Name: Test
+  m_Name: config
   m_EditorClassIdentifier: 
   inputManager: {fileID: 0}
   leftHandLayer:
