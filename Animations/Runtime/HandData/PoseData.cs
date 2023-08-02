@@ -10,12 +10,11 @@ namespace Kandooz.InteractionSystem.Animations
         [SerializeField] private AnimationClip closed;
         [SerializeField] private string name;
         [SerializeField] private PoseType type;
-
         public string Name
         {
             get
             {
-                if (name != "")
+                if (!string.IsNullOrEmpty(name))
                 {
                     return name;
                 }
@@ -23,8 +22,7 @@ namespace Kandooz.InteractionSystem.Animations
                 return Type == PoseType.Static ? open.name : $"{open.name}--{closed.name}";
             }
             set => name = value;
-        }
-
+        } 
         public AnimationClip OpenAnimationClip => open;
         public AnimationClip ClosedAnimationClip => closed;
 
@@ -42,6 +40,11 @@ namespace Kandooz.InteractionSystem.Animations
             {
                 this.name = name;
             }
+        }
+
+        public void SetType(PoseType type)
+        {
+            this.type = type;
         }
     }
 }
