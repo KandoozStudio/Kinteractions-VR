@@ -13,13 +13,13 @@ namespace Kandooz.InteractionSystem.Core
 
         private float maxVelocitySqrt;
         private Rigidbody body;
-        private float speed;
+        private float timeInverse;
 
         private void Start()
         {
             maxVelocitySqrt = maxVelocity * maxVelocity;
             body = GetComponent<Rigidbody>();
-            speed = 1 / Time.fixedDeltaTime;
+            timeInverse = 1 / Time.fixedDeltaTime;
             transform.parent = null;
             Teleport();
         }
@@ -39,18 +39,17 @@ namespace Kandooz.InteractionSystem.Core
                 return;
             }
 
-            var weightedSpeed = speed * Mathf.Lerp(0, 1, velocityVector.sqrMagnitude * 10000);
-            body.velocity = velocityVector * weightedSpeed;
+            var weightedSpeed = timeInverse * Mathf.Lerp(0, 1, velocityVector.sqrMagnitude*100 );
+            body.velocity = velocityVector*weightedSpeed ;
             body.velocity = Vector3.ClampMagnitude(body.velocity, maxVelocity);
         }
 
         private void SetAngularVelocity()
         {
-            
             var relativeRotation = FindRelativeRotation(target.rotation, transform.rotation);
             relativeRotation.ToAngleAxis(out var angle, out var axis);
-            var weightedSpeed = speed * Mathf.Lerp(0, 1, angle / 4);
-            body.angularVelocity = axis * (angle * Mathf.Deg2Rad * weightedSpeed);
+            var weightedSpeed = timeInverse * Mathf.Lerp(0, 1, angle / 45);
+            body.angularVelocity = axis * ( Mathf.Deg2Rad * weightedSpeed);
         }
 
         private Quaternion FindRelativeRotation(Quaternion a, Quaternion b)
