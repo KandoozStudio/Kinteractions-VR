@@ -1,6 +1,10 @@
+using System;
 using Kandooz.Interactions;
 using Kandooz.InteractionSystem.Core;
+using Kinteractions_VR.Core.Runtime.Hand;
+using Unity.Plastic.Newtonsoft.Json.Serialization;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 namespace Kandooz.InteractionSystem.Interactions
@@ -20,21 +24,41 @@ namespace Kandooz.InteractionSystem.Interactions
         private InteractionPoseConstrainer poseConstrainter; 
         private InteractionState currentState;
         private InteractorBase currentInteractor;
-        protected PoseConstrainter InteractionConstrainter
+        public event UnityAction<InteractorBase> OnSelected
         {
-            get
-            {
-                poseConstrainter??=GetComponent<PoseConstrainter>();
-                return poseConstrainter;
-            }
+            add => onSelected.AddListener(value);
+            remove => onSelected.RemoveListener(value);
         }
-        public Transform RightHandRelativePosition => InteractionConstrainter.RightHandPivot;
-        public Transform LeftHandRelativePosition => InteractionConstrainter.LeftHandPivot;
+        public event UnityAction<InteractorBase> OnDeselected
+        {
+            add => onDeselected.AddListener(value);
+            remove => onDeselected.RemoveListener(value);
+        }
+        public event UnityAction<InteractorBase> OnHoverStarted
+        {
+            add => onHoverStart.AddListener(value);
+            remove => onHoverStart.RemoveListener(value);
+        }
+        public event UnityAction<InteractorBase> OnHoverEnded
+        {
+            add => onHoverEnd.AddListener(value);
+            remove => onHoverEnd.RemoveListener(value);
+        }
+        public Transform RightHandRelativePosition => InteractionConstrainter.RightHandTransform;
+        public Transform LeftHandRelativePosition => InteractionConstrainter.LeftHandTransform;
         public XRButton SelectionButton => selectionButton;
         public InteractionState CurrentState => currentState;
         protected InteractorBase CurrentInteractor => currentInteractor;
 
 
+        protected InteractionPoseConstrainer InteractionConstrainter
+        {
+            get
+            {
+                poseConstrainter??=GetComponent<InteractionPoseConstrainer>();
+                return poseConstrainter;
+            }
+        }
         public void OnStateChanged(InteractionState state, InteractorBase interactor)
         {
             if (this.currentState == state) return;
