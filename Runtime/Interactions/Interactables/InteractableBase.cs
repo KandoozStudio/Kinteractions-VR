@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 namespace Kandooz.InteractionSystem.Interactions
 {
-    [RequireComponent(typeof(PoseConstrainter))]
+    [RequireComponent(typeof(InteractionPoseConstrainer))]
     public abstract class InteractableBase : MonoBehaviour
     {
 
@@ -17,7 +17,7 @@ namespace Kandooz.InteractionSystem.Interactions
         [SerializeField] private InteractorUnityEvent onHoverEnd;
         [SerializeField] private InteractorUnityEvent onActivated;
 
-        private PoseConstrainter poseConstrainter; 
+        private InteractionPoseConstrainer poseConstrainter; 
         private InteractionState currentState;
         private InteractorBase currentInteractor;
         protected PoseConstrainter InteractionConstrainter

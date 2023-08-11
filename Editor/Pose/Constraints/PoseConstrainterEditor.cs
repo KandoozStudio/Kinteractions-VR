@@ -5,13 +5,14 @@ using Kandooz.InteractionSystem.Interactions;
 using Kinteractions_VR.Core.Runtime.Hand;
 using UnityEditor;
 using UnityEngine;
+using InteractionPoseConstrainer = Kandooz.InteractionSystem.Interactions.InteractionPoseConstrainer;
 
 namespace Kinteractions_VR.Interactions.Editors
 {
-    [CustomEditor(typeof(PoseConstrainter),true)]
+    [CustomEditor(typeof(InteractionPoseConstrainer),true)]
     public class PoseConstrainterEditor: Editor
     {
-        private PoseConstrainter interactable;
+        private InteractionPoseConstrainer interactable;
         private HandPoseController currentHand;
         private HandPoseController leftHandPrefab, rightHandPrefab;
         private HandIdentifier selectedHand;
@@ -23,8 +24,8 @@ namespace Kinteractions_VR.Interactions.Editors
             {
                 return selectedHand switch
                 {
-                    HandIdentifier.Left => interactable.LeftHandPivot,
-                    HandIdentifier.Right => interactable.RightHandPivot,
+                    HandIdentifier.Left => interactable.LeftHandTransform,
+                    HandIdentifier.Right => interactable.RightHandTransform,
                     _ => null
                 };
             }
@@ -38,10 +39,10 @@ namespace Kinteractions_VR.Interactions.Editors
                 switch (selectedHand)
                 {
                     case HandIdentifier.Left:
-                        CreateHandInPivot(interactable.LeftHandPivot);
+                        CreateHandInPivot(interactable.LeftHandTransform);
                         break;
                     case HandIdentifier.Right:
-                         CreateHandInPivot(interactable.RightHandPivot);
+                         CreateHandInPivot(interactable.RightHandTransform);
                         break;
                 }
             }
@@ -50,8 +51,8 @@ namespace Kinteractions_VR.Interactions.Editors
 
         private void DestroyOldHands()
         {
-            var rightHandInteractor = interactable.RightHandPivot.GetComponentInChildren<HandPoseController>();
-            var leftHandInteractor = interactable.LeftHandPivot.GetComponentInChildren<HandPoseController>();
+            var rightHandInteractor = interactable.RightHandTransform.GetComponentInChildren<HandPoseController>();
+            var leftHandInteractor = interactable.LeftHandTransform.GetComponentInChildren<HandPoseController>();
             if (currentHand) DestroyImmediate(currentHand.attachedGameObject);
             if (rightHandInteractor!=null) DestroyImmediate(rightHandInteractor.attachedGameObject);
             if (leftHandInteractor!=null) DestroyImmediate(leftHandInteractor.attachedGameObject);
@@ -70,7 +71,7 @@ namespace Kinteractions_VR.Interactions.Editors
 
         private void OnEnable()
         {
-            interactable = (PoseConstrainter)target;
+            interactable = (InteractionPoseConstrainer)target;
             InitializeHandPivot();
             selectedHand = HandIdentifier.None;
             cameraRig = FindAnyObjectByType<CameraRig>();
@@ -119,14 +120,14 @@ namespace Kinteractions_VR.Interactions.Editors
 
         private void InitializeHandPivot()
         {
-            if (interactable.RightHandPivot == null)
+            if (interactable.RightHandTransform == null)
             {
-                interactable.RightHandPivot= CreateHandPivot("RightHandPivot");
+                interactable.RightHandTransform= CreateHandPivot("RightHandPivot");
             }
 
-            if (interactable.LeftHandPivot==null)
+            if (interactable.LeftHandTransform==null)
             {
-                interactable.LeftHandPivot = CreateHandPivot("LeftHandPivot");
+                interactable.LeftHandTransform = CreateHandPivot("LeftHandPivot");
             }
 
         }
