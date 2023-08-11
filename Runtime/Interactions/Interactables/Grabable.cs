@@ -48,7 +48,7 @@ namespace Kandooz.InteractionSystem.Interactions
 
         private void InitializeAttachmentPointTransform()
         {
-            var relativeTransform = CurrentInteractor.Hand == HandIdentifier.Left ? LeftHandRelativePosition : RightHandRelativePosition;
+            var relativeTransform = CurrentInteractor.HandIdentifier == HandIdentifier.Left ? LeftHandRelativePosition : RightHandRelativePosition;
             relativeTransform.parent = null;
             transform.parent = relativeTransform;
             CurrentInteractor.AttachmentPoint.localPosition = transform.localPosition;

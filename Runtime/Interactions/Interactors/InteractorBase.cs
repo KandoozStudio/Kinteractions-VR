@@ -15,10 +15,10 @@ namespace Kandooz.InteractionSystem.Interactions
         private XRButtonObserver onActivate;
         private IDisposable interactionSubscriber, activationSubscriber;
         private Joint attachmentJoint;
-        private Rigidbody body;
         public Transform AttachmentPoint => attachmentPoint;
-        public HandIdentifier Hand => hand.HandIdentifier;
+        public HandIdentifier HandIdentifier => hand.HandIdentifier;
         public Joint InteractorAttachmentJoint => attachmentJoint;
+        public Hand Hand => hand;
 
         private void Awake()
         {
@@ -71,7 +71,6 @@ namespace Kandooz.InteractionSystem.Interactions
 
         private void GetDependencies()
         {
-            body = GetComponent<Rigidbody>();
             hand = GetComponent<Hand>();
         }
 
