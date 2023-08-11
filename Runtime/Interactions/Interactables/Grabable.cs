@@ -25,21 +25,21 @@ namespace Kandooz.InteractionSystem.Interactions
             }
         }
 
-        protected override void OnActivate()
+        protected override void Activate()
         {
             
         }
 
-        protected override void OnAHoverStart()
+        protected override void StartHover()
         {
             
         }
 
-        protected override void OnAHoverEnd()
+        protected override void EndHover()
         {
         }
 
-        protected override void OnSelected()
+        protected override void Select()
         {
             grabStrategy.Initialize();
             InitializeAttachmentPointTransform();
@@ -64,7 +64,7 @@ namespace Kandooz.InteractionSystem.Interactions
             transformTweenable.OnTweenComplete += callBack;
         }
 
-        protected override void OnDeSelected()
+        protected override void DeSelected()
         {
             tweener.RemoveTweenable(transformTweenable);
             grabStrategy.UnGrab(this, CurrentInteractor);

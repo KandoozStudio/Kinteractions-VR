@@ -53,13 +53,13 @@ namespace Kandooz.InteractionSystem.Interactions
         {
             if (currentState == InteractionState.Selected)
             {
-                OnDeSelected();
+                DeSelected();
                 onDeselected.Invoke(currentInteractor);
             }
 
             else if (currentState == InteractionState.Hovering)
             {
-                OnAHoverEnd();
+                EndHover();
                 onHoverEnd.Invoke(currentInteractor);
             }
 
@@ -72,11 +72,11 @@ namespace Kandooz.InteractionSystem.Interactions
             if (currentState == InteractionState.Selected)
             {
                 onDeselected.Invoke(currentInteractor);
-                OnDeSelected();
+                DeSelected();
             }
 
             currentState = InteractionState.Hovering;
-            OnAHoverStart();
+            StartHover();
             onHoverStart.Invoke(currentInteractor);
         }
 
@@ -85,11 +85,11 @@ namespace Kandooz.InteractionSystem.Interactions
             if (currentState == InteractionState.Hovering)
             {
                 onHoverEnd.Invoke(currentInteractor);
-                OnAHoverEnd();
+                EndHover();
             }
 
             onSelected.Invoke(currentInteractor);
-            OnSelected();
+            Select();
             currentState = InteractionState.Selected;
         }
 
@@ -98,14 +98,14 @@ namespace Kandooz.InteractionSystem.Interactions
             if (this.currentState == InteractionState.Selected)
             {
                 onActivated.Invoke(currentInteractor);
-                OnActivate();
+                Activate();
             }
         }
 
-        protected abstract void OnActivate();
-        protected abstract void OnAHoverStart();
-        protected abstract void OnAHoverEnd();
-        protected abstract void OnSelected();
-        protected abstract void OnDeSelected();
+        protected abstract void Activate();
+        protected abstract void StartHover();
+        protected abstract void EndHover();
+        protected abstract void Select();
+        protected abstract void DeSelected();
     }
 }
