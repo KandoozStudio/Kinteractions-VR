@@ -35,14 +35,6 @@ namespace Kandooz.InteractionSystem.Animations
             get => this[(int)index];
             set => this[(int)index] = value;
         }
-
-        public int Pose
-        {
-            set => currentPoseIndex = value;
-        }
-
-        public GameObject attachedGameObject => this.gameObject;
-
         public float this[int index]
         {
             get => fingers[index];
@@ -53,6 +45,16 @@ namespace Kandooz.InteractionSystem.Animations
             }
         }
 
+        public int Pose
+        {
+            set => currentPoseIndex = value;
+        }
+
+        
+        public HandPoseConstraints Constraints
+        {
+            set => constraints = value;
+        }
         public int CurrentPoseIndex
         {
             get => currentPoseIndex;

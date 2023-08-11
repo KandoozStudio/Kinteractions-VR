@@ -29,17 +29,23 @@ namespace Kandooz.InteractionSystem.Interactions
         {
             interactable = GetComponent<InteractableBase>();
             interactable.OnSelected += Constrain;
-            interactable.OnSelected += Unconstrain;
+            interactable.OnDeselected += Unconstrain;
         }
 
-        private void Unconstrain(InteractorBase arg0)
+        private void OnDisable()
         {
-            
+            interactable.OnSelected += Constrain;
+            interactable.OnDeselected += Unconstrain;
+        }
+
+        private void Unconstrain(InteractorBase interactor)
+        {
+            interactor.Hand.Unconstrain(this);
         }
 
         private void Constrain(InteractorBase interactor)
         {
-            
+            interactor.Hand.Constrain(this);
         }
     }
 }
