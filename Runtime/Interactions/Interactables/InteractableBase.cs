@@ -1,19 +1,22 @@
 using System;
 using Kandooz.Interactions;
 using Kandooz.InteractionSystem.Core;
-using Kinteractions_VR.Core.Runtime.Hand;
-using Unity.Plastic.Newtonsoft.Json.Serialization;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 namespace Kandooz.InteractionSystem.Interactions
 {
+    [Flags]
+    public enum InteractionHand
+    {
+        Left = 1,
+        Right = 2,
+    }
+
     [RequireComponent(typeof(InteractionPoseConstrainer))]
     public abstract class InteractableBase : MonoBehaviour
     {
-
-
+        [SerializeField] private InteractionHand interactionHand = (InteractionHand.Left | InteractionHand.Right);
         [SerializeField] private XRButton selectionButton;
         [SerializeField] private InteractorUnityEvent onSelected;
         [SerializeField] private InteractorUnityEvent onDeselected;
@@ -21,29 +24,34 @@ namespace Kandooz.InteractionSystem.Interactions
         [SerializeField] private InteractorUnityEvent onHoverEnd;
         [SerializeField] private InteractorUnityEvent onActivated;
 
-        private InteractionPoseConstrainer poseConstrainter; 
+        private InteractionPoseConstrainer poseConstrainter;
         private InteractionState currentState;
         private InteractorBase currentInteractor;
+
         public event UnityAction<InteractorBase> OnSelected
         {
             add => onSelected.AddListener(value);
             remove => onSelected.RemoveListener(value);
         }
+
         public event UnityAction<InteractorBase> OnDeselected
         {
             add => onDeselected.AddListener(value);
             remove => onDeselected.RemoveListener(value);
         }
+
         public event UnityAction<InteractorBase> OnHoverStarted
         {
             add => onHoverStart.AddListener(value);
             remove => onHoverStart.RemoveListener(value);
         }
+
         public event UnityAction<InteractorBase> OnHoverEnded
         {
             add => onHoverEnd.AddListener(value);
             remove => onHoverEnd.RemoveListener(value);
         }
+
         public Transform RightHandRelativePosition => InteractionConstrainter.RightHandTransform;
         public Transform LeftHandRelativePosition => InteractionConstrainter.LeftHandTransform;
         public XRButton SelectionButton => selectionButton;
@@ -55,10 +63,11 @@ namespace Kandooz.InteractionSystem.Interactions
         {
             get
             {
-                poseConstrainter??=GetComponent<InteractionPoseConstrainer>();
+                poseConstrainter ??= GetComponent<InteractionPoseConstrainer>();
                 return poseConstrainter;
             }
         }
+
         public void OnStateChanged(InteractionState state, InteractorBase interactor)
         {
             if (this.currentState == state) return;
