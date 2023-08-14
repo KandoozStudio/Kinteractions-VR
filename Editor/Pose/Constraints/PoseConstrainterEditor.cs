@@ -9,8 +9,8 @@ using InteractionPoseConstrainer = Kandooz.InteractionSystem.Interactions.Intera
 
 namespace Kinteractions_VR.Interactions.Editors
 {
-    [CustomEditor(typeof(InteractionPoseConstrainer),true)]
-    public class PoseConstrainterEditor: Editor
+    [CustomEditor(typeof(InteractionPoseConstrainer), true)]
+    public class PoseConstrainterEditor : Editor
     {
         private InteractionPoseConstrainer interactable;
         private HandPoseController currentHand;
@@ -18,6 +18,7 @@ namespace Kinteractions_VR.Interactions.Editors
         private HandIdentifier selectedHand;
         private CameraRig cameraRig;
         private float t = 0;
+
         private Transform Pivot
         {
             get
@@ -30,6 +31,7 @@ namespace Kinteractions_VR.Interactions.Editors
                 };
             }
         }
+
         private HandIdentifier SelectedHand
         {
             set
@@ -42,7 +44,7 @@ namespace Kinteractions_VR.Interactions.Editors
                         CreateHandInPivot(interactable.LeftHandTransform);
                         break;
                     case HandIdentifier.Right:
-                         CreateHandInPivot(interactable.RightHandTransform);
+                        CreateHandInPivot(interactable.RightHandTransform);
                         break;
                 }
             }
@@ -53,19 +55,19 @@ namespace Kinteractions_VR.Interactions.Editors
         {
             var rightHandInteractor = interactable.RightHandTransform.GetComponentInChildren<HandPoseController>();
             var leftHandInteractor = interactable.LeftHandTransform.GetComponentInChildren<HandPoseController>();
-            if (currentHand) DestroyImmediate(currentHand.attachedGameObject);
-            if (rightHandInteractor!=null) DestroyImmediate(rightHandInteractor.attachedGameObject);
-            if (leftHandInteractor!=null) DestroyImmediate(leftHandInteractor.attachedGameObject);
+            if (currentHand) DestroyImmediate(currentHand.gameObject);
+            if (rightHandInteractor != null) DestroyImmediate(rightHandInteractor.gameObject);
+            if (leftHandInteractor != null) DestroyImmediate(leftHandInteractor.gameObject);
         }
 
         private void CreateHandInPivot(Transform pivot)
         {
-            var hand = (selectedHand == HandIdentifier.Left) ? leftHandPrefab.attachedGameObject : rightHandPrefab.attachedGameObject;
+            var hand = (selectedHand == HandIdentifier.Left) ? leftHandPrefab : rightHandPrefab;
             currentHand = Instantiate(hand).GetComponent<HandPoseController>();
-            currentHand.attachedGameObject.transform.localScale = Vector3.one;
-            currentHand.attachedGameObject.transform.parent = pivot;
-            currentHand.attachedGameObject.transform.localPosition = Vector3.zero;
-            currentHand.attachedGameObject.transform.localRotation = Quaternion.identity;
+            currentHand.gameObject.transform.localScale = Vector3.one;
+            currentHand.gameObject.transform.parent = pivot;
+            currentHand.gameObject.transform.localPosition = Vector3.zero;
+            currentHand.gameObject.transform.localRotation = Quaternion.identity;
             currentHand.Initialize();
         }
 
@@ -82,7 +84,6 @@ namespace Kinteractions_VR.Interactions.Editors
             }
 
             EditorApplication.update += () => t += .1f;
-
         }
 
         private void OnDisable()
@@ -90,7 +91,8 @@ namespace Kinteractions_VR.Interactions.Editors
             SelectedHand = HandIdentifier.None;
             Tools.hidden = false;
             DestroyOldHands();
-        }      
+        }
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -122,14 +124,13 @@ namespace Kinteractions_VR.Interactions.Editors
         {
             if (interactable.RightHandTransform == null)
             {
-                interactable.RightHandTransform= CreateHandPivot("RightHandPivot");
+                interactable.RightHandTransform = CreateHandPivot("RightHandPivot");
             }
 
-            if (interactable.LeftHandTransform==null)
+            if (interactable.LeftHandTransform == null)
             {
                 interactable.LeftHandTransform = CreateHandPivot("LeftHandPivot");
             }
-
         }
 
         private Transform CreateHandPivot(string pivotName)
@@ -140,7 +141,7 @@ namespace Kinteractions_VR.Interactions.Editors
             handTransform.localRotation = Quaternion.identity;
             return handTransform;
         }
-        
+
         private void ShowPoseInspector()
         {
             var propertyName = selectedHand switch
@@ -149,7 +150,7 @@ namespace Kinteractions_VR.Interactions.Editors
                 HandIdentifier.Right => "rightConstraints",
                 _ => ""
             };
-            if(propertyName=="")return;
+            if (propertyName == "") return;
             EditorGUILayout.PropertyField(serializedObject.FindProperty(propertyName).FindPropertyRelative("poseConstraints"));
             serializedObject.ApplyModifiedProperties();
         }
@@ -161,12 +162,13 @@ namespace Kinteractions_VR.Interactions.Editors
             {
                 SelectHand(HandIdentifier.Right);
             }
+
             if (GUILayout.Button("LeftHand Constraints"))
             {
                 SelectHand(HandIdentifier.Left);
             }
-            EditorGUILayout.EndHorizontal();
 
+            EditorGUILayout.EndHorizontal();
         }
 
         private void SelectHand(HandIdentifier hand)
@@ -180,6 +182,7 @@ namespace Kinteractions_VR.Interactions.Editors
                 selectedHand = hand;
             }
         }
+
         private void SetPose()
         {
             var t = Mathf.PingPong(this.t, 1);
@@ -189,8 +192,8 @@ namespace Kinteractions_VR.Interactions.Editors
             {
                 currentHand[i] = handConstraints[i].GetConstrainedValue(t);
             }
-            currentHand.UpdateGraphVariables();
 
+            currentHand.UpdateGraphVariables();
         }
     }
 }
