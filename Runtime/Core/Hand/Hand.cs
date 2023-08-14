@@ -15,13 +15,28 @@ namespace Kandooz.InteractionSystem.Core
         public IObservable<ButtonState> OnGripButtonStateChange =>  config.InputManager[hand].GripObservable;
         public float this[FingerName index] => config.InputManager[hand][(int)index];
         public float this[int index] => config.InputManager[hand][index];
+        private IPoseable poseDriver;
 
-        public void Constrain(IPoseConstrainer constrain)
+        private void Awake()
         {
+            poseDriver = GetComponent<IPoseable>();
+        }
+
+        public void Constrain(IPoseConstrainer constrainer)
+        {
+            switch (hand)
+            {
+                case HandIdentifier.Left:
+                    poseDriver.Constrains = constrainer.LeftPoseConstrains;
+                    break;
+                case HandIdentifier.Right:
+                    poseDriver.Constrains = constrainer.RightPoseConstrains;
+                    break;
+            }
         }
         public void Unconstrain(IPoseConstrainer constrain)
         {
-            
+            poseDriver.Constrains= PoseConstrains.Free;
         }
     }
 }

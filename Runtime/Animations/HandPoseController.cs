@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Kandooz.InteractionSystem.Core;
 using Kinteractions_VR.Core.Runtime.Hand;
+using Kinteractions_VR.Runtime.Animations.Constraints;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
@@ -49,11 +50,11 @@ namespace Kandooz.InteractionSystem.Animations
         {
             set => currentPoseIndex = value;
         }
-
         
-        public HandPoseConstraints Constraints
+
+        public PoseConstrains Constrains
         {
-            set => constraints = value;
+            set => constrains = value;
         }
         public int CurrentPoseIndex
         {
@@ -174,11 +175,9 @@ namespace Kandooz.InteractionSystem.Animations
         {
             for (int i = 0; i < 5; i++)
             {
-                this[i] = hand[i];
+                this[i] = constrains[i].GetConstrainedValue(hand[i]);
             }
         }
 
-        public IPoseable LeftHandPrefab => handData.LeftPosablePrefab;
-        public IPoseable RightHandPrefab => handData.rightPoseablePrefab;
     }
 }
