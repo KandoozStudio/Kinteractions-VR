@@ -50,10 +50,11 @@ namespace Kandooz.InteractionSystem.Interactions
         public async void UnGrab(Grabable interactable, InteractorBase interactor)
         {
             interactor.InteractorAttachmentJoint.connectedBody = null;
-            ToggleRigidbodyAndColliders(true);
             interactor.ToggleJointObject(false);
+            ToggleRigidbodyAndColliders(false);
+            await Task.Yield();
+            ToggleRigidbodyAndColliders(true);
             grabbed = false;
-            if (grabbed != false) return;
             for (int i = 0; i < colliders.Length; i++)
             {
                 colliders[i].gameObject.layer = collisionLayers[i];

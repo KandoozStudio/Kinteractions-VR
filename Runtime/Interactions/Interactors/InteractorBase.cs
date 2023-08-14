@@ -85,8 +85,9 @@ namespace Kandooz.InteractionSystem.Interactions
 
         protected void OnHoverStart()
         {
-            if (currentInteractable == null) return;
-
+            if (currentInteractable == null || currentInteractable.IsSelected) return;
+            if (!currentInteractable.IsValidHand(this.Hand)) return ;
+            
             currentInteractable.OnStateChanged(InteractionState.Hovering, this);
             interactionSubscriber = currentInteractable.SelectionButton switch
             {
@@ -95,9 +96,10 @@ namespace Kandooz.InteractionSystem.Interactions
                 _ => interactionSubscriber
             };
         }
-        
+
         protected void OnHoverEnd()
         {
+            if (currentInteractable.CurrentState != InteractionState.Hovering) return;
             currentInteractable.OnStateChanged(InteractionState.None, this);
             interactionSubscriber?.Dispose();
             currentInteractable = null;
@@ -105,7 +107,7 @@ namespace Kandooz.InteractionSystem.Interactions
 
         protected void OnSelect()
         {
-            if (currentInteractable == null) return;
+            if (currentInteractable == null ) return;
             currentInteractable.OnStateChanged(InteractionState.Selected, this);
             activationSubscriber = currentInteractable.SelectionButton switch
             {
@@ -119,7 +121,8 @@ namespace Kandooz.InteractionSystem.Interactions
         {
             activationSubscriber?.Dispose();
             interactionSubscriber?.Dispose();
-            OnHoverStart(); // this might need to change in the future
+            currentInteractable.OnStateChanged(InteractionState.None,this);
+            OnHoverStart(); 
         }
 
         private void OnActivate()

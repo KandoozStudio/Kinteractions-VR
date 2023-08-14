@@ -37,5 +37,7 @@ namespace Kandooz.InteractionSystem.Core
         {
             poseDriver.Constrains= PoseConstrains.Free;
         }
+
+        public static implicit operator HandIdentifier(Hand hand) => hand.HandIdentifier;
     }
 }
