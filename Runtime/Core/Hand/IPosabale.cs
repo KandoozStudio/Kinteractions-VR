@@ -1,8 +1,4 @@
-using Kandooz.InteractionSystem.Core;
-using Kinteractions_VR.Runtime.Animations.Constraints;
-using UnityEngine;
-
-namespace Kinteractions_VR.Core.Runtime.Hand
+namespace Kandooz.InteractionSystem.Core
 {
     // TODO: Seperate the prefab Holders from eachother
     public interface IPoseable

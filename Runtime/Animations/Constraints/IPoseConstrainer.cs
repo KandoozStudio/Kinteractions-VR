@@ -1,6 +1,6 @@
 using Kandooz.InteractionSystem.Core;
 
-namespace Kinteractions_VR.Runtime.Animations.Constraints
+namespace Kandooz.InteractionSystem.Animations.Constraints
 {
     public interface IPoseConstrainer
     {

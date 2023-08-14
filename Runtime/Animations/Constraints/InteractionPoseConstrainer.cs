@@ -1,6 +1,5 @@
-using System;
+using Kandooz.InteractionSystem.Animations.Constraints;
 using Kandooz.InteractionSystem.Core;
-using Kinteractions_VR.Runtime.Animations.Constraints;
 using UnityEngine;
 
 namespace Kandooz.InteractionSystem.Interactions
