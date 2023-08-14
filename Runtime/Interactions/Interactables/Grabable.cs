@@ -13,7 +13,12 @@ namespace Kandooz.InteractionSystem.Interactions
         private void Awake()
         {
             tweener ??= GetComponent<VariableTweener>();
-            tweener ??= gameObject.AddComponent<VariableTweener>();
+            if (!tweener)
+            {
+                tweener = gameObject.AddComponent<VariableTweener>();
+                tweener.tweenScale = 10;
+            }
+            
             Rigidbody body = GetComponent<Rigidbody>();
             if (body)
             {
