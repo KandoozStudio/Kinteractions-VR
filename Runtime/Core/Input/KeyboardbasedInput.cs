@@ -13,7 +13,7 @@ namespace Kandooz.InteractionSystem.Core
             leftHand.triggerObserver.ButtonState = Input.GetKey(KeyCode.LeftControl);
             leftHand.gripObserver.ButtonState = Input.GetKey(KeyCode.LeftAlt);
 
-            rightHand[2] = Input.GetKey(KeyCode.RightControl) ? 1 : 0;
+            rightHand[1] = Input.GetKey(KeyCode.RightControl) ? 1 : 0;
             rightHand[2] = rightHand[3] = rightHand[4] = Input.GetKey(KeyCode.RightAlt) ? 1 : 0;
 
             rightHand.triggerObserver.ButtonState = Input.GetKey(KeyCode.RightControl);
