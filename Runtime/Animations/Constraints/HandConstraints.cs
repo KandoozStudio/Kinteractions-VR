@@ -8,7 +8,7 @@ namespace Kandooz.InteractionSystem.Core
     public struct HandConstraints
     {
         //public HandPoseController prefab;
-        public HandPoseConstraints poseConstraints;
+        [FormerlySerializedAs("poseConstraints")] public PoseConstrains poseConstrains;
         public Transform relativeTransform;
 
         // public void ConstraintHand(HandInputMapper mapper)

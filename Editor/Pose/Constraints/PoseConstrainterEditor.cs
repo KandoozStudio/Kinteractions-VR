@@ -151,7 +151,7 @@ namespace Kinteractions_VR.Interactions.Editors
                 _ => ""
             };
             if (propertyName == "") return;
-            EditorGUILayout.PropertyField(serializedObject.FindProperty(propertyName).FindPropertyRelative("poseConstraints"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty(propertyName).FindPropertyRelative("poseConstrains"));
             serializedObject.ApplyModifiedProperties();
         }
 
@@ -187,7 +187,7 @@ namespace Kinteractions_VR.Interactions.Editors
         {
             var t = Mathf.PingPong(this.t, 1);
             if (selectedHand == HandIdentifier.None) return;
-            var handConstraints = selectedHand == HandIdentifier.Left ? interactable.LeftPoseConstraints : interactable.RightPoseConstraints;
+            var handConstraints = selectedHand == HandIdentifier.Left ? interactable.LeftPoseConstrains : interactable.RightPoseConstrains;
             for (int i = 0; i < 5; i++)
             {
                 currentHand[i] = handConstraints[i].GetConstrainedValue(t);

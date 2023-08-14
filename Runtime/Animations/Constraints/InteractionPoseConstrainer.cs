@@ -21,8 +21,8 @@ namespace Kandooz.InteractionSystem.Interactions
             set => rightConstraints.relativeTransform = value;
             get => rightConstraints.relativeTransform;
         }
-        public HandPoseConstraints LeftPoseConstraints => leftConstraints.poseConstraints;
-        public HandPoseConstraints RightPoseConstraints => leftConstraints.poseConstraints;
+        public PoseConstrains LeftPoseConstrains => leftConstraints.poseConstrains;
+        public PoseConstrains RightPoseConstrains => rightConstraints.poseConstrains;
         
 
         public void OnEnable()

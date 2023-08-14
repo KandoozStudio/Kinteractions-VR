@@ -38,7 +38,7 @@ namespace Kandooz.InteractionSystem.Core
         }
     }
     [System.Serializable]
-    public struct HandPoseConstraints
+    public struct PoseConstrains
     {
         public FingerConstraints indexFingerLimits;
         public FingerConstraints middleFingerLimits;
@@ -49,11 +49,11 @@ namespace Kandooz.InteractionSystem.Core
         /// <summary>
         /// A non constrained Hand
         /// </summary>
-        public static HandPoseConstraints Free
+        public static PoseConstrains Free
         {
             get
             {
-                var hand = new HandPoseConstraints();
+                var hand = new PoseConstrains();
                 hand.indexFingerLimits = FingerConstraints.Free;
                 hand.middleFingerLimits = FingerConstraints.Free;
                 hand.ringFingerLimits = FingerConstraints.Free;
@@ -62,11 +62,11 @@ namespace Kandooz.InteractionSystem.Core
                 return hand;
             }
         }
-        public static HandPoseConstraints Pointing
+        public static PoseConstrains Pointing
         {
             get
             {
-                var hand = new HandPoseConstraints();
+                var hand = new PoseConstrains();
                 hand.indexFingerLimits = new FingerConstraints(false, 0, 1);
                 hand.middleFingerLimits = new FingerConstraints(false, .3f, 1);
                 hand.ringFingerLimits = new FingerConstraints(false, .3f, 1);

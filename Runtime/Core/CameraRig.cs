@@ -1,3 +1,4 @@
+using Kandooz.InteractionSystem.Animations;
 using Kinteractions_VR.Core.Runtime.Hand;
 using UnityEngine;
 
@@ -8,16 +9,13 @@ namespace Kandooz.InteractionSystem.Core
         TransformBased,
         PhysicsBased
     }
-    public class CameraRig : MonoBehaviour,IPoseablePrefabsHolder
+    public class CameraRig : MonoBehaviour
     {
         [SerializeField] private GameObject leftHand;
         [SerializeField] private GameObject rightHand;
         [SerializeField] private InteractionSystemType interactionSystemType;
-        public IPoseable leftHandPoseable => leftHand.GetComponentInChildren<IPoseable>();
-        public IPoseable rightHandPoseable => rightHand.GetComponentInChildren<IPoseable>();
-
-
-        public IPoseable LeftHandPrefab => leftHandPoseable.LeftHandPrefab;
-        public IPoseable RightHandPrefab => rightHandPoseable.RightHandPrefab;
+        [SerializeField] private HandPoseData poseData;
+        public IPoseable LeftHandPrefab => poseData.LeftPosablePrefab;
+        public IPoseable RightHandPrefab => poseData.rightPoseablePrefab;
     }
 }

@@ -11,7 +11,7 @@ namespace Kandooz.InteractionSystem.Animations
     /// Control the pose of the hand and it's fingers
     /// </summary>
     [RequireComponent(typeof(VariableTweener))]
-    public class HandPoseController : MonoBehaviour, IPoseable,IPoseablePrefabsHolder
+    public class HandPoseController : MonoBehaviour, IPoseable
     {
         #region private variables
 
@@ -27,9 +27,9 @@ namespace Kandooz.InteractionSystem.Animations
         private AnimationMixerPlayable handMixer;
         private Animator animator;
         PlayableGraph graph;
+        private PoseConstrains constrains = PoseConstrains.Free;
 
         #endregion
-
         public float this[FingerName index]
         {
             get => this[(int)index];

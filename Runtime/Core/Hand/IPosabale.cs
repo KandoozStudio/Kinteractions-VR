@@ -1,10 +1,11 @@
 using Kandooz.InteractionSystem.Core;
+using Kinteractions_VR.Runtime.Animations.Constraints;
 using UnityEngine;
 
 namespace Kinteractions_VR.Core.Runtime.Hand
 {
     // TODO: Seperate the prefab Holders from eachother
-    public interface IPoseable:IPoseablePrefabsHolder
+    public interface IPoseable
     {
         public float this[int index]
         {
@@ -20,13 +21,7 @@ namespace Kinteractions_VR.Core.Runtime.Hand
         {
             set;
         }
-        void Initialize();
-
+        public PoseConstrains  Constrains { set; } 
     }
-
-    public interface IPoseablePrefabsHolder
-    {
-        IPoseable LeftHandPrefab { get; }
-        IPoseable RightHandPrefab { get; }
-    }
+    
 }
