@@ -1,0 +1,18 @@
+{
+    "name": "Kandooz.Interactions.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:07dab361b6fe3446cad11cb062ee9271"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

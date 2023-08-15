@@ -5,7 +5,6 @@
   "unity": "2020.3",
   "description": "VR Interaction system",
   "dependencies": {
-    "com.Kandooz.ScriptableSystem": "1.*",
     "com.unity.xr.legacyinputhelpers": "2.*"
   },
   "keywords": [
