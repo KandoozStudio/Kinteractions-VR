@@ -9,7 +9,7 @@ namespace Kandooz.InteractionSystem.Interactions
         [SerializeField] private VariableTweener tweener;
 
         private TransformTweenable transformTweenable= new();
-        private IGrabStrategy grabStrategy;
+        private GrabStrategy grabStrategy;
         private void Awake()
         {
             tweener ??= GetComponent<VariableTweener>();
@@ -46,7 +46,7 @@ namespace Kandooz.InteractionSystem.Interactions
 
         protected override void Select()
         {
-            grabStrategy.Initialize();
+            grabStrategy.Initialize(CurrentInteractor);
             InitializeAttachmentPointTransform();
             LerpObjectToPosition(() => grabStrategy.Grab(this, CurrentInteractor));
         }

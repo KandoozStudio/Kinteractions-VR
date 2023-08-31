@@ -3,64 +3,23 @@ using UnityEngine;
 
 namespace Kandooz.InteractionSystem.Interactions
 {
-    public class RigidBodyGrabStrategy : IGrabStrategy
+    public class RigidBodyGrabStrategy : GrabStrategy
     {
         private readonly Rigidbody body;
-        private readonly  Collider[] colliders;
-        private readonly int[] collisionLayers;
         private bool grabbed = false;
-        private int layer;
-        public RigidBodyGrabStrategy(Rigidbody body)
+        public RigidBodyGrabStrategy(Rigidbody body) :base(body.gameObject)
         {
             this.body = body;
-            layer = body.gameObject.layer;
-            colliders = body.GetComponentsInChildren<Collider>();
-            collisionLayers = new int [colliders.Length];
-            for (int i = 0; i < collisionLayers.Length; i++)
-            {
-                collisionLayers[i] = colliders[i].gameObject.layer;
-            }
         }
 
-        public void Initialize() => ToggleRigidbodyAndColliders(false);
-
-        private void ToggleRigidbodyAndColliders(bool enable)
+        protected override void InitializeStep() => body.isKinematic = true;
+        
+        public override async void UnGrab(Grabable interactable, InteractorBase interactor)
         {
-            body.isKinematic = !enable;
-            foreach (var collider in colliders)
-            {
-                collider.enabled = enable;
-            }
-        }
-
-        public void Grab(Grabable interactable, InteractorBase interactor)
-        {
-            ToggleRigidbodyAndColliders(true);
-            interactor.InteractorAttachmentJoint.connectedBody = body;
-            interactor.ToggleJointObject(true);
-            body.gameObject.layer = interactor.gameObject.layer;
-            foreach (var collider in colliders)
-            {
-                collider.gameObject.layer = interactor.gameObject.layer;
-            }
-            grabbed = true;
-            //Debug.Break();
-        }
-
-        public async void UnGrab(Grabable interactable, InteractorBase interactor)
-        {
-            interactor.InteractorAttachmentJoint.connectedBody = null;
-            interactor.ToggleJointObject(false);
-            ToggleRigidbodyAndColliders(false);
-            await Task.Yield();
-            ToggleRigidbodyAndColliders(true);
+            base.UnGrab(interactable, interactor);
+            body.isKinematic = false;
+            await Task.Delay(10);
             grabbed = false;
-            for (int i = 0; i < colliders.Length; i++)
-            {
-                colliders[i].gameObject.layer = collisionLayers[i];
-            }
-            body.gameObject.layer = layer;
-
         }
     }
 }
