@@ -158,14 +158,19 @@ namespace Kinteractions_VR.Interactions.Editors
         private void HandleHandSelection()
         {
             EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("RightHand Constraints"))
+            var style = new GUIStyle(GUI.skin.button);
+            var rightHandClicked= GUILayout.Toggle(selectedHand == HandIdentifier.Right, "RightHand Constraints", style) ^selectedHand == HandIdentifier.Right;
+            var leftHandClicked = GUILayout.Toggle(selectedHand == HandIdentifier.Left, "LeftHand Constraints", style) ^ selectedHand == HandIdentifier.Left;
+            
+            if (rightHandClicked)
             {
-                SelectHand(HandIdentifier.Right);
+                SelectHand(selectedHand == HandIdentifier.Right ? HandIdentifier.None : HandIdentifier.Right);
+                interactable.UpdatePivotParent();
             }
-
-            if (GUILayout.Button("LeftHand Constraints"))
+            if (leftHandClicked)
             {
-                SelectHand(HandIdentifier.Left);
+                interactable.UpdatePivotParent();
+                SelectHand(selectedHand == HandIdentifier.Left ? HandIdentifier.None : HandIdentifier.Left);
             }
 
             EditorGUILayout.EndHorizontal();
