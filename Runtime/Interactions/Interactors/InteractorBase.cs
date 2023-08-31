@@ -10,6 +10,7 @@ namespace Kandooz.InteractionSystem.Interactions
     {
         private Hand hand;
         [SerializeField] [ReadOnly] protected InteractableBase currentInteractable;
+        [SerializeField][ReadOnly] protected bool isInteracting;
         private Transform attachmentPoint;
         private XRButtonObserver onInteractionStateChanged;
         private XRButtonObserver onActivate;
@@ -19,6 +20,7 @@ namespace Kandooz.InteractionSystem.Interactions
         public HandIdentifier HandIdentifier => hand.HandIdentifier;
         public Joint InteractorAttachmentJoint => attachmentJoint;
         public Hand Hand => hand;
+        public bool IsInteracting => isInteracting;
 
         private void Awake()
         {
@@ -108,6 +110,7 @@ namespace Kandooz.InteractionSystem.Interactions
         protected void OnSelect()
         {
             if (currentInteractable == null ) return;
+            isInteracting = true;
             currentInteractable.OnStateChanged(InteractionState.Selected, this);
             activationSubscriber = currentInteractable.SelectionButton switch
             {
@@ -119,6 +122,7 @@ namespace Kandooz.InteractionSystem.Interactions
 
         private void OnDeSelect()
         {
+            isInteracting = false;
             activationSubscriber?.Dispose();
             interactionSubscriber?.Dispose();
             currentInteractable.OnStateChanged(InteractionState.None,this);
