@@ -93,6 +93,7 @@ namespace Kinteractions_VR.Interactions.Editors
 
         public override void OnInspectorGUI()
         {
+            if(interactable.transform.hasChanged) interactable.UpdatePivotParent();
             base.OnInspectorGUI();
             HandleHandSelection();
             ShowPoseInspector();
@@ -120,6 +121,7 @@ namespace Kinteractions_VR.Interactions.Editors
 
         private void InitializeHandPivot()
         {
+            interactable.UpdatePivotParent();
             if (interactable.RightHandTransform == null)
             {
                 interactable.RightHandTransform = CreateHandPivot("RightHandPivot");
@@ -134,7 +136,7 @@ namespace Kinteractions_VR.Interactions.Editors
         private Transform CreateHandPivot(string pivotName)
         {
             var handTransform = new GameObject(pivotName).transform;
-            handTransform.parent = interactable.transform;
+            handTransform.parent = interactable.PivotParent;
             handTransform.localPosition = Vector3.zero;
             handTransform.localRotation = Quaternion.identity;
             return handTransform;

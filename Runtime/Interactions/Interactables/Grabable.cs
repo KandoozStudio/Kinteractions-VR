@@ -59,7 +59,7 @@ namespace Kandooz.InteractionSystem.Interactions
             CurrentInteractor.AttachmentPoint.localPosition = transform.localPosition;
             CurrentInteractor.AttachmentPoint.localRotation = transform.localRotation;
             transform.parent = null;
-            relativeTransform.parent = transform;
+            relativeTransform.parent = InteractionConstrainter.PivotParent;
         }
 
         private void LerpObjectToPosition(Action callBack)
