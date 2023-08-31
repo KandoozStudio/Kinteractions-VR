@@ -82,8 +82,6 @@ namespace Kinteractions_VR.Interactions.Editors
                 leftHandPrefab = (HandPoseController)cameraRig.LeftHandPrefab;
                 rightHandPrefab = (HandPoseController)cameraRig.RightHandPrefab;
             }
-
-            EditorApplication.update += () => t += .1f;
         }
 
         private void OnDisable()
@@ -103,7 +101,7 @@ namespace Kinteractions_VR.Interactions.Editors
 
         private void OnSceneGUI()
         {
-            t += .1f;
+            SetPose();
             if (!currentHand)
             {
                 Tools.hidden = false;
@@ -185,6 +183,7 @@ namespace Kinteractions_VR.Interactions.Editors
 
         private void SetPose()
         {
+            this.t += 0.005f;
             var t = Mathf.PingPong(this.t, 1);
             if (selectedHand == HandIdentifier.None) return;
             var handConstraints = selectedHand == HandIdentifier.Left ? interactable.LeftPoseConstrains : interactable.RightPoseConstrains;
