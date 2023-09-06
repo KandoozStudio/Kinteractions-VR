@@ -65,6 +65,7 @@ namespace Kandooz.InteractionSystem.Core.Editors
                     descriptiveName = "Device trigger axis",
                     axis = 9,
                     type = 2,
+                    sensitivity = 1
                 },
                 new()
                 {
@@ -72,6 +73,7 @@ namespace Kandooz.InteractionSystem.Core.Editors
                     descriptiveName = "Device grip axis",
                     axis = 11,
                     type = 2,
+                    sensitivity = 1
                 },
                 new()
                 {
@@ -233,6 +235,7 @@ namespace Kandooz.InteractionSystem.Core.Editors
                     descriptiveName = "Device trigger axis",
                     axis = 10,
                     type = 2,
+                    sensitivity = 1
                 },
                 new()
                 {
@@ -240,6 +243,7 @@ namespace Kandooz.InteractionSystem.Core.Editors
                     descriptiveName = "Device grip axis",
                     axis = 12,
                     type = 2,
+                    sensitivity = 1
                 },
                 new()
                 {
@@ -555,7 +559,7 @@ namespace Kandooz.InteractionSystem.Core.Editors
             property.FindPropertyRelative("dead").floatValue = axe.dead;
             property.FindPropertyRelative("sensitivity").floatValue = axe.sensitivity;
             property.FindPropertyRelative("type").intValue = axe.type;
-            property.FindPropertyRelative("axis").intValue = axe.axis;
+            property.FindPropertyRelative("axis").intValue = axe.axis-1;
         }
 
         private void FindAndRemoveItem(string name)
