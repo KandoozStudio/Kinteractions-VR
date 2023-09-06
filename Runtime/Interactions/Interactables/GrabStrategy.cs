@@ -1,11 +1,7 @@
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 namespace Kandooz.InteractionSystem.Interactions
 {
-    /// <summary>
-    /// Todo re-right this to allow for hand drivers
-    /// </summary>
     public abstract class GrabStrategy
     {
         protected GameObject gameObject;
