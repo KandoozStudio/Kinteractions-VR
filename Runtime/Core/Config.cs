@@ -11,6 +11,7 @@ namespace Kandooz.InteractionSystem.Core
         [SerializeField] private LayerMask interactableLayer;
         [SerializeField] private GameObject gameManager;
         [SerializeField] private InputManagerType inputType;
+        
         public int LeftHandLayer => leftHandLayer;
         public int RightHandLayer => leftHandLayer;
         public InputManagerBase InputManager
@@ -26,6 +27,12 @@ namespace Kandooz.InteractionSystem.Core
         }
         private InputManagerBase CreateInputManager()
         {
+            #if UNITY_EDITOR_OSX
+            if (inputManager != null && inputManager is KeyboardBasedInput) return inputManager;
+            if (inputManager) Destroy(inputManager);
+            inputManager = gameManager.AddComponent<KeyboardBasedInput>();
+            return inputManager;
+            #endif
             switch (inputType)
             {
                 case InputManagerType.UnityAxisBased:
