@@ -27,18 +27,13 @@ namespace Kandooz.InteractionSystem.Core
         }
         private InputManagerBase CreateInputManager()
         {
-            #if UNITY_EDITOR_OSX
-            if (inputManager != null && inputManager is KeyboardBasedInput) return inputManager;
-            if (inputManager) Destroy(inputManager);
-            inputManager = gameManager.AddComponent<KeyboardBasedInput>();
-            return inputManager;
-            #endif
+      
             switch (inputType)
             {
                 case InputManagerType.UnityAxisBased:
-                    if (inputManager != null && inputManager is AxisBasedInputManagerBase) return inputManager;
+                    if (inputManager != null && inputManager is AxisBasedInputManager) return inputManager;
                     if (inputManager) Destroy(inputManager);
-                    inputManager = gameManager.AddComponent<AxisBasedInputManagerBase>();
+                    inputManager = gameManager.AddComponent<AxisBasedInputManager>();
                     break;
                 case InputManagerType.InputSystem:
                     if (inputManager != null && inputManager is InputSystemBased) return inputManager;

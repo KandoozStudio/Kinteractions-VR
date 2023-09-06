@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Kandooz.InteractionSystem.Core
 {
-    internal class AxisBasedInputManagerBase : InputManagerBase
+    internal class AxisBasedInputManager : InputManagerBase
     {
         private const string LeftTriggerAxis = "XRI_Left_Trigger";
         private const string LeftTriggerButton = "XRI_Left_TriggerButton";
