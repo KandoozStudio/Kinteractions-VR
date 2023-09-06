@@ -17,13 +17,13 @@ namespace Kandooz.InteractionSystem.Core
 
         private void Update()
         {
-            leftHand[0] = Input.GetAxis(LeftTriggerAxis);
-            leftHand[1] = leftHand[2] = leftHand[3] = Input.GetAxis(LeftGripAxis);
+            leftHand[1] = Input.GetAxisRaw(LeftTriggerAxis);
+            leftHand[2] = leftHand[3] = leftHand[4] = Input.GetAxisRaw(LeftGripAxis);
             leftHand.triggerObserver.ButtonState = Input.GetButton(LeftTriggerButton);
             leftHand.gripObserver.ButtonState = Input.GetButton(LeftGripButton);
 
-            rightHand[0] = Input.GetAxis(RightTriggerAxis);
-            rightHand[1] = rightHand[2] = rightHand[3] = Input.GetAxis(RightGripAxis);
+            rightHand[1] = Input.GetAxisRaw(RightTriggerAxis);
+            rightHand[2] = rightHand[3] = rightHand[4] = Input.GetAxisRaw(RightGripAxis);
             rightHand.triggerObserver.ButtonState = Input.GetButton(RightTriggerButton);
             rightHand.gripObserver.ButtonState = Input.GetButton(RightGripButton);
         }
