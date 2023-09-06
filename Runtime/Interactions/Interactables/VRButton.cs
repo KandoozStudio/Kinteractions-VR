@@ -28,18 +28,12 @@ namespace Kandooz.InteractionSystem.Interactions
             button.transform.localPosition = Vector3.Lerp(normalPosition, pressedPosition, t);
         }
 
-        private void OnMouseUpAsButton()
-        {
-            throw new NotImplementedException();
-        }
-
         private void OnTriggerEnter(Collider other)
         {
             if (other.isTrigger) return;
             onClick.Invoke();
             isClicked = true;
         }
-
         private void OnTriggerExit(Collider other)
         {
             if (!isClicked ||other.isTrigger) return;
