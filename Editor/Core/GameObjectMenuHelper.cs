@@ -18,7 +18,7 @@ namespace Kandooz.InteractionSystem.Core
                 obj = new GameObject("grabable object");
             
             if(obj.GetComponent<Grabable>()) return;
-            obj.AddComponent<Rigidbody>();
+            //obj.AddComponent<Rigidbody>();
             obj.AddComponent<Grabable>();
             Selection.activeGameObject = obj;
         }
@@ -30,7 +30,7 @@ namespace Kandooz.InteractionSystem.Core
                 obj = new GameObject("grabable object");
             
             if(obj.GetComponent<Throwable>()) return;
-            obj.AddComponent<Rigidbody>();
+            obj.AddComponent<Rigidbody>().isKinematic=true;
             obj.AddComponent<Grabable>();
             obj.AddComponent<Throwable>();
             Selection.activeGameObject = obj;
