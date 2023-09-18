@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Kandooz.Interactions;
 using Kandooz.InteractionSystem.Core;
@@ -45,16 +44,27 @@ namespace Kandooz.InteractionSystem.Interactions
             if (currentInteractable != null && currentInteractable.CurrentState == InteractionState.Selected) return;
             if (currentCollider == other)
             {
+                try
+                {
+                    OnHoverEnd();
+                }
+                catch
+                {
+                    // ignored
+                }
+
+                currentInteractable = null;
                 currentCollider = null;
-                OnHoverEnd();
+
             }
         }
 
         private void Update()
         {
             frameCounter++;
-            if (isInteracting) return;
-            if (frameCounter < 5) return;
+            if (isInteracting || currentInteractable == null) return;
+            
+            if (frameCounter < 3) return;
             frameCounter = 0;
             var position = transform.position;
             var distanceToCurrent = (currentInteractable.transform.position - position).sqrMagnitude;
