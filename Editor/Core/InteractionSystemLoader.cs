@@ -18,7 +18,7 @@ namespace Kandooz.InteractionSystem.Core.Editors
         /// <summary>
         /// this list is copied from unity SeedXR Binding
         /// </summary>
-        private List<(string name, string descriptiveName, float dead, int axis, int type, string positiveButton, float gravity, float sensitivity)> axisList =
+        private List<(string name, string descriptiveName, float dead, int axis, int type, string positiveButton, float gravity, float sensitivity,string altPositiveButton)> axisList =
             new()
             {
                 #region LeftHand
@@ -29,43 +29,11 @@ namespace Kandooz.InteractionSystem.Core.Editors
                 // Axis Data
                 new()
                 {
-                    name = "XRI_Left_Primary2DAxis_Vertical",
-                    descriptiveName = "Device joystick/touchpad horizontal motion",
-                    dead = 0.19f,
-                    axis = 2,
-                    type = 2,
-                },
-                new()
-                {
-                    name = "XRI_Left_Primary2DAxis_Horizontal",
-                    descriptiveName = "Device joystick/touchpad horizontal motion",
-                    dead = 0.19f,
-                    axis = 1,
-                    type = 2,
-                },
-                new()
-                {
-                    name = "XRI_Left_Secondary2DAxis_Vertical",
-                    descriptiveName = "Device joystick/touchpad horizontal motion.",
-                    dead = 0.19f,
-                    axis = 18,
-                    type = 2,
-                },
-                new()
-                {
-                    name = "XRI_Left_Secondary2DAxis_Horizontal",
-                    descriptiveName = "Device joystick/touchpad horizontal motion",
-                    dead = 0.19f,
-                    axis = 17,
-                    type = 2,
-                },
-                new()
-                {
                     name = "XRI_Left_Trigger",
                     descriptiveName = "Device trigger axis",
                     axis = 9,
                     type = 2,
-                    sensitivity = 1
+                    sensitivity = 1,
                 },
                 new()
                 {
@@ -73,25 +41,8 @@ namespace Kandooz.InteractionSystem.Core.Editors
                     descriptiveName = "Device grip axis",
                     axis = 11,
                     type = 2,
-                    sensitivity = 1
+                    sensitivity = 1,
                 },
-                new()
-                {
-                    name = "XRI_Left_IndexTouch",
-                    descriptiveName = "Device index finger proximity touch axis.",
-                    dead = 0.19f,
-                    axis = 13,
-                    type = 2,
-                },
-                new()
-                {
-                    name = "XRI_Left_ThumbTouch",
-                    descriptiveName = "Device thumb proximity touch axis",
-                    dead = 0.19f,
-                    axis = 15,
-                    type = 2,
-                },
-                // Button Data
                 new()
                 {
                     name = "XRI_Left_PrimaryButton",
@@ -108,26 +59,6 @@ namespace Kandooz.InteractionSystem.Core.Editors
                     positiveButton = "joystick button 3",
                     gravity = 1000.0f,
                     sensitivity = 1000.0f,
-                    type = 0,
-                },
-                new()
-                {
-                    name = "XRI_Left_PrimaryTouch",
-                    descriptiveName = "Device primary touch",
-                    positiveButton = "joystick button 12",
-                    gravity = 0.0f,
-                    dead = 0.0f,
-                    sensitivity = 0.1f,
-                    type = 0,
-                },
-                new()
-                {
-                    name = "XRI_Left_SecondaryTouch",
-                    descriptiveName = "Device secondary button",
-                    positiveButton = "joystick button 13",
-                    gravity = 0.0f,
-                    dead = 0.0f,
-                    sensitivity = 0.1f,
                     type = 0,
                 },
                 new()
@@ -150,46 +81,6 @@ namespace Kandooz.InteractionSystem.Core.Editors
                     sensitivity = 0.1f,
                     type = 0,
                 },
-                new()
-                {
-                    name = "XRI_Left_MenuButton",
-                    descriptiveName = "Device menu button",
-                    positiveButton = "joystick button 6",
-                    gravity = 1000.0f,
-                    sensitivity = 1000.0f,
-                    type = 0,
-                },
-                new()
-                {
-                    name = "XRI_Left_Primary2DAxisClick",
-                    descriptiveName = "Device stick/touchpad click",
-                    positiveButton = "joystick button 8",
-                    gravity = 0.0f,
-                    dead = 0.0f,
-                    sensitivity = 0.1f,
-                    type = 0,
-                },
-                new()
-                {
-                    name = "XRI_Left_Primary2DAxisTouch",
-                    descriptiveName = "Device stick/touchpad touch",
-                    positiveButton = "joystick button 16",
-                    gravity = 0.0f,
-                    dead = 0.0f,
-                    sensitivity = 0.1f,
-                    type = 0,
-                },
-                new()
-                {
-                    name = "XRI_Left_Thumbrest",
-                    descriptiveName = "Device thumbrest",
-                    positiveButton = "joystick button 18",
-                    gravity = 0.0f,
-                    dead = 0.0f,
-                    sensitivity = 0.1f,
-                    type = 0,
-                },
-
                 #endregion
 
                 #region RightHand
@@ -197,38 +88,6 @@ namespace Kandooz.InteractionSystem.Core.Editors
                 //######################################################################################################################################
                 // Right Hand
                 //######################################################################################################################################
-                new()
-                {
-                    name = "XRI_Right_Primary2DAxis_Vertical",
-                    descriptiveName = "Device joystick/touchpad horizontal motion",
-                    dead = 0.19f,
-                    axis = 5,
-                    type = 2,
-                },
-                new()
-                {
-                    name = "XRI_Right_Primary2DAxis_Horizontal",
-                    descriptiveName = "Device joystick/touchpad horizontal motion",
-                    dead = 0.19f,
-                    axis = 4,
-                    type = 2,
-                },
-                new()
-                {
-                    name = "XRI_Right_Secondary2DAxis_Vertical",
-                    descriptiveName = "Device joystick/touchpad horizontal motion.",
-                    dead = 0.19f,
-                    axis = 20,
-                    type = 2,
-                },
-                new()
-                {
-                    name = "XRI_Right_Secondary2DAxis_Horizontal",
-                    descriptiveName = "Device joystick/touchpad horizontal motion",
-                    dead = 0.19f,
-                    axis = 19,
-                    type = 2,
-                },
                 new()
                 {
                     name = "XRI_Right_Trigger",
@@ -245,23 +104,6 @@ namespace Kandooz.InteractionSystem.Core.Editors
                     type = 2,
                     sensitivity = 1
                 },
-                new()
-                {
-                    name = "XRI_Right_IndexTouch",
-                    descriptiveName = "Device index finger proximity touch axis.",
-                    dead = 0.19f,
-                    axis = 14,
-                    type = 2,
-                },
-                new()
-                {
-                    name = "XRI_Right_ThumbTouch",
-                    descriptiveName = "Device thumb proximity touch axis",
-                    dead = 0.19f,
-                    axis = 16,
-                    type = 2,
-                },
-                // Button Data
                 new()
                 {
                     name = "XRI_Right_PrimaryButton",
@@ -282,26 +124,6 @@ namespace Kandooz.InteractionSystem.Core.Editors
                 },
                 new()
                 {
-                    name = "XRI_Right_PrimaryTouch",
-                    descriptiveName = "Device primary touch",
-                    positiveButton = "joystick button 10",
-                    gravity = 0.0f,
-                    dead = 0.0f,
-                    sensitivity = 0.1f,
-                    type = 0,
-                },
-                new()
-                {
-                    name = "XRI_Right_SecondaryTouch",
-                    descriptiveName = "Device secondary button",
-                    positiveButton = "joystick button 11",
-                    gravity = 0.0f,
-                    dead = 0.0f,
-                    sensitivity = 0.1f,
-                    type = 0,
-                },
-                new()
-                {
                     name = "XRI_Right_GripButton",
                     descriptiveName = "Device grip button",
                     positiveButton = "joystick button 5",
@@ -315,45 +137,6 @@ namespace Kandooz.InteractionSystem.Core.Editors
                     name = "XRI_Right_TriggerButton",
                     descriptiveName = "Device trigger button",
                     positiveButton = "joystick button 15",
-                    gravity = 0.0f,
-                    dead = 0.0f,
-                    sensitivity = 0.1f,
-                    type = 0,
-                },
-                new()
-                {
-                    name = "XRI_Right_MenuButton",
-                    descriptiveName = "Device menu button",
-                    positiveButton = "joystick button 7",
-                    gravity = 1000.0f,
-                    sensitivity = 1000.0f,
-                    type = 0,
-                },
-                new()
-                {
-                    name = "XRI_Right_Primary2DAxisClick",
-                    descriptiveName = "Device stick/touchpad click",
-                    positiveButton = "joystick button 9",
-                    gravity = 0.0f,
-                    dead = 0.0f,
-                    sensitivity = 0.1f,
-                    type = 0,
-                },
-                new()
-                {
-                    name = "XRI_Right_Primary2DAxisTouch",
-                    descriptiveName = "Device stick/touchpad touch",
-                    positiveButton = "joystick button 17",
-                    gravity = 0.0f,
-                    dead = 0.0f,
-                    sensitivity = 0.1f,
-                    type = 0,
-                },
-                new()
-                {
-                    name = "XRI_Right_Thumbrest",
-                    descriptiveName = "Device thumbrest",
-                    positiveButton = "joystick button 19",
                     gravity = 0.0f,
                     dead = 0.0f,
                     sensitivity = 0.1f,
@@ -466,6 +249,7 @@ namespace Kandooz.InteractionSystem.Core.Editors
             var rightLayer = LayerMask.NameToLayer(XRIRightinteractorLayerName);
             Physics.IgnoreLayerCollision(leftLayer, leftLayer);
             Physics.IgnoreLayerCollision(rightLayer, rightLayer);
+            Physics.IgnoreLayerCollision(rightLayer, leftLayer);
         }
 
         private void InitializeConfigFile()
@@ -515,8 +299,15 @@ namespace Kandooz.InteractionSystem.Core.Editors
             var serializedObject = new SerializedObject(inputManagerAsset);
             var axis = serializedObject.FindProperty("m_Axes");
             if (axis is not { isArray: true }) return;
+            for (int i = 18; i < axis.arraySize; i++)
+            {
+                axis.DeleteArrayElementAtIndex(i);
+            }
+
+            axis.arraySize = 18;
             var count = axis.arraySize;
-            RemoveDefinedAxis(count, axis);
+
+            //RemoveDefinedAxis(count, axis);
             AddNewAxes(axis, count);
             serializedObject.ApplyModifiedProperties();
         }
@@ -550,7 +341,7 @@ namespace Kandooz.InteractionSystem.Core.Editors
         }
 
         private static void SetAxe(SerializedProperty property,
-            (string name, string descriptiveName, float dead, int axis, int type, string positiveButton, float gravity, float sensitivity) axe)
+            (string name, string descriptiveName, float dead, int axis, int type, string positiveButton, float gravity, float sensitivity,string altPostive) axe)
         {
             property.FindPropertyRelative("m_Name").stringValue = axe.name;
             property.FindPropertyRelative("descriptiveName").stringValue = axe.descriptiveName;
@@ -560,6 +351,7 @@ namespace Kandooz.InteractionSystem.Core.Editors
             property.FindPropertyRelative("sensitivity").floatValue = axe.sensitivity;
             property.FindPropertyRelative("type").intValue = axe.type;
             property.FindPropertyRelative("axis").intValue = axe.axis-1;
+            property.FindPropertyRelative("altPositiveButton").stringValue = axe.altPostive;
         }
 
         private void FindAndRemoveItem(string name)
