@@ -1,5 +1,4 @@
 using Kandooz.InteractionSystem.Animations;
-using Kinteractions_VR.Core.Runtime.Hand;
 using UnityEngine;
 
 namespace Kandooz.InteractionSystem.Core
