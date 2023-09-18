@@ -35,7 +35,10 @@ namespace Kandooz.InteractionSystem.Interactions
             }
             pivotParent.parent = null;
             pivotParent.localScale = Vector3.one;
-            pivotParent.parent = this.transform;
+            pivotParent.parent = transform;
+            pivotParent.transform.localPosition = Vector3.zero;
+            pivotParent.transform.localRotation=Quaternion.identity;
+            ;
         }
 
         private void OnEnable()
