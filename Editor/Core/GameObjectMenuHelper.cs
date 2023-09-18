@@ -40,6 +40,11 @@ namespace Kandooz.InteractionSystem.Core
         {
             var buttonObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder).transform;
             var buttonBody = GameObject.CreatePrimitive(PrimitiveType.Cube).transform;
+            buttonObject.GetComponent<MeshRenderer>().material.color = Color.red;
+            buttonBody.name = "Button";
+            var trigger = buttonBody.gameObject.AddComponent<BoxCollider>();
+            trigger.center = Vector3.up * .2f;
+            trigger.isTrigger = true;
             buttonObject.transform.parent = buttonBody.transform;
             buttonObject.localScale = new Vector3(.5f,.25f, .5f);
             buttonObject.localPosition = Vector3.up * .5f;
