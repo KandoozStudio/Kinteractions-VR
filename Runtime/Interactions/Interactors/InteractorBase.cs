@@ -21,6 +21,7 @@ namespace Kandooz.InteractionSystem.Interactions
         public Joint InteractorAttachmentJoint => attachmentJoint;
         public Hand Hand => hand;
         public bool IsInteracting => isInteracting;
+        public event Action onHoverEnd;
 
         private void Awake()
         {
@@ -99,7 +100,7 @@ namespace Kandooz.InteractionSystem.Interactions
             };
         }
 
-        protected void OnHoverEnd()
+        protected virtual void OnHoverEnd()
         {
             if (currentInteractable.CurrentState != InteractionState.Hovering) return;
             currentInteractable.OnStateChanged(InteractionState.None, this);

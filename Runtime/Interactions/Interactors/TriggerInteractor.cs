@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using Kandooz.Interactions;
 using Kandooz.InteractionSystem.Core;
 using UnityEngine;
@@ -7,30 +9,30 @@ namespace Kandooz.InteractionSystem.Interactions
 {
     public class TriggerInteractor : InteractorBase
     {
+        //TODO: rewrite to make it support pairs of colliders/interactables
         [ReadOnly][SerializeField] private Collider currentCollider;
-        //private LinkedList<InteractableBase> availableInteractables;
-        private HashSet<InteractableBase> interactables = new(10);
         private int frameCounter;
         private void OnTriggerEnter(Collider other)
         {
-            if (other == currentCollider || isInteracting) return;
+            if (isInteracting) return;
             var interactable = other.GetComponentInParent<InteractableBase>();
-            if (!interactable || interactables.Contains(interactable)) return;
-            interactables.Add(interactable);
+            if (!interactable || interactable == currentInteractable) return;
             if (!ShouldChangeInteractable( interactable)) return;
-            ChangeInteractable(other, interactable);
+            ChangeInteractable(interactable);
+            currentCollider = other;
         }
 
-        private void ChangeInteractable(Collider other, InteractableBase interactable)
+        private void ChangeInteractable( InteractableBase interactable)
         {
+            try { if (currentInteractable) OnHoverEnd(); } catch { }
             currentInteractable = interactable;
-            currentCollider = other;
-            OnHoverStart();
+            try { if (currentInteractable) OnHoverStart(); } catch { };
         }
 
         private bool ShouldChangeInteractable(InteractableBase interactable )
         {
-            if (currentInteractable == null) return true;
+            return true;
+            if(currentInteractable == null) return true;
             var interactableDistance = (transform.position - interactable.transform.position).sqrMagnitude;
             var currentInteractableDistance = (transform.position - currentInteractable.transform.position).sqrMagnitude;
             return currentInteractableDistance > interactableDistance;
@@ -38,42 +40,24 @@ namespace Kandooz.InteractionSystem.Interactions
 
         private void OnTriggerExit(Collider other)
         {
+            if(IsInteracting) { return; }
+            if (other == currentCollider)
+            {
+                ChangeInteractable(null);
+                return;
+            }
             var interactable = other.GetComponent<InteractableBase>();
-            if (interactables.Contains(interactable)) interactables.Remove(interactable);
             
             if (currentInteractable != null && currentInteractable.CurrentState == InteractionState.Selected) return;
-            if (currentCollider == other)
+            if (interactable == currentInteractable)
             {
-                try
-                {
-                    OnHoverEnd();
-                }
-                catch
-                {
-                    // ignored
-                }
-
-                currentInteractable = null;
-                currentCollider = null;
-
+                    ChangeInteractable(null);
             }
         }
-
-        private void Update()
+        protected override void OnHoverEnd()
         {
-            frameCounter++;
-            if (isInteracting || currentInteractable == null) return;
-            
-            if (frameCounter < 3) return;
-            frameCounter = 0;
-            var position = transform.position;
-            var distanceToCurrent = (currentInteractable.transform.position - position).sqrMagnitude;
-            foreach (var interactable in interactables)
-            {
-                var interactableDistance = (interactable.transform.position - position).sqrMagnitude;
-                if (interactableDistance < distanceToCurrent) ChangeInteractable(interactable.GetComponentInChildren<Collider>(), interactable);
-            }
-            
+            base.OnHoverEnd();
+            currentCollider = null;
         }
     }
 }
