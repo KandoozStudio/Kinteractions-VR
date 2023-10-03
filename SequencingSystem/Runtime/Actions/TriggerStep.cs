@@ -5,17 +5,17 @@ using UnityEngine.Serialization;
 
 namespace Kandooz.Kuest
 {
-    [RequireComponent(typeof(StepEventListener))]
+    [RequireComponent(typeof(StepEvenListener))]
     public class TriggerStep : MonoBehaviour
     {
         [SerializeField]private string objectTag; 
 
         private bool started;
-        private StepEventListener listener;
+        private StepEvenListener listener;
 
         private void Awake()
         {
-            listener = GetComponent<StepEventListener>();
+            listener = GetComponent<StepEvenListener>();
             listener.OnStarted.Do(_ => started = true).Subscribe().AddTo(this);
         }
 
@@ -24,7 +24,7 @@ namespace Kandooz.Kuest
             if (!started) return;
             if (string.IsNullOrEmpty(objectTag) || other.CompareTag(objectTag))
             {
-                listener.step.OnActionCompleted();
+                listener.OnActionCompleted();
             }
         }
     }

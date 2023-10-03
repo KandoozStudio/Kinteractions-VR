@@ -1,19 +1,19 @@
 using System;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Kandooz.Kuest
 {
     [RequireComponent(typeof(StepEvenListener))]
-    public class ButtonStep : MonoBehaviour
+    public class LookStepBehaviour : MonoBehaviour
     {
-        [SerializeField]private string buttonName;
         private StepEvenListener listener;
         private bool started;
+        private Transform player;
 
         private void Awake()
         {
+            player = Camera.main.transform;
             listener = GetComponent<StepEvenListener>();
             listener.OnStarted.Do((_) => started = true).Subscribe().AddTo(this);
             listener.OnFinished.Do((_) => started = false).Subscribe().AddTo(this);
@@ -22,7 +22,8 @@ namespace Kandooz.Kuest
         private void Update()
         {
             if (!started) return;
-            if (Input.GetButton(buttonName))
+            var direction = (transform.position - player.position).normalized;
+            if (Vector3.Dot(direction, player.forward) > .7f)
             {
                 listener.OnActionCompleted();
             }

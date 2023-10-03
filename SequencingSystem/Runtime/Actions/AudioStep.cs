@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Kandooz.Kuest
 {
-    [RequireComponent(typeof(StepEventListener))]
+    [RequireComponent(typeof(StepEvenListener))]
     public class AudioStep : MonoBehaviour
     {
         [SerializeField] private  AudioClip clip;
         private AudioSource source;
         private bool started=false;
-        private StepEventListener listener;
+        private StepEvenListener listener;
 
         private void OnEnable()
         {
@@ -18,11 +18,11 @@ namespace Kandooz.Kuest
             source.playOnAwake = false;
             source.loop = false;
             source.clip = clip;
-            listener = GetComponent<StepEventListener>();
+            listener = GetComponent<StepEvenListener>();
             listener.OnStarted.Do(_ => source.Play())
                 .SelectMany(_ => Observable.EveryUpdate())
                 .Where(_ => !source.isPlaying)
-                .Do(_ => listener.step.OnActionCompleted())
+                .Do(_ => listener.OnActionCompleted())
                 .Subscribe()
                 .AddTo(this);
             listener.OnFinished.Do(_=>source.Stop()).Subscribe().AddTo(this);
@@ -31,7 +31,7 @@ namespace Kandooz.Kuest
         private void Update()
         {
             if(!started ||source.isPlaying)return;
-            listener.step.OnActionCompleted();
+            listener.OnActionCompleted();
             started = false;
         }
     }

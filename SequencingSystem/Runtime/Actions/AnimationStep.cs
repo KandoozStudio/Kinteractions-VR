@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace Kandooz.Kuest
 {
-    [RequireComponent(typeof(StepEventListener))]
+    [RequireComponent(typeof(StepEvenListener))]
     public class AnimationStep : MonoBehaviour
     {
         [SerializeField] private string animationTriggerName;
         [SerializeField] private Animator _animator;
-        private StepEventListener listener;
+        private StepEvenListener listener;
         void Awake()
         {
-             listener = GetComponent<StepEventListener>();
+             listener = GetComponent<StepEvenListener>();
             _animator = GetComponent<Animator>();
             listener.OnStarted.Do(_ => _animator.SetTrigger(animationTriggerName)).Subscribe().AddTo(this);
         }
@@ -20,7 +20,7 @@ namespace Kandooz.Kuest
         /// </summary>
         public void AnimationEnded()
         {
-            listener.step.OnActionCompleted();;
+            listener.OnActionCompleted();;
         }
     }
 }
