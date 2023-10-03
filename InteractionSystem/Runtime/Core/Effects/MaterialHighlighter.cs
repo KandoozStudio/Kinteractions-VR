@@ -12,6 +12,7 @@ namespace Kandooz.InteractionSystem.Core
         private void Awake()
         {
             renderers = GetComponentsInChildren<MeshRenderer>();
+            color = new Color[renderers.Length];
             for (int i = 0; i < renderers.Length; i++)
             {
                 color[i] = renderers[i].material.color;

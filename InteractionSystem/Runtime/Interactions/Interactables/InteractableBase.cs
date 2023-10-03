@@ -53,6 +53,12 @@ namespace Kandooz.InteractionSystem.Interactions
             add => onHoverEnd.AddListener(value);
             remove => onHoverEnd.RemoveListener(value);
         }
+        
+        public event UnityAction<InteractorBase> OnActivated
+        {
+            add => onActivated.AddListener(value);
+            remove => onActivated.RemoveListener(value);
+        }
 
         public Transform RightHandRelativePosition => InteractionConstrainter.RightHandTransform;
         public Transform LeftHandRelativePosition => InteractionConstrainter.LeftHandTransform;

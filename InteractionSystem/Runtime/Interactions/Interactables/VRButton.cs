@@ -30,7 +30,7 @@ namespace Kandooz.InteractionSystem.Interactions
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.isTrigger) return;
+            if (other.isTrigger || isClicked) return;
             onClick.Invoke();
             isClicked = true;
         }
