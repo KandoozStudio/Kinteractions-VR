@@ -6,17 +6,14 @@ namespace Kandooz.ScriptableSystem
 {
     public class GameEvent<T> : ScriptableObject
     {
-        protected Subject<T> onNotify = new();
-        public IObservable<T> OnNotify => onNotify;
-        public IDisposable Subscribe(IObserver<T> observer)
-        {
-            return onNotify.Subscribe(observer);
-        }
+        private Subject<T> onRaised = new();
+        public IObservable<T> OnRaised => onRaised;
+ 
         public void Raise(T data)
         {
             try
             {
-                onNotify.OnNext(data);
+                onRaised.OnNext(data);
             }
             catch (Exception e)
             {
@@ -27,7 +24,7 @@ namespace Kandooz.ScriptableSystem
         {
             try
             {
-                onNotify.OnCompleted();
+                onRaised.OnCompleted();
             }
             catch (Exception e)
             {
