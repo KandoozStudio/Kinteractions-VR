@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Kandooz.Kuest
 {
     [RequireComponent(typeof(StepEvenListener))]
-    public class AnimationStep : MonoBehaviour
+    public class AnimationAction : MonoBehaviour
     {
         [SerializeField] private string animationTriggerName;
         [SerializeField] private Animator _animator;

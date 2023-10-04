@@ -1,12 +1,10 @@
-using System;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Kandooz.Kuest
 {
     [RequireComponent(typeof(StepEvenListener))]
-    public class TriggerStep : MonoBehaviour
+    public class TriggerAction : MonoBehaviour
     {
         [SerializeField]private string objectTag; 
 

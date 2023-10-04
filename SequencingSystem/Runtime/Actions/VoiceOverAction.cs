@@ -1,11 +1,10 @@
-using System;
 using UniRx;
 using UnityEngine;
 
 namespace Kandooz.Kuest
 {
     [RequireComponent(typeof(StepEvenListener))]
-    public class AudioStep : MonoBehaviour
+    public class VoiceOverAction : MonoBehaviour
     {
         [SerializeField] private AudioClip clip;
         private AudioSource source;

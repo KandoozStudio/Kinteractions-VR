@@ -1,14 +1,10 @@
-using System;
 using Kandooz.InteractionSystem.Core;
-using Kandooz.InteractionSystem.Interactions;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
-//https://navitas.zoom.us/my/ahmad.bakr
 namespace Kandooz.Kuest
 {
     [RequireComponent(typeof(StepEvenListener))]
-    public class ButtonStep : MonoBehaviour
+    public class ControllerButtonAction : MonoBehaviour
     {
         [SerializeField] private Config config; 
         [SerializeField] private HandIdentifier hand;

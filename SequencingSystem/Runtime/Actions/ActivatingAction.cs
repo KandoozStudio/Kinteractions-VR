@@ -1,4 +1,3 @@
-using System;
 using Kandooz.InteractionSystem.Interactions;
 using UniRx;
 using UnityEngine;
@@ -6,7 +5,7 @@ using UnityEngine;
 namespace Kandooz.Kuest
 {
     [RequireComponent(typeof(StepEvenListener))]
-    public class ActivatingStep : MonoBehaviour
+    public class ActivatingAction : MonoBehaviour
     {
         [SerializeField] private InteractableBase interactableObject;
         private StepEvenListener listener;

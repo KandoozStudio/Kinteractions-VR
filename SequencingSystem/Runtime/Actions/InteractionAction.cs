@@ -13,7 +13,7 @@ namespace Kandooz.Kuest
         HoverEnd=4,
     }
     [RequireComponent(typeof(StepEvenListener))]
-    public class InteractionStep : MonoBehaviour
+    public class InteractionAction : MonoBehaviour
     {
         [SerializeField] private InteractableBase interactableObject;
         [SerializeField] private InteractionType interactionType;

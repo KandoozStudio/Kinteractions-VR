@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Kandooz.Kuest
 {
     [RequireComponent(typeof(StepEvenListener))]
-    public class LookStepBehaviour : MonoBehaviour
+    public class GazeAction : MonoBehaviour
     {
         private StepEvenListener listener;
         private bool started;
