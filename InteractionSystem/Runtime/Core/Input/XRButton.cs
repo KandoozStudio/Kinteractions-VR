@@ -1,9 +1,11 @@
+using UnityEngine;
+
 namespace Kandooz.InteractionSystem.Core
 {
     public enum XRButton
     {
         Trigger,
-        Grip
+        Grip,
     }
 
     public enum ButtonState
