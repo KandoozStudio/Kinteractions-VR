@@ -11,6 +11,8 @@ namespace Kandooz.Kuest
         [SerializeField] internal Step step;
         [SerializeField] private UnityEvent onStarted;
         [SerializeField] private UnityEvent onEnded;
+        private bool current;
+        public bool Current => current;
         public void OnActionCompleted() => step.OnActionCompleted();
         public IObservable<Unit> OnStarted => onStarted.AsObservable();
         public IObservable<Unit> OnFinished => onEnded.AsObservable();
@@ -40,9 +42,11 @@ namespace Kandooz.Kuest
             switch (elementStatus)
             {
                 case SequenceStatus.Started:
+                    current = true;
                     onStarted?.Invoke();
                     break;
                 case SequenceStatus.Completed:
+                    current = false;
                     onEnded?.Invoke();
                     break;
             }
