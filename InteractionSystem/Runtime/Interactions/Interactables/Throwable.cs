@@ -1,7 +1,7 @@
-using Kandooz.InteractionSystem.Interactions;
+using UniRx;
 using UnityEngine;
 
-namespace Kandooz.InteractionSystem.Core
+namespace Kandooz.InteractionSystem.Interactions
 {
     [RequireComponent(typeof(Grabable))]
     [RequireComponent(typeof(Rigidbody))]
@@ -23,29 +23,31 @@ namespace Kandooz.InteractionSystem.Core
             velocityList = new Vector3[iterations];
             dtInverse = 1 / Time.fixedDeltaTime;
             body = GetComponent<Rigidbody>();
-            grabable.OnSelected += (interactor)=>
-            {
-                active = true;
-                lastPosition = this.transform.position;
-                velocityList.Initialize();
-                currentIndex = 0;
-                elapsed = 0;
-            };
-            grabable.OnDeselected += (interactor) =>
-            {
-                active = false;
-                var velocity = Vector3.zero;
-                for (int i = 0; i < iterations && i<elapsed; i++)
-                {
-                    velocity += velocityList[i];
-                }
-                velocity *= dtInverse/iterations;
-                body.velocity = velocity;
-                body.isKinematic = false;
-            };
+            grabable.OnSelected.Do(OnSelected).Subscribe().AddTo(this);
+            grabable.OnDeselected.Do(OnSelected).Subscribe().AddTo(this); 
 
         }
-
+        
+        void OnSelected (InteractorBase interactor)
+        {
+            active = true;
+            lastPosition = this.transform.position;
+            velocityList.Initialize();
+            currentIndex = 0;
+            elapsed = 0;
+        }
+        void OnDeselected(InteractableBase interactor)
+        {
+            active = false;
+            var velocity = Vector3.zero;
+            for (int i = 0; i < iterations && i<elapsed; i++)
+            {
+                velocity += velocityList[i];
+            }
+            velocity *= dtInverse/iterations;
+            body.velocity = velocity;
+            body.isKinematic = false;
+        }
         private void FixedUpdate()
         {
             if (!active) return;

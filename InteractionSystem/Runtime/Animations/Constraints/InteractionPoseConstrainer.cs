@@ -1,6 +1,7 @@
 
 using Kandooz.InteractionSystem.Animations.Constraints;
 using Kandooz.InteractionSystem.Core;
+using UniRx;
 using UnityEngine;
 
 namespace Kandooz.InteractionSystem.Interactions
@@ -44,16 +45,10 @@ namespace Kandooz.InteractionSystem.Interactions
         private void OnEnable()
         {
             interactable = GetComponent<InteractableBase>();
-            interactable.OnSelected += Constrain;
-            interactable.OnDeselected += Unconstrain;
+            interactable.OnSelected.Do(Constrain).Subscribe().AddTo(this);
+            interactable.OnDeselected.Do(Unconstrain).Subscribe().AddTo(this);
         }
-
-        private void OnDisable()
-        {
-            interactable.OnSelected += Constrain;
-            interactable.OnDeselected += Unconstrain;
-        }
-
+        
         private void Unconstrain(InteractorBase interactor)
         {
             interactor.Hand.Unconstrain(this);

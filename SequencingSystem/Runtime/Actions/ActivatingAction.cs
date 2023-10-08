@@ -9,14 +9,20 @@ namespace Kandooz.Kuest
     {
         [SerializeField] private InteractableBase interactableObject;
         private StepEvenListener listener;
-
+        private CompositeDisposable disposable;
         private void Awake()
         {
             listener = GetComponent<StepEvenListener>();
-            listener.OnStarted.Do((_) =>interactableObject.OnActivated+=OnInteractionStarted).Subscribe().AddTo(this);
-            listener.OnFinished.Do((_) => interactableObject.OnActivated-=OnInteractionStarted).Subscribe().AddTo(this);
+            listener.OnStarted.Do(OnStarted).Subscribe().AddTo(this);
+            listener.OnFinished.Do(_ => disposable.Dispose()).Subscribe().AddTo(this);
         }
-        
+
+        void OnStarted(Unit unit)
+        {
+            disposable = new();
+            interactableObject.OnActivated.Do(OnInteractionStarted).Subscribe().AddTo(disposable);
+        }
+
         private void OnInteractionStarted(InteractorBase interactor)
         {
             listener.OnActionCompleted();

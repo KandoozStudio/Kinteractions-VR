@@ -13,7 +13,8 @@ namespace Kandooz.Kuest
         [SerializeField] private UnityEvent onEnded;
         private bool current;
         public bool Current => current;
-        public void OnActionCompleted() => step.OnActionCompleted();
+        public void OnActionCompleted() =>step.OnActionCompleted();
+
         public IObservable<Unit> OnStarted => onStarted.AsObservable();
         public IObservable<Unit> OnFinished => onEnded.AsObservable();
         private IDisposable disposable;

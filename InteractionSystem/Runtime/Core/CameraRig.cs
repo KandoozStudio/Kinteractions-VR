@@ -10,6 +10,7 @@ namespace Kandooz.InteractionSystem.Core
     }
     public class CameraRig : MonoBehaviour
     {
+        
         [SerializeField] private GameObject leftHand;
         [SerializeField] private GameObject rightHand;
         [SerializeField] private InteractionSystemType interactionSystemType;
@@ -19,6 +20,7 @@ namespace Kandooz.InteractionSystem.Core
         public IPoseable LeftHandPrefab => poseData.LeftPosablePrefab;
         public IPoseable RightHandPrefab => poseData.rightPoseablePrefab;
         public Config Config => config;
+
         public void InitializePhysicsBasedHands()
         {
             var offsetObject = new GameObject("Offset").transform;

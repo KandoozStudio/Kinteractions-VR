@@ -1,5 +1,4 @@
 
-using System;
 using Kandooz.InteractionSystem.Core;
 using UnityEngine;
 

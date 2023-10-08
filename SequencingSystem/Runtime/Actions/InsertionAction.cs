@@ -1,5 +1,6 @@
 using System;
 using Kandooz.InteractionSystem.Interactions;
+using UniRx;
 using UnityEngine;
 
 namespace Kandooz.Kuest
@@ -9,21 +10,23 @@ namespace Kandooz.Kuest
     {
         [SerializeField] private InteractableBase interactable;
         private GameObject interactableObject;
-        private bool insideTrigger=false;
+        private bool insideTrigger = false;
         private StepEvenListener listner;
         private void Awake()
         {
             listner = GetComponent<StepEvenListener>();
             interactableObject = interactable.gameObject;
-            interactable.OnDeselected += OnSelectionEnded;
-
+            interactable.OnDeselected
+                .Where(_ => listner.Current && insideTrigger)
+                .Do(OnSelectionEnded)
+                .Subscribe()
+                .AddTo(this);
         }
 
         private void OnSelectionEnded(InteractorBase interactor)
         {
-            if(!listner.Current || !insideTrigger) return;
-            interactableObject.transform.position = this.transform.position;
-            interactableObject.transform.rotation = this.transform.rotation;
+            interactableObject.transform.position = transform.position;
+            interactableObject.transform.rotation = transform.rotation;
         }
 
         private void OnTriggerEnter(Collider other)

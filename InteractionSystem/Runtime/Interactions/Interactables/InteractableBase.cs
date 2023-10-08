@@ -1,6 +1,7 @@
 using System;
 using Kandooz.Interactions;
 using Kandooz.InteractionSystem.Core;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -28,38 +29,12 @@ namespace Kandooz.InteractionSystem.Interactions
         private InteractionPoseConstrainer poseConstrainter;
         private InteractionState currentState;
         private InteractorBase currentInteractor;
-
         public bool IsSelected => isSelected;
-        public event UnityAction<InteractorBase> OnSelected
-        {
-            add => onSelected.AddListener(value);
-            remove => onSelected.RemoveListener(value);
-        }
-
-        public event UnityAction<InteractorBase> OnDeselected
-        {
-            add => onDeselected.AddListener(value);
-            remove => onDeselected.RemoveListener(value);
-        }
-
-        public event UnityAction<InteractorBase> OnHoverStarted
-        {
-            add => onHoverStart.AddListener(value);
-            remove => onHoverStart.RemoveListener(value);
-        }
-
-        public event UnityAction<InteractorBase> OnHoverEnded
-        {
-            add => onHoverEnd.AddListener(value);
-            remove => onHoverEnd.RemoveListener(value);
-        }
-        
-        public event UnityAction<InteractorBase> OnActivated
-        {
-            add => onActivated.AddListener(value);
-            remove => onActivated.RemoveListener(value);
-        }
-
+        public IObservable<InteractorBase> OnSelected => onSelected.AsObservable();
+        public IObservable<InteractorBase> OnDeselected => onDeselected.AsObservable();
+        public IObservable<InteractorBase> OnHoverStarted => onHoverStart.AsObservable();
+        public IObservable<InteractorBase> OnHoverEnded => onHoverEnd.AsObservable();
+        public IObservable<InteractorBase> OnActivated => onActivated.AsObservable();
         public Transform RightHandRelativePosition => InteractionConstrainter.RightHandTransform;
         public Transform LeftHandRelativePosition => InteractionConstrainter.LeftHandTransform;
         public XRButton SelectionButton => selectionButton;
@@ -111,7 +86,7 @@ namespace Kandooz.InteractionSystem.Interactions
 
         private void HandleHoverState()
         {
-            if (currentState == InteractionState.Selected) 
+            if (currentState == InteractionState.Selected)
             {
                 isSelected = false;
                 onDeselected.Invoke(currentInteractor);
@@ -154,9 +129,8 @@ namespace Kandooz.InteractionSystem.Interactions
 
         public bool IsValidHand(HandIdentifier hand)
         {
-            
             var handID = (int)hand;
-            var valid =(int)interactionHand;
+            var valid = (int)interactionHand;
             return (valid & handID) != 0;
         }
     }
