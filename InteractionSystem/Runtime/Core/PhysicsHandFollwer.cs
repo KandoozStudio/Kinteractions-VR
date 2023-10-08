@@ -8,12 +8,16 @@ namespace Kandooz.InteractionSystem.Core
     {
         [SerializeField] private Transform target;
         [SerializeField] private float maxVelocity = 50;
-        [SerializeField] private float maxDistance = 2;
-        [SerializeField] private float minDistance = .02f;
-
+        [SerializeField] private float maxDistance = 4;
+        [SerializeField] private float minDistance = .01f;
         private float maxVelocitySqrt;
         private Rigidbody body;
         private float timeInverse;
+        
+        internal Transform Target
+        {
+            set => target = value;
+        }
 
         private void Start()
         {

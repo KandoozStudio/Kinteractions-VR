@@ -53,8 +53,8 @@ namespace Kandooz.InteractionSystem.Animations
         [Tooltip("The Hand must have HandAnimationController Script attached")]
         [SerializeField] private HandPoseController leftHandPrefab;
         [SerializeField] private HandPoseController rightHandPrefab;
-        public IPoseable LeftPosablePrefab => leftHandPrefab;
-        public IPoseable rightPoseablePrefab => rightHandPrefab;
+        public HandPoseController LeftHandPrefab => leftHandPrefab;
+        public HandPoseController RightHandPrefab => rightHandPrefab;
         [Header("Default pose clips")]
         [HideInInspector]
         [SerializeField]

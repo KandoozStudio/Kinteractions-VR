@@ -1,6 +1,5 @@
 namespace Kandooz.InteractionSystem.Core
 {
-    // TODO: Seperate the prefab Holders from eachother
     public interface IPoseable
     {
         public float this[int index]
