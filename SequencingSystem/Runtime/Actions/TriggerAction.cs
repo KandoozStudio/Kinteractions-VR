@@ -4,6 +4,8 @@ using UnityEngine;
 namespace Kandooz.Kuest
 {
     [RequireComponent(typeof(StepEvenListener))]
+    [AddComponentMenu("Kandooz/SequenceSystem/Actions/TriggerAction")]
+
     public class TriggerAction : MonoBehaviour
     {
         [SerializeField]private string objectTag; 

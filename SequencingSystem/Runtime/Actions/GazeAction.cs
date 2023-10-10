@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Kandooz.Kuest
 {
+    [AddComponentMenu("Kandooz/SequenceSystem/Actions/Gaze Action")]
+
     [RequireComponent(typeof(StepEvenListener))]
     public class GazeAction : MonoBehaviour
     {

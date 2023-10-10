@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace Kandooz.Kuest
 {
+    [AddComponentMenu("Kandooz/SequenceSystem/Actions/ActivationAction")]
+
     [RequireComponent(typeof(StepEvenListener))]
+
     public class ActivatingAction : MonoBehaviour
     {
         [SerializeField] private InteractableBase interactableObject;

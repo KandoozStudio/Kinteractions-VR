@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Kandooz.Kuest
 {
+    [AddComponentMenu("Kandooz/SequenceSystem/Actions/AnimationAction")]
+
     [RequireComponent(typeof(StepEvenListener))]
     public class AnimationAction : MonoBehaviour
     {

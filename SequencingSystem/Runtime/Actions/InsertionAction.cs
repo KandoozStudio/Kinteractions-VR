@@ -6,6 +6,8 @@ using UnityEngine;
 namespace Kandooz.Kuest
 {
     [RequireComponent(typeof(StepEvenListener))]
+    [AddComponentMenu("Kandooz/SequenceSystem/Actions/Insertion Action")]
+
     public class InsertionAction : MonoBehaviour
     {
         [SerializeField] private InteractableBase interactable;

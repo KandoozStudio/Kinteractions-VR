@@ -5,6 +5,8 @@ using UnityEngine;
 namespace Kandooz.Kuest
 {
     [RequireComponent(typeof(StepEvenListener))]
+    [AddComponentMenu("Kandooz/SequenceSystem/Actions/TimerAction")]
+
     public class TimerAction : MonoBehaviour
     {
         [SerializeField] private float time;

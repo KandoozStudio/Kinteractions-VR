@@ -4,6 +4,8 @@ using UnityEngine;
 namespace Kandooz.Kuest
 {
     [RequireComponent(typeof(StepEvenListener))]
+    [AddComponentMenu("Kandooz/SequenceSystem/Actions/VoiceOverAction")]
+
     public class VoiceOverAction : MonoBehaviour
     {
         [SerializeField] private AudioClip clip;

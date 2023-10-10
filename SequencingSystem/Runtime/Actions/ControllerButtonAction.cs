@@ -3,6 +3,8 @@ using UniRx;
 using UnityEngine;
 namespace Kandooz.Kuest
 {
+    [AddComponentMenu("Kandooz/SequenceSystem/Actions/VRController Action")]
+
     [RequireComponent(typeof(StepEvenListener))]
     public class ControllerButtonAction : MonoBehaviour
     {

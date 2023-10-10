@@ -1,4 +1,3 @@
-using System;
 using Kandooz.InteractionSystem.Interactions;
 using UniRx;
 using UnityEngine;
@@ -13,6 +12,7 @@ namespace Kandooz.Kuest
         HoverStart = 3,
         HoverEnd = 4,
     }
+    [AddComponentMenu("Kandooz/SequenceSystem/Actions/InteractionAcion")]
 
     [RequireComponent(typeof(StepEvenListener))]
     public class InteractionAction : MonoBehaviour
