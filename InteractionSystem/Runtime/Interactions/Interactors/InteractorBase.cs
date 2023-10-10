@@ -37,7 +37,7 @@ namespace Kandooz.InteractionSystem.Interactions
                 switch (state)
                 {
                     case ButtonState.Up:
-                        if (currentInteractable.CurrentState == InteractionState.Selected)
+                        if (currentInteractable.CurrentState == InteractionState.Selected && currentInteractable.CurrentInteractor == this)
                         {
                             OnDeSelect();
                         }
@@ -112,7 +112,7 @@ namespace Kandooz.InteractionSystem.Interactions
 
         protected void OnSelect()
         {
-            if (currentInteractable == null ) return;
+            if (currentInteractable == null ||  currentInteractable.IsSelected) return;
             isInteracting = true;
             currentInteractable.OnStateChanged(InteractionState.Selected, this);
             activationSubscriber = currentInteractable.SelectionButton switch
