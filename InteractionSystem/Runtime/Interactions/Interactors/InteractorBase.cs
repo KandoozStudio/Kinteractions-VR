@@ -23,6 +23,8 @@ namespace Kandooz.InteractionSystem.Interactions
         public bool IsInteracting => isInteracting;
         public event Action onHoverEnd;
 
+        public void ToggleHandModel(bool enable) => hand.ToggleRenderer(enable);
+
         private void Awake()
         {
             GetDependencies();
