@@ -10,10 +10,13 @@ namespace Kandooz.InteractionSystem.Core.Editors
     [ScriptedImporter(1, "kandooz")]
     public class InteractionSystemLoader : ScriptedImporter
     {
-        private const string XRILayersInitialized = "XRI_Layers_Initialized";
-        private const string XRILeftInteractorLayerName = "XRI_LeftInteractor";
-        private const string XRIRightinteractorLayerName = "XRI_RightInteractor";
-        private const string XRIInteractableLayerName = "XRI_Interactable";
+        private const string XRI_LAYERS_INITIALIZED = "XRI_Layers_Initialized";
+        private const string PLAYER_LAYER_NAME = "XRI_PlayerLayer";
+        private const string LEFT_INTERACTOR_LAYER_NAME = "XRI_LeftInteractor";
+        private const string RIGHT_INTERACTOR_LAYER_NAME = "XRI_RightInteractor";
+        private const string INTERACTABLE_LAYER_NAME = "XRI_Interactable";
+        private const string TELEPORTATION_LAYER_NAME = "XRI_Teleportation";
+
 
         /// <summary>
         /// this list is copied from unity SeedXR Binding
@@ -245,11 +248,16 @@ namespace Kandooz.InteractionSystem.Core.Editors
 
         private void InitializePhysics()
         {
-            var leftLayer = LayerMask.NameToLayer(XRILeftInteractorLayerName);
-            var rightLayer = LayerMask.NameToLayer(XRIRightinteractorLayerName);
+            var leftLayer = LayerMask.NameToLayer(LEFT_INTERACTOR_LAYER_NAME);
+            var rightLayer = LayerMask.NameToLayer(RIGHT_INTERACTOR_LAYER_NAME);
+            var playerLayer = LayerMask.NameToLayer(PLAYER_LAYER_NAME);
             Physics.IgnoreLayerCollision(leftLayer, leftLayer);
             Physics.IgnoreLayerCollision(rightLayer, rightLayer);
             Physics.IgnoreLayerCollision(rightLayer, leftLayer);
+            Physics.IgnoreLayerCollision(playerLayer, leftLayer);
+            Physics.IgnoreLayerCollision(playerLayer,rightLayer);
+            Physics.IgnoreLayerCollision(playerLayer, playerLayer);
+
         }
 
         private void InitializeConfigFile()
@@ -261,9 +269,12 @@ namespace Kandooz.InteractionSystem.Core.Editors
                 if (configFilePath == null) continue;
                 var configFile = AssetDatabase.LoadAssetAtPath<Config>(configFilePath);
                 var serializedConfigFile = new SerializedObject(configFile);
-                serializedConfigFile.FindProperty("leftHandLayer").intValue = 1 << LayerMask.NameToLayer(XRILeftInteractorLayerName);
-                serializedConfigFile.FindProperty("rightHandLayer").intValue = 1 << LayerMask.NameToLayer(XRIRightinteractorLayerName);
-                serializedConfigFile.FindProperty("interactableLayer").intValue = 1 << LayerMask.NameToLayer(XRIInteractableLayerName);
+                serializedConfigFile.FindProperty("leftHandLayer").intValue = 1 << LayerMask.NameToLayer(LEFT_INTERACTOR_LAYER_NAME);
+                serializedConfigFile.FindProperty("rightHandLayer").intValue = 1 << LayerMask.NameToLayer(RIGHT_INTERACTOR_LAYER_NAME);
+                serializedConfigFile.FindProperty("interactableLayer").intValue = 1 << LayerMask.NameToLayer(INTERACTABLE_LAYER_NAME);
+                serializedConfigFile.FindProperty("interactableLayer").intValue = 1 << LayerMask.NameToLayer(TELEPORTATION_LAYER_NAME);
+                configFile.PlayerLayer = 1 << LayerMask.NameToLayer(TELEPORTATION_LAYER_NAME);
+                serializedConfigFile.FindProperty("playerLayer").intValue = 1 << LayerMask.NameToLayer(PLAYER_LAYER_NAME);
                 serializedConfigFile.ApplyModifiedProperties();
             }
         }
@@ -274,7 +285,14 @@ namespace Kandooz.InteractionSystem.Core.Editors
             var layers = tagManager.FindProperty("layers");
             int index = 6;
             int count = 0;
-            string[] layersName = new[] { XRILeftInteractorLayerName, XRIRightinteractorLayerName, XRIInteractableLayerName };
+            string[] layersName = new[]
+            {
+                LEFT_INTERACTOR_LAYER_NAME,
+                RIGHT_INTERACTOR_LAYER_NAME,
+                INTERACTABLE_LAYER_NAME,
+                TELEPORTATION_LAYER_NAME,
+                PLAYER_LAYER_NAME
+            };
             while (index < 32 && count < layersName.Length)
             {
                 index++;
@@ -290,7 +308,7 @@ namespace Kandooz.InteractionSystem.Core.Editors
             }
 
             tagManager.ApplyModifiedProperties();
-            EditorPrefs.SetBool(XRILayersInitialized, true);
+            EditorPrefs.SetBool(XRI_LAYERS_INITIALIZED, true);
         }
         
         private void InitializeInputManager()

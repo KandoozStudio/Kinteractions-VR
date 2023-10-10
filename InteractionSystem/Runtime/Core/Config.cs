@@ -1,19 +1,52 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
+[assembly: InternalsVisibleTo("Kandooz.Interactions.Editor")]
 
 namespace Kandooz.InteractionSystem.Core
 {
     [CreateAssetMenu]
+
     public class Config : ScriptableObject
     {
         [SerializeField] private InputManagerBase inputManager;
         [SerializeField] private LayerMask leftHandLayer;
         [SerializeField] private LayerMask rightHandLayer;
         [SerializeField] private LayerMask interactableLayer;
+        [SerializeField] private LayerMask teleportationLayer;
+        [SerializeField] private LayerMask playerLayer;
         [SerializeField] private GameObject gameManager;
         [SerializeField] private InputManagerType inputType;
+
+        public int LeftHandLayer
+        {
+            get => (int) (Mathf.Log(leftHandLayer,2)+.5f);
+            internal set => leftHandLayer = value;
+        }
+
+        public int RightHandLayer
+        {
+            get => (int)(Mathf.Log(rightHandLayer, 2) + .5f);
+            internal set => rightHandLayer = value;
+        }
+
+        public int InteractableLayer
+        {
+            get => (int) (Mathf.Log(interactableLayer,2)+.5f);
+            internal set => interactableLayer = value;
+        }
+
+        public int TeleportationLayer
+        {
+            get => (int) (Mathf.Log(teleportationLayer,2)+.5f);
+            internal set => teleportationLayer = value;
+        }
         
-        public int LeftHandLayer => leftHandLayer;
-        public int RightHandLayer => leftHandLayer;
+        public int PlayerLayer
+        {
+            get => (int)(Mathf.Log(playerLayer, 2) + .5f);
+            internal set => playerLayer = value;
+        }
+
         public InputManagerBase InputManager
         {
             get
@@ -25,9 +58,9 @@ namespace Kandooz.InteractionSystem.Core
                 return CreateInputManager();
             }
         }
+
         private InputManagerBase CreateInputManager()
         {
-      
             switch (inputType)
             {
                 case InputManagerType.UnityAxisBased:
@@ -50,18 +83,16 @@ namespace Kandooz.InteractionSystem.Core
 
             return inputManager;
         }
+
         private enum InputManagerType
         {
             UnityAxisBased = 0,
             InputSystem = 1,
             KeyboardMock = -1
         }
-
     }
-    
+
     public class InputSystemBased : InputManagerBase
     {
-        
     }
-
 }
