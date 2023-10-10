@@ -4,12 +4,18 @@ using UnityEngine;
 
 namespace Kandooz.InteractionSystem.Interactions
 {
+    [RequireComponent(typeof(InteractionPoseConstrainer))]
     public class Grabable : InteractableBase
     {
+        [SerializeField] protected bool hideHand;
         [SerializeField] private VariableTweener tweener;
-        [SerializeField] private bool hideHand;
+
         private TransformTweenable transformTweenable= new();
         private GrabStrategy grabStrategy;
+        private InteractionPoseConstrainer poseConstrainter;
+        public Transform RightHandRelativePosition => poseConstrainter.RightHandTransform;
+        public Transform LeftHandRelativePosition => poseConstrainter.LeftHandTransform;
+
         protected override void Activate(){}
         protected override void StartHover(){}
         protected override void EndHover(){}
@@ -30,6 +36,7 @@ namespace Kandooz.InteractionSystem.Interactions
         
         private void Awake()
         {
+            poseConstrainter ??= GetComponent<InteractionPoseConstrainer>();
             tweener ??= GetComponent<VariableTweener>();
             if (!tweener)
             {
@@ -56,7 +63,7 @@ namespace Kandooz.InteractionSystem.Interactions
             CurrentInteractor.AttachmentPoint.localPosition = transform.localPosition;
             CurrentInteractor.AttachmentPoint.localRotation = transform.localRotation;
             transform.parent = null;
-            relativeTransform.parent = InteractionConstrainter.PivotParent;
+            relativeTransform.parent = poseConstrainter.PivotParent;
         }
 
         private void LerpObjectToPosition(Action callBack)
