@@ -20,6 +20,7 @@ namespace Kandooz.InteractionSystem.Core
         [SerializeField] private HandPoseData poseData;
         [SerializeField] private Config config;
         [SerializeField] private float playerHeight;
+        [SerializeField] private bool initializeLayers;
 
         private HandPoseController leftPoseController, rightPoseController;
         public HandPoseController LeftHandPrefab => poseData.LeftHandPrefab;
@@ -36,6 +37,21 @@ namespace Kandooz.InteractionSystem.Core
                 case InteractionSystemType.PhysicsBased:
                     InitializePhysicsBasedHands();
                     break;
+            }
+            if(!initializeLayers)return; 
+                
+            ChangeLayerRecursive(transform, config.PlayerLayer);
+            ChangeLayerRecursive(leftHand, config.LeftHandLayer);
+            ChangeLayerRecursive(rightHand, config.RightHandLayer);
+        }
+
+        static void ChangeLayerRecursive(Transform transform, int layer)
+        {
+
+            transform.gameObject.layer = layer;
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                ChangeLayerRecursive(transform.GetChild(i), layer);
             }
         }
 
@@ -55,7 +71,9 @@ namespace Kandooz.InteractionSystem.Core
         private static void InitializePhysics(GameObject hand, Transform target)
         {
             // TODO: the values should be moved to the config file 
-            var rb = hand.AddComponent<Rigidbody>();
+
+            var rb = hand.GetComponent<Rigidbody>();
+            if (rb == null) rb = hand.AddComponent<Rigidbody>();
             rb.mass = 40;
             rb.drag = 5;
             rb.angularDrag = 1;
