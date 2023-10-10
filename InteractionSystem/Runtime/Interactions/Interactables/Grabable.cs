@@ -7,9 +7,27 @@ namespace Kandooz.InteractionSystem.Interactions
     public class Grabable : InteractableBase
     {
         [SerializeField] private VariableTweener tweener;
-
+        [SerializeField] private bool hideHand;
         private TransformTweenable transformTweenable= new();
         private GrabStrategy grabStrategy;
+        protected override void Activate(){}
+        protected override void StartHover(){}
+        protected override void EndHover(){}
+
+        protected override void Select()
+        {
+            if (hideHand) CurrentInteractor.ToggleHandModel(false);
+            grabStrategy.Initialize(CurrentInteractor);
+            InitializeAttachmentPointTransform();
+            LerpObjectToPosition(() => grabStrategy.Grab(this, CurrentInteractor));
+        }
+        protected override void DeSelected()
+        {
+            if (hideHand) CurrentInteractor.ToggleHandModel(true);
+            tweener.RemoveTweenable(transformTweenable);
+            grabStrategy.UnGrab(this, CurrentInteractor);
+        }
+        
         private void Awake()
         {
             tweener ??= GetComponent<VariableTweener>();
@@ -29,28 +47,7 @@ namespace Kandooz.InteractionSystem.Interactions
                 grabStrategy = new TransformGrabStrategy(transform);
             }
         }
-
-        protected override void Activate()
-        {
-            
-        }
-
-        protected override void StartHover()
-        {
-            
-        }
-
-        protected override void EndHover()
-        {
-        }
-
-        protected override void Select()
-        {
-            grabStrategy.Initialize(CurrentInteractor);
-            InitializeAttachmentPointTransform();
-            LerpObjectToPosition(() => grabStrategy.Grab(this, CurrentInteractor));
-        }
-
+        
         private void InitializeAttachmentPointTransform()
         {
             var relativeTransform = CurrentInteractor.HandIdentifier == HandIdentifier.Left ? LeftHandRelativePosition : RightHandRelativePosition;
@@ -68,12 +65,7 @@ namespace Kandooz.InteractionSystem.Interactions
             tweener.AddTweenable(transformTweenable);
             transformTweenable.OnTweenComplete += callBack;
         }
-
-        protected override void DeSelected()
-        {
-            tweener.RemoveTweenable(transformTweenable);
-            grabStrategy.UnGrab(this, CurrentInteractor);
-        }
+        
     }
 
 }
