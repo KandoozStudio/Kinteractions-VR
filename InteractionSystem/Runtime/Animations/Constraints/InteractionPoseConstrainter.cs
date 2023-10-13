@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Kandooz.InteractionSystem.Interactions
 {
     [RequireComponent(typeof(InteractableBase))]
-    public class InteractionPoseConstrainer : MonoBehaviour,IPoseConstrainer
+    public class InteractionPoseConstrainter : MonoBehaviour,IPoseConstrainter
     {
         [HideInInspector, SerializeField] private HandConstraints leftConstraints;
         [HideInInspector, SerializeField] private HandConstraints rightConstraints;
@@ -29,9 +29,9 @@ namespace Kandooz.InteractionSystem.Interactions
         public PoseConstrains LeftPoseConstrains => leftConstraints.poseConstrains;
         public PoseConstrains RightPoseConstrains => rightConstraints.poseConstrains;
 
-        public void UpdatePivotParent()
+        public void UpdatePivots()
         {
-            if (pivotParent == null)
+            if (!pivotParent)
             {
                 pivotParent = new GameObject("Interaction Pivots").transform;
             }
@@ -41,6 +41,11 @@ namespace Kandooz.InteractionSystem.Interactions
             pivotParent.transform.localPosition = Vector3.zero;
             pivotParent.transform.localRotation=Quaternion.identity;
             ;
+        }
+
+        public void Initialize()
+        {
+            UpdatePivots();
         }
 
         private void OnEnable()

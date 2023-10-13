@@ -11,6 +11,7 @@ namespace Kandooz.InteractionSystem.Animations.Constraints
         Transform RightHandTransform { get; set; }
         Transform PivotParent { get;  }
         bool HasChanged { get;  }
-        void UpdatePivotParent();
+        void UpdatePivots();
+        void Initialize();
     }
 }
