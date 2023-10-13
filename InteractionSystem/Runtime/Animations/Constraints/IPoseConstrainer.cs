@@ -1,10 +1,16 @@
 using Kandooz.InteractionSystem.Core;
+using UnityEngine;
 
 namespace Kandooz.InteractionSystem.Animations.Constraints
 {
     public interface IPoseConstrainer
     {
-        public PoseConstrains LeftPoseConstrains {get;}
-        public PoseConstrains RightPoseConstrains {get;}
+        PoseConstrains LeftPoseConstrains { get; }
+        PoseConstrains RightPoseConstrains { get; }
+        Transform LeftHandTransform { get; set; }
+        Transform RightHandTransform { get; set; }
+        Transform PivotParent { get;  }
+        bool HasChanged { get;  }
+        void UpdatePivotParent();
     }
 }

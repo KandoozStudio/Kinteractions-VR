@@ -25,6 +25,7 @@ namespace Kandooz.InteractionSystem.Interactions
         }
 
         public Transform PivotParent => pivotParent;
+        public bool HasChanged => transform.hasChanged;
         public PoseConstrains LeftPoseConstrains => leftConstraints.poseConstrains;
         public PoseConstrains RightPoseConstrains => rightConstraints.poseConstrains;
 
