@@ -5,7 +5,7 @@ using UnityEditor;
 
 namespace Kandooz.Interactions.Editors
 {
-    [CustomEditor(typeof(InteractionPoseConstrainter), true)]
+    [CustomEditor(typeof(InteractionPoseConstrainer), true)]
     internal class PoseConstrainterEditor : AbstractPoseConstraintEditor
     {
         protected override HandIdentifier SelectedHand

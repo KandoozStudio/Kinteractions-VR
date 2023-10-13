@@ -12,9 +12,9 @@ namespace Kandooz.InteractionSystem.Interactions
 
         private TransformTweenable transformTweenable= new();
         private GrabStrategy grabStrategy;
-        private InteractionPoseConstrainer poseConstrainter;
-        public Transform RightHandRelativePosition => poseConstrainter.RightHandTransform;
-        public Transform LeftHandRelativePosition => poseConstrainter.LeftHandTransform;
+        private InteractionPoseConstrainer poseConstrainer;
+        public Transform RightHandRelativePosition => poseConstrainer.RightHandTransform;
+        public Transform LeftHandRelativePosition => poseConstrainer.LeftHandTransform;
 
         protected override void Activate(){}
         protected override void StartHover(){}
@@ -36,7 +36,7 @@ namespace Kandooz.InteractionSystem.Interactions
         
         private void Awake()
         {
-            poseConstrainter ??= GetComponent<InteractionPoseConstrainer>();
+            poseConstrainer ??= GetComponent<InteractionPoseConstrainer>();
             tweener ??= GetComponent<VariableTweener>();
             if (!tweener)
             {
@@ -63,7 +63,7 @@ namespace Kandooz.InteractionSystem.Interactions
             CurrentInteractor.AttachmentPoint.localPosition = transform.localPosition;
             CurrentInteractor.AttachmentPoint.localRotation = transform.localRotation;
             transform.parent = null;
-            relativeTransform.parent = poseConstrainter.PivotParent;
+            relativeTransform.parent = poseConstrainer.PivotParent;
         }
 
         private void LerpObjectToPosition(Action callBack)

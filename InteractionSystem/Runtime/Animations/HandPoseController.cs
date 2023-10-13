@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using Kandooz.InteractionSystem.Core;
-using Kinteractions_VR.Core.Runtime.Hand;
-using Kinteractions_VR.Runtime.Animations.Constraints;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;

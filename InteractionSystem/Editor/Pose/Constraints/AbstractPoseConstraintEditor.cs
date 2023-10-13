@@ -8,7 +8,7 @@ namespace Kandooz.Interactions.Editors
 {
     public abstract class AbstractPoseConstraintEditor : Editor
     {
-        protected IPoseConstrainter interactable;
+        protected IPoseConstrainer interactable;
         private float t = 0;
         private Transform Pivot
         {
@@ -103,7 +103,7 @@ namespace Kandooz.Interactions.Editors
 
         protected virtual void OnEnable()
         {
-            interactable = (IPoseConstrainter)target;
+            interactable = (IPoseConstrainer)target;
             interactable.Initialize();
             InitializeHandPivot();
             selectedHand = HandIdentifier.None;

@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Kandooz.InteractionSystem.Interactions
 {
     [RequireComponent(typeof(InteractableBase))]
-    public class InteractionPoseConstrainter : MonoBehaviour,IPoseConstrainter
+    public class InteractionPoseConstrainer : MonoBehaviour,IPoseConstrainer
     {
         [HideInInspector, SerializeField] private HandConstraints leftConstraints;
         [HideInInspector, SerializeField] private HandConstraints rightConstraints;

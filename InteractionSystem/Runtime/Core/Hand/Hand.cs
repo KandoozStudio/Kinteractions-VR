@@ -1,7 +1,6 @@
 using System;
 using Kandooz.InteractionSystem.Animations.Constraints;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Kandooz.InteractionSystem.Core
 {
