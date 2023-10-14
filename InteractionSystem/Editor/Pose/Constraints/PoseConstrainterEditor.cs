@@ -25,7 +25,6 @@ namespace Kandooz.Interactions.Editors
                 }
             }
         }
-
         protected override void ShowPoseInspector()
         {
             var propertyName = selectedHand switch
@@ -40,7 +39,6 @@ namespace Kandooz.Interactions.Editors
             serializedObject.ApplyModifiedProperties();
 
         }
-
         protected override void DeselectHands()
         {
             {
@@ -51,6 +49,5 @@ namespace Kandooz.Interactions.Editors
                 if (leftHandInteractor != null) DestroyImmediate(leftHandInteractor.gameObject);
             }
         }
-        
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using Kandooz.InteractionSystem.Animations;
 using Kandooz.InteractionSystem.Core;
 using Kandooz.InteractionSystem.Interactions;
@@ -12,13 +11,11 @@ namespace Kandooz.Interactions.Editors
     {
         private HandPoseController leftHandPose;
         private HandPoseController rightHandPose;
-
         protected override void DeselectHands()
         {
             interactable.LeftHandTransform.gameObject.SetActive(false);
             interactable.RightHandTransform.gameObject.SetActive(false);
         }
-
         protected override HandIdentifier SelectedHand
         {
             set
@@ -40,7 +37,6 @@ namespace Kandooz.Interactions.Editors
                 }
             }
         }
-
         protected override void ShowPoseInspector()
         {
             var propertyName = selectedHand switch
@@ -54,20 +50,17 @@ namespace Kandooz.Interactions.Editors
             serializedObject.ApplyModifiedProperties();
 
         }
-
         protected override void OnEnable()
         {
             base.OnEnable();
 
-            if (!interactable.LeftHandTransform.GetComponentInChildren<HandPoseController>(true))
-            {
-                leftHandPose = Instantiate(leftHandPrefab, Vector3.zero, Quaternion.identity, interactable.LeftHandTransform);
-            }
+            leftHandPose = interactable.LeftHandTransform.GetComponentInChildren<HandPoseController>(true)
+                ? interactable.LeftHandTransform.GetComponentInChildren<HandPoseController>(true)
+                : CreateHandInPivot(interactable.LeftHandTransform, leftHandPrefab);
 
-            if (interactable.RightHandTransform.GetComponentInChildren<HandPoseController>(true))
-            {
-                rightHandPose = Instantiate(rightHandPrefab, Vector3.zero, Quaternion.identity, interactable.LeftHandTransform);
-            }
+            rightHandPose = interactable.RightHandTransform.GetComponentInChildren<HandPoseController>(true)
+                ? interactable.RightHandTransform.GetComponentInChildren<HandPoseController>(true)
+                : CreateHandInPivot(interactable.RightHandTransform, rightHandPrefab);
         }
     }
 }

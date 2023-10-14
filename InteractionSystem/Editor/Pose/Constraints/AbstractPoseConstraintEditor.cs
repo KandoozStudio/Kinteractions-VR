@@ -3,13 +3,14 @@ using Kandooz.InteractionSystem.Animations.Constraints;
 using Kandooz.InteractionSystem.Core;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace Kandooz.Interactions.Editors
 {
     public abstract class AbstractPoseConstraintEditor : Editor
     {
         protected IPoseConstrainer interactable;
-        private float t = 0;
+
         private Transform Pivot
         {
             get
@@ -22,23 +23,27 @@ namespace Kandooz.Interactions.Editors
                 };
             }
         }
+
         protected HandPoseController currentHand;
         protected HandPoseController leftHandPrefab, rightHandPrefab;
         protected HandIdentifier selectedHand;
-        private PoseConstrains LeftPoseConstrains => interactable.LeftPoseConstrains;
-        private PoseConstrains RightPoseConstrains => interactable.LeftPoseConstrains;
+        private float t = 0;
+        protected PoseConstrains LeftPoseConstrains => interactable.LeftPoseConstrains;
+        protected PoseConstrains RightPoseConstrains => interactable.RightPoseConstrains;
+
         private Transform RightHandTransform
         {
             get => interactable.RightHandTransform;
             set => interactable.RightHandTransform = value;
         }
+
         private Transform LeftHandTransform
         {
             get => interactable.LeftHandTransform;
             set => interactable.LeftHandTransform = value;
         }
-        private Transform PivotParent => interactable.PivotParent;
 
+        private Transform PivotParent => interactable.PivotParent;
         protected abstract HandIdentifier SelectedHand { set; }
 
         public override void OnInspectorGUI()
@@ -52,6 +57,7 @@ namespace Kandooz.Interactions.Editors
         }
 
         protected abstract void ShowPoseInspector();
+
         private void HandleHandSelection()
         {
             EditorGUILayout.BeginHorizontal();
@@ -91,7 +97,7 @@ namespace Kandooz.Interactions.Editors
 
         protected HandPoseController CreateHandInPivot(Transform pivot, HandPoseController hand)
         {
-            var initializedHand = Instantiate(hand).GetComponent<HandPoseController>();
+            var initializedHand = Instantiate(hand);
             var handObject = initializedHand.gameObject;
             handObject.transform.localScale = Vector3.one;
             handObject.transform.parent = pivot;
@@ -111,6 +117,12 @@ namespace Kandooz.Interactions.Editors
             if (!cameraRig) return;
             leftHandPrefab = cameraRig.LeftHandPrefab;
             rightHandPrefab = cameraRig.RightHandPrefab;
+            EditorApplication.update += OnUpdate;
+        }
+
+        private void OnUpdate()
+        {
+            SetPose();
         }
 
         private void SelectHand(HandIdentifier hand)
@@ -125,10 +137,9 @@ namespace Kandooz.Interactions.Editors
             }
         }
 
-        private void OnSceneGUI()
+        protected void OnSceneGUI()
         {
-            SetPose();
-            if (!currentHand)
+            if (!currentHand || selectedHand == HandIdentifier.None)
             {
                 Tools.hidden = false;
                 return;
@@ -145,13 +156,14 @@ namespace Kandooz.Interactions.Editors
 
         private void SetPose()
         {
-            this.t += 0.005f;
-            var t = Mathf.PingPong(this.t, 1);
+            this.t += 0.01f;
+            var finger = Mathf.PingPong(this.t, 1);
             if (selectedHand == HandIdentifier.None) return;
+            Debug.Log(currentHand.name);
             var handConstraints = selectedHand == HandIdentifier.Left ? LeftPoseConstrains : RightPoseConstrains;
-            for (int i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
             {
-                currentHand[i] = handConstraints[i].GetConstrainedValue(t);
+                currentHand[i] = handConstraints[i].GetConstrainedValue(finger);
             }
 
             currentHand.UpdateGraphVariables();
@@ -170,6 +182,7 @@ namespace Kandooz.Interactions.Editors
         {
             SelectedHand = HandIdentifier.None;
             Tools.hidden = false;
+            EditorApplication.update -= OnUpdate;
             DeselectHands();
         }
 
