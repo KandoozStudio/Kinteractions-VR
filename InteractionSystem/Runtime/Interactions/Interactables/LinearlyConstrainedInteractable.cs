@@ -74,11 +74,27 @@ namespace Kandooz.InteractionSystem.Interactions
 
         public override void Initialize()
         {
-            if (!interactableObject) interactableObject = new GameObject("interactableObject").transform;
-            if (!point1) 
+            if (!interactableObject)
+            {
+                interactableObject = new GameObject("interactableObject").transform;
+                interactableObject.parent = transform;
+                interactableObject.localPosition = Vector3.zero;
+            }
+            if (!point1)
+            {
                 point1 = new GameObject("Point1").transform;
-            if (!point2) 
+                point1.transform.parent = transform;
+                point1.localPosition = Vector3.zero;
+            }
+
+            if (!point2)
+            {
                 point2 = new GameObject("point2").transform;
+                point2.transform.parent = transform;
+                point2.localPosition = Vector3.forward;
+            }
+
+            
         }
     }
 }
