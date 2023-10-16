@@ -6,7 +6,7 @@ namespace Kandooz.InteractionSystem.Interactions
     {
         [SerializeField] private Transform point1;
         [SerializeField] private Transform point2;
-
+        
         protected override void Activate()
         {
         }
@@ -18,7 +18,7 @@ namespace Kandooz.InteractionSystem.Interactions
         protected override void EndHover()
         {
         }
-        
+
         private void Update()
         {
             if (!IsSelected) return;
@@ -74,27 +74,19 @@ namespace Kandooz.InteractionSystem.Interactions
 
         public override void Initialize()
         {
-            if (!interactableObject)
-            {
-                interactableObject = new GameObject("interactableObject").transform;
-                interactableObject.parent = transform;
-                interactableObject.localPosition = Vector3.zero;
-            }
+            base.Initialize();
             if (!point1)
             {
                 point1 = new GameObject("Point1").transform;
                 point1.transform.parent = transform;
                 point1.localPosition = Vector3.zero;
             }
-
             if (!point2)
             {
                 point2 = new GameObject("point2").transform;
                 point2.transform.parent = transform;
                 point2.localPosition = Vector3.forward;
             }
-
-            
         }
     }
 }

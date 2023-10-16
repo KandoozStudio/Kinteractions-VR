@@ -129,7 +129,13 @@ namespace Kandooz.InteractionSystem.Interactions
 
         }
 
-        public abstract void Initialize();
+        public virtual void Initialize()
+        {
+            if (interactableObject) return;
+            interactableObject = new GameObject("interactableObject").transform;
+            interactableObject.parent = transform;
+            interactableObject.localPosition = Vector3.zero;
+        }
 
         private Transform InitializeHandPivot(string handName)
         {

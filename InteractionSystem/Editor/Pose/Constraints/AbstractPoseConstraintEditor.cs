@@ -3,8 +3,6 @@ using Kandooz.InteractionSystem.Animations.Constraints;
 using Kandooz.InteractionSystem.Core;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Profiling;
-
 namespace Kandooz.Interactions.Editors
 {
     public abstract class AbstractPoseConstraintEditor : Editor
