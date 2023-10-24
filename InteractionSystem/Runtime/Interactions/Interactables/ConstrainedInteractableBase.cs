@@ -14,7 +14,6 @@ namespace Kandooz.InteractionSystem.Interactions
         [HideInInspector, SerializeField] private PoseConstrains leftConstraints;
         [HideInInspector, SerializeField] private PoseConstrains rightConstraints;
         [HideInInspector, SerializeField] private Transform pivotParent;
-        
 
         [SerializeField] private float snapDistance = .5f;
         [SerializeField] private HandConstrainType constraintsType = HandConstrainType.Constrained;
@@ -26,6 +25,11 @@ namespace Kandooz.InteractionSystem.Interactions
 
         private (Vector3 position, Quaternion rotation) currentPivot;
         private float positionLerper;
+        public Transform InteractableObject
+        {
+            get => interactableObject;
+            set => interactableObject = value;
+        }
 
         protected override void Select()
         {
